@@ -35,7 +35,8 @@ serve(async (req) => {
             2. A detailed description
             3. Complexity level (Low/Medium/High)
             4. Estimated implementation time
-            Format the response as a JSON array with objects containing title, description, complexity, and estimatedTime fields.`
+            Format the response as a JSON array with objects containing title, description, complexity, and estimatedTime fields.
+            Do NOT include any markdown formatting syntax (like \`\`\`json). Return ONLY the raw JSON array.`
           },
           {
             role: 'user',
@@ -49,12 +50,28 @@ serve(async (req) => {
     const data = await response.json();
     const generatedText = data.choices[0].message.content;
     
-    // Parse the JSON string from the response
-    const ideas = JSON.parse(generatedText);
-
-    return new Response(JSON.stringify({ ideas }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
+    console.log("Raw OpenAI response:", generatedText);
+    
+    // Clean up any potential markdown formatting
+    let cleanedText = generatedText.replace(/```json|```/g, "").trim();
+    
+    try {
+      // Parse the JSON string from the cleaned response
+      const ideas = JSON.parse(cleanedText);
+      
+      return new Response(JSON.stringify({ ideas }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    } catch (parseError) {
+      console.error('JSON parsing error:', parseError, 'Text was:', cleanedText);
+      return new Response(JSON.stringify({ 
+        error: "Failed to parse AI response", 
+        rawResponse: cleanedText 
+      }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
   } catch (error) {
     console.error('Error in generate-automation-ideas function:', error);
     return new Response(JSON.stringify({ error: error.message }), {
