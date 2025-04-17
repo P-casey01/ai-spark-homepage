@@ -8,7 +8,7 @@ const HeroSection: React.FC = () => (
     <div className="absolute inset-0 z-0">
       <svg
         className="w-full h-full"
-        viewBox="0 0 1200 400"
+        viewBox="0 0 1200 500"
         preserveAspectRatio="none"
       >
         <defs>
@@ -33,13 +33,13 @@ const HeroSection: React.FC = () => (
 
           {/* Extended clip paths for seamless animation */}
           <clipPath id="clipBlack">
-            <path d="M-300,170 C200,370 400,70 800,160 C1200,250 1600,120 1800,180 L1800,400 L-300,400 Z" />
+            <path d="M-600,170 C200,370 400,70 800,160 C1200,250 1600,120 2000,180 L2000,500 L-600,500 Z" />
           </clipPath>
           <clipPath id="clipWhite">
-            <path d="M-300,140 C150,340 500,90 900,140 C1300,190 1600,60 1800,140 L1800,400 L-300,400 Z" />
+            <path d="M-600,140 C150,340 500,90 900,140 C1300,190 1600,60 2000,140 L2000,500 L-600,500 Z" />
           </clipPath>
           <clipPath id="clipGreen">
-            <path d="M-300,120 C100,320 600,80 1000,120 C1400,160 1700,40 1800,120 L1800,400 L-300,400 Z" />
+            <path d="M-600,120 C100,320 600,80 1000,120 C1400,160 1700,40 2000,120 L2000,500 L-600,500 Z" />
           </clipPath>
         </defs>
 
@@ -47,14 +47,14 @@ const HeroSection: React.FC = () => (
         <g className="animate-wave-slow will-change-transform" style={{ transformOrigin: '50% 50%' }}>
           <rect
             clipPath="url(#clipBlack)"
-            width="1800"
-            height="400"
+            width="2400"
+            height="500"
             fill="url(#gradBlack)"
           />
           <rect
             clipPath="url(#clipBlack)"
-            width="1800"
-            height="400"
+            width="2400"
+            height="500"
             fill="url(#ribbonLines)"
             opacity="0.8"
           />
@@ -64,14 +64,14 @@ const HeroSection: React.FC = () => (
         <g className="animate-wave-normal will-change-transform" style={{ transformOrigin: '50% 50%' }}>
           <rect
             clipPath="url(#clipWhite)"
-            width="1800"
-            height="400"
+            width="2400"
+            height="500"
             fill="url(#gradWhite)"
           />
           <rect
             clipPath="url(#clipWhite)"
-            width="1800"
-            height="400"
+            width="2400"
+            height="500"
             fill="url(#ribbonLines)"
             opacity="0.6"
           />
@@ -81,14 +81,14 @@ const HeroSection: React.FC = () => (
         <g className="animate-wave-fast will-change-transform" style={{ transformOrigin: '50% 50%' }}>
           <rect
             clipPath="url(#clipGreen)"
-            width="1800"
-            height="400"
+            width="2400"
+            height="500"
             fill="url(#gradGreen)"
           />
           <rect
             clipPath="url(#clipGreen)"
-            width="1800"
-            height="400"
+            width="2400"
+            height="500"
             fill="url(#ribbonLines)"
             opacity="0.6"
           />
