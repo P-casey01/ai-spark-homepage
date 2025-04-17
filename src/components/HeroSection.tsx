@@ -5,21 +5,23 @@ import { ArrowRight } from "lucide-react";
 
 const HeroSection: React.FC = () => {
   return (
-    <section className="wave-bg px-4 py-20 md:py-32 flex flex-col items-center justify-center text-center">
-      <div className="container max-w-4xl">
+    <section 
+      className="relative min-h-[80vh] px-4 py-20 md:py-32 flex flex-col items-center justify-center text-center"
+      style={{
+        backgroundImage: "linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?auto=format&fit=crop&w=2000')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="container max-w-4xl relative z-10">
         <div className="mb-8 flex flex-col items-center">
-          <img 
-            src="/lovable-uploads/7f3f86e8-9c9f-43b0-b816-834fd576d490.png" 
-            alt="Auto-mate Consultants" 
-            className="h-32 w-32 mb-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-          />
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-agency-black">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
             Transform Your Business with{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1a472a] to-[#90ee90]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#90ee90] to-[#ffffff]">
               Intelligent Automation
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-agency-gray max-w-2xl mx-auto mb-8">
+          <p className="text-lg md:text-xl text-gray-100 max-w-2xl mx-auto mb-8">
             Auto-mate Consultants: Driving Business Efficiency through Cutting-Edge Automation
           </p>
         </div>
