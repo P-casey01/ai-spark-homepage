@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MessageCircle, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 interface AutomationIdea {
   title: string;
@@ -28,35 +29,18 @@ const AIChatBar = () => {
     setLoading(true);
     
     try {
-      // Simulated API call - replace with actual OpenAI API call
-      // This is just a mock response for demonstration
-      const mockIdeas = [
-        {
-          title: "AI Chatbot for Tour Inquiries",
-          description: "Implement an AI chatbot on the website to answer frequently asked questions about tour schedules, pricing, and meeting points.",
-          complexity: "Medium Complexity",
-          estimatedTime: "4-6 weeks",
-          roadmap: []
-        },
-        {
-          title: "AI-Powered Tour Recommendation Engine",
-          description: "Use AI to analyze customer data (e.g., past tour preferences, demographics) and recommend specific tours that align with their interests.",
-          complexity: "Medium Complexity",
-          estimatedTime: "4-6 weeks",
-          roadmap: []
-        },
-        {
-          title: "AI Route Optimization for Historical Tours",
-          description: "Utilize AI to analyze historical records and maps, optimizing tour routes to minimize walking distance while covering the most historically significant sites.",
-          complexity: "Medium Complexity",
-          estimatedTime: "4-6 weeks",
-          roadmap: []
-        }
-      ];
+      const { data, error } = await supabase.functions.invoke('generate-automation-ideas', {
+        body: { businessDescription },
+      });
 
-      setIdeas(mockIdeas);
-      toast.success("Generated automation ideas!");
+      if (error) throw error;
+
+      if (data.ideas) {
+        setIdeas(data.ideas);
+        toast.success("Generated automation ideas!");
+      }
     } catch (error) {
+      console.error('Error:', error);
       toast.error("Failed to generate ideas. Please try again.");
     } finally {
       setLoading(false);
@@ -64,8 +48,8 @@ const AIChatBar = () => {
   };
 
   const showRoadmap = async (index: number) => {
-    // In a real implementation, this would make another API call to get detailed roadmap
-    toast.success("Fetching detailed roadmap...");
+    // For now, just show a toast. We'll implement the detailed roadmap in the next iteration
+    toast.success("Detailed roadmap feature coming soon!");
   };
 
   return (
@@ -93,7 +77,7 @@ const AIChatBar = () => {
               disabled={loading}
               className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#6c5ce7] hover:bg-[#5b4bc4] text-white rounded-full px-6"
             >
-              Generate AI Ideas
+              {loading ? "Generating..." : "Generate AI Ideas"}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
@@ -115,7 +99,7 @@ const AIChatBar = () => {
                       <p className="text-agency-gray mb-3">{idea.description}</p>
                       <div className="flex items-center gap-4 text-sm text-agency-gray">
                         <span className="bg-[#f0eeff] text-[#6c5ce7] px-3 py-1 rounded-full">
-                          {idea.complexity}
+                          {idea.complexity} Complexity
                         </span>
                         <span>Est. Time: {idea.estimatedTime}</span>
                       </div>
