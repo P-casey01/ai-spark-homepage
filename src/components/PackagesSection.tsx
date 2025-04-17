@@ -12,8 +12,8 @@ const PackagesSection: React.FC = () => {
         { name: "5-page responsive website" },
         { name: "Basic AI chatbot integration" },
         { name: "1 automation workflow" },
-        { name: "30 days support" }
-        { name: "3 Years Cyber security protection" }
+        { name: "30 days support" }, // Added missing comma here
+        { name: "3 Years Cyber security protection" }, // Added missing comma here
         { name: "Custom Domain" }
       ]
     },
@@ -26,7 +26,7 @@ const PackagesSection: React.FC = () => {
         { name: "Advanced AI chatbot with training" },
         { name: "3 automation workflows" },
         { name: "90 days support" },
-        { name: "3 Years Cyber security protection" }
+        { name: "3 Years Cyber security protection" }, // Added missing comma here
         { name: "SEO optimization" }
       ],
       popular: true
@@ -68,3 +68,4 @@ const PackagesSection: React.FC = () => {
 };
 
 export default PackagesSection;
+
