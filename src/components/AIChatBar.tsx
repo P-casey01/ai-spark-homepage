@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MessageCircle, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import IdeaGenerationLoader from './IdeaGenerationLoader';
+import RoadmapModal from './RoadmapModal';
 
 interface AutomationIdea {
   title: string;
@@ -19,6 +20,8 @@ const AIChatBar = () => {
   const [businessDescription, setBusinessDescription] = useState('');
   const [ideas, setIdeas] = useState<AutomationIdea[]>([]);
   const [loading, setLoading] = useState(false);
+  const [selectedIdea, setSelectedIdea] = useState<AutomationIdea | null>(null);
+  const [isRoadmapOpen, setIsRoadmapOpen] = useState(false);
 
   const generateIdeas = async () => {
     if (!businessDescription.trim()) {
@@ -27,6 +30,7 @@ const AIChatBar = () => {
     }
 
     setLoading(true);
+    setIdeas([]);
     
     try {
       const { data, error } = await supabase.functions.invoke('generate-automation-ideas', {
@@ -36,7 +40,18 @@ const AIChatBar = () => {
       if (error) throw error;
 
       if (data.ideas) {
-        setIdeas(data.ideas);
+        const ideasWithRoadmap = data.ideas.map((idea: AutomationIdea) => ({
+          ...idea,
+          roadmap: idea.roadmap || [
+            "Requirements gathering and analysis",
+            "System design and architecture",
+            "Development and implementation",
+            "Testing and quality assurance",
+            "Deployment and integration",
+            "Training and documentation"
+          ]
+        }));
+        setIdeas(ideasWithRoadmap);
         toast.success("Generated automation ideas!");
       }
     } catch (error) {
@@ -47,9 +62,9 @@ const AIChatBar = () => {
     }
   };
 
-  const showRoadmap = async (index: number) => {
-    // For now, just show a toast. We'll implement the detailed roadmap in the next iteration
-    toast.success("Detailed roadmap feature coming soon!");
+  const showRoadmap = (idea: AutomationIdea) => {
+    setSelectedIdea(idea);
+    setIsRoadmapOpen(true);
   };
 
   return (
@@ -82,6 +97,8 @@ const AIChatBar = () => {
             </Button>
           </div>
 
+          {loading && <IdeaGenerationLoader />}
+
           {ideas.length > 0 && (
             <div className="mt-8 space-y-4">
               <div className="flex items-center gap-2 mb-4">
@@ -105,7 +122,7 @@ const AIChatBar = () => {
                       </div>
                     </div>
                     <Button
-                      onClick={() => showRoadmap(index)}
+                      onClick={() => showRoadmap(idea)}
                       variant="outline"
                       className="shrink-0"
                     >
@@ -119,6 +136,14 @@ const AIChatBar = () => {
           )}
         </CardContent>
       </Card>
+
+      {selectedIdea && (
+        <RoadmapModal
+          isOpen={isRoadmapOpen}
+          onClose={() => setIsRoadmapOpen(false)}
+          idea={selectedIdea}
+        />
+      )}
     </div>
   );
 };
