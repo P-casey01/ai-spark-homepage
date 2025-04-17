@@ -13,6 +13,8 @@ const PackagesSection: React.FC = () => {
         { name: "Basic AI chatbot integration" },
         { name: "1 automation workflow" },
         { name: "30 days support" }
+        { name: "3 Years Cyber security protection" }
+        { name: "Custom Domain" }
       ]
     },
     {
@@ -20,10 +22,11 @@ const PackagesSection: React.FC = () => {
       description: "Ideal for growing businesses",
       price: "£1,500",
       features: [
-        { name: "10-page responsive website" },
+        { name: "5-10-page responsive website" },
         { name: "Advanced AI chatbot with training" },
         { name: "3 automation workflows" },
         { name: "90 days support" },
+        { name: "3 Years Cyber security protection" }
         { name: "SEO optimization" }
       ],
       popular: true
