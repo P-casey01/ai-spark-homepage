@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 const HeroSection: React.FC = () => (
-  <section className="relative overflow-hidden bg-white text-center py-20 md:py-32">
-    {/* SVG background matching provided abstract wave image */}
+  <section className="relative min-h-[80vh] px-4 py-20 md:py-32 flex flex-col items-center justify-center text-center bg-white overflow-hidden">
+    {/* Waves container */}
     <div className="absolute inset-0 z-0">
       <svg
         className="w-full h-full"
@@ -12,7 +12,18 @@ const HeroSection: React.FC = () => (
         preserveAspectRatio="none"
       >
         <defs>
-          {/* Gradients for ribbons */}
+          {/* Clip paths for each ribbon shape */}
+          <clipPath id="clipBlack">
+            <path d="M0,170 C300,370 400,70 600,160 C800,250 1000,120 1200,180 L1200,400 L0,400 Z" />
+          </clipPath>
+          <clipPath id="clipWhite">
+            <path d="M0,140 C250,340 450,90 650,140 C850,190 1050,60 1200,140 L1200,400 L0,400 Z" />
+          </clipPath>
+          <clipPath id="clipGreen">
+            <path d="M0,120 C200,320 500,80 700,120 C900,160 1100,40 1200,120 L1200,400 L0,400 Z" />
+          </clipPath>
+
+          {/* Gradient fills */}
           <linearGradient id="gradBlack" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#222222" />
             <stop offset="100%" stopColor="#333333" />
@@ -25,47 +36,61 @@ const HeroSection: React.FC = () => (
             <stop offset="0%" stopColor="#9EECC1" />
             <stop offset="100%" stopColor="#90EE90" />
           </linearGradient>
-          {/* Thin line pattern */}
-          <pattern id="linePattern" width="6" height="6" patternUnits="userSpaceOnUse">
-            <path d="M0 6 L6 6" stroke="rgba(0,0,0,0.15)" strokeWidth="1" />
+
+          {/* Line pattern for ribbed effect */}
+          <pattern id="ribbonLines" width="6" height="6" patternUnits="userSpaceOnUse">
+            <path d="M0,0 L0,6" stroke="rgba(0,0,0,0.15)" strokeWidth="1" />
           </pattern>
         </defs>
 
-        {/* Bottom ribbon: black tones */}
-        <g className="animate-wave-slow">
-          <path
-            d="M0,170 C300,370 400,70 600,160 C800,250 1000,120 1200,180 L1200,400 L0,400 Z"
+        {/* Black ribbon: gradient + ribbed lines clipped to shape */}
+        <g className="animate-wave-slow will-change-transform">
+          <rect
+            clipPath="url(#clipBlack)"
+            width="1200"
+            height="400"
             fill="url(#gradBlack)"
           />
-          <path
-            d="M0,170 C300,370 400,70 600,160 C800,250 1000,120 1200,180 L1200,400 L0,400 Z"
-            fill="url(#linePattern)"
-          />
-        </g>
-
-        {/* Middle ribbon: white tones */}
-        <g className="animate-wave-normal">
-          <path
-            d="M0,140 C250,340 450,90 650,140 C850,190 1050,60 1200,140 L1200,400 L0,400 Z"
-            fill="url(#gradWhite)"
-          />
-          <path
-            d="M0,140 C250,340 450,90 650,140 C850,190 1050,60 1200,140 L1200,400 L0,400 Z"
-            fill="url(#linePattern)"
+          <rect
+            clipPath="url(#clipBlack)"
+            width="1200"
+            height="400"
+            fill="url(#ribbonLines)"
             opacity="0.8"
           />
         </g>
 
-        {/* Top ribbon: green tones */}
-        <g className="animate-wave-fast">
-          <path
-            d="M0,120 C200,320 500,80 700,120 C900,160 1100,40 1200,120 L1200,400 L0,400 Z"
+        {/* White ribbon */}
+        <g className="animate-wave-normal will-change-transform">
+          <rect
+            clipPath="url(#clipWhite)"
+            width="1200"
+            height="400"
+            fill="url(#gradWhite)"
+          />
+          <rect
+            clipPath="url(#clipWhite)"
+            width="1200"
+            height="400"
+            fill="url(#ribbonLines)"
+            opacity="0.6"
+          />
+        </g>
+
+        {/* Green ribbon */}
+        <g className="animate-wave-fast will-change-transform">
+          <rect
+            clipPath="url(#clipGreen)"
+            width="1200"
+            height="400"
             fill="url(#gradGreen)"
           />
-          <path
-            d="M0,120 C200,320 500,80 700,120 C900,160 1100,40 1200,120 L1200,400 L0,400 Z"
-            fill="url(#linePattern)"
-            opacity="0.7"
+          <rect
+            clipPath="url(#clipGreen)"
+            width="1200"
+            height="400"
+            fill="url(#ribbonLines)"
+            opacity="0.6"
           />
         </g>
       </svg>
