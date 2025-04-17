@@ -1,31 +1,16 @@
-
 import React from "react";
 import HeroSection from "@/components/HeroSection";
 import PackagesSection from "@/components/PackagesSection";
-import AIChatbot from "@/components/AIChatbot";
+import AIChatBar from "@/components/AIChatBar";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <HeroSection />
-      
       <div className="container px-4 py-12">
-        <div className="grid lg:grid-cols-5 gap-8">
-          <div className="lg:col-span-3">
-            <PackagesSection />
-          </div>
-          
-          <div className="lg:col-span-2">
-            <div className="sticky top-8">
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold text-agency-black mb-4">Try Our AI Assistant</h2>
-                <p className="text-agency-gray">
-                  Explore how AI can transform your business by chatting with our automation assistant.
-                </p>
-              </div>
-              <AIChatbot />
-            </div>
-          </div>
+        <AIChatBar />
+        <div className="mt-20">
+          <PackagesSection />
         </div>
       </div>
       
