@@ -5,19 +5,17 @@ import { ArrowRight } from "lucide-react";
 
 const HeroSection: React.FC = () => {
   return (
-    <section 
-      className="relative min-h-[80vh] px-4 py-20 md:py-32 flex flex-col items-center justify-center text-center bg-gradient-to-br from-[#1a472a] to-[#133219]"
-    >
+    <section className="relative min-h-[80vh] px-4 py-20 md:py-32 flex flex-col items-center justify-center text-center">
       <div 
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `url('/lovable-uploads/c4edb1ef-bf4e-430e-8fc2-156064215218.png')`,
+          backgroundImage: `url('/lovable-uploads/7ded3139-2cf9-4940-ac0c-214006f4ed13.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#1a472a]/50 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#1a472a]/30 via-transparent to-white z-0"></div>
       <div className="container max-w-4xl relative z-10">
         <div className="mb-8 flex flex-col items-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
@@ -37,7 +35,7 @@ const HeroSection: React.FC = () => {
           <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
         </Button>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent z-0"></div>
     </section>
   );
 };
