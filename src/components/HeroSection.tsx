@@ -1,60 +1,56 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { useWaveBackground } from "@/hooks/useWaveBackground";
+import { useWavePatterns } from "@/hooks/useWavePatterns";
 
 const HeroSection: React.FC = () => {
-  const waves = useWaveBackground(5);
+  const patterns = useWavePatterns();
 
   return (
     <section className="relative min-h-[80vh] px-4 py-20 md:py-32 flex flex-col items-center justify-center text-center bg-white overflow-hidden">
-      {/* Waves container */}
-      <div className="absolute inset-0 z-0">
-        {waves.map((wave, index) => (
-          <div
-            key={index}
-            className="absolute left-0 right-0"
-            style={{
-              top: wave.top,
-              height: '25vh',
-            }}
-          >
-            {/* Wave background with stripes */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background: `repeating-linear-gradient(
-                  90deg,
-                  rgba(0,0,0,0.05) 0px,
-                  rgba(0,0,0,0.05) 3px,
-                  transparent 3px,
-                  transparent 6px
-                )`,
-                mixBlendMode: 'multiply',
-                clipPath: `path('${wave.path}')`,
-              }}
-            >
-              {/* Gradient overlay */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: `linear-gradient(
-                    to right,
-                    ${wave.colors[0]} 0%,
-                    ${wave.colors[1]} 33%,
-                    ${wave.colors[2]} 66%,
-                    ${wave.colors[0]} 100%
-                  )`,
-                  opacity: 0.8,
-                  clipPath: 'inherit',
-                }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* Wave Background SVG */}
+      <svg 
+        className="absolute inset-0 w-full h-full"
+        preserveAspectRatio="none"
+        viewBox="0 0 100 100"
+        aria-hidden="true"
+      >
+        <defs>
+          {/* Gradient Definitions */}
+          <linearGradient id="gradientVinyl" gradientTransform="rotate(45)">
+            <stop offset="0%" stopColor="#222222" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#555555" stopOpacity="0.6" />
+          </linearGradient>
+          <linearGradient id="gradientCorrugated" gradientTransform="rotate(45)">
+            <stop offset="0%" stopColor="#9EECC1" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#F2FCE2" stopOpacity="0.6" />
+          </linearGradient>
+          <linearGradient id="gradientSilk" gradientTransform="rotate(45)">
+            <stop offset="0%" stopColor="#8fc09c" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0.5" />
+          </linearGradient>
+          <linearGradient id="gradientCharcoal" gradientTransform="rotate(45)">
+            <stop offset="0%" stopColor="#333333" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#666666" stopOpacity="0.5" />
+          </linearGradient>
+        </defs>
 
-      {/* Foreground content */}
+        {/* Wave Patterns */}
+        {patterns.map((pattern, index) => (
+          <path
+            key={pattern.id}
+            className="transition-transform"
+            d={pattern.pattern}
+            fill={pattern.fill}
+            style={{
+              animation: `float ${pattern.duration}s ease-in-out infinite`,
+              animationDelay: `${pattern.delay}s`,
+            }}
+          />
+        ))}
+      </svg>
+
+      {/* Content */}
       <div className="relative z-10 container mx-auto px-4 max-w-4xl">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
           Transform Your Business with{' '}
