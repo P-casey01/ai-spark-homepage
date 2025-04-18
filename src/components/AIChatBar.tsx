@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -93,7 +94,7 @@ const AIChatBar = () => {
             <Button
               onClick={generateIdeas}
               disabled={loading}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#6c5ce7] hover:bg-[#5b4bc4] text-white rounded-full px-6 whitespace-nowrap"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#6c5ce7] hover:bg-[#5b4bc4] text-white rounded-full px-6 whitespace-nowrap font-sans"
             >
               {loading ? "Generating..." : (isMobile ? "Generate" : "Generate AI Ideas")}
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -108,16 +109,16 @@ const AIChatBar = () => {
                 <div className="h-8 w-8 rounded-full bg-[#6c5ce7] flex items-center justify-center">
                   <MessageCircle className="h-5 w-5 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-agency-black">AI-Generated Ideas</h3>
+                <h3 className="text-xl font-serif text-agency-black">AI-Generated Ideas</h3>
               </div>
 
               {ideas.map((idea, index) => (
-                <Card key={index} className="p-4 font-sans">
+                <Card key={index} className="p-4">
                   <div className="flex justify-between items-start gap-4">
                     <div>
-                      <h4 className="font-semibold text-lg mb-2 text-agency-black">{idea.title}</h4>
-                      <p className="text-agency-gray mb-3">{idea.description}</p>
-                      <div className="flex items-center gap-4 text-sm text-agency-gray">
+                      <h4 className="font-serif text-lg mb-2 text-agency-black">{idea.title}</h4>
+                      <p className="text-agency-gray mb-3 font-sans">{idea.description}</p>
+                      <div className="flex items-center gap-4 text-sm font-sans text-agency-gray">
                         <span className="bg-[#f0eeff] text-[#6c5ce7] px-3 py-1 rounded-full">
                           {idea.complexity} Complexity
                         </span>
@@ -127,7 +128,7 @@ const AIChatBar = () => {
                     <Button
                       onClick={() => showRoadmap(idea)}
                       variant="outline"
-                      className="shrink-0"
+                      className="shrink-0 font-sans"
                     >
                       View Roadmap
                       <ArrowRight className="ml-2 h-4 w-4" />
