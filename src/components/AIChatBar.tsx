@@ -84,13 +84,26 @@ const AIChatBar = () => {
           </p>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col gap-4">
-            <Input
-              placeholder="Describe your business..."
-              value={businessDescription}
-              onChange={(e) => setBusinessDescription(e.target.value)}
-              className="py-6 text-lg rounded-full font-sans text-agency-gray"
-            />
+          <div className="relative flex flex-col gap-4">
+            <div className="flex gap-4 relative">
+              <Input
+                placeholder="Describe your business..."
+                value={businessDescription}
+                onChange={(e) => setBusinessDescription(e.target.value)}
+                className="py-6 text-lg rounded-full font-sans text-agency-gray"
+              />
+              <div className="hidden md:block">
+                <Button
+                  onClick={generateIdeas}
+                  disabled={loading}
+                  className="bg-[#6c5ce7] hover:bg-[#5b4bc4] text-white rounded-full px-6 whitespace-nowrap font-sans absolute top-1/2 right-2 -translate-y-1/2"
+                >
+                  {loading ? "Generating..." : "Generate Ideas"}
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+            </div>
+            
             <div className="md:hidden">
               <Button
                 onClick={generateIdeas}
@@ -98,16 +111,6 @@ const AIChatBar = () => {
                 className="w-full bg-[#6c5ce7] hover:bg-[#5b4bc4] text-white rounded-full px-6 whitespace-nowrap font-sans"
               >
                 {loading ? "Generating..." : "Generate"}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </div>
-            <div className="hidden md:block absolute right-2 top-1/2 -translate-y-1/2">
-              <Button
-                onClick={generateIdeas}
-                disabled={loading}
-                className="bg-[#6c5ce7] hover:bg-[#5b4bc4] text-white rounded-full px-6 whitespace-nowrap font-sans"
-              >
-                {loading ? "Generating..." : "Generate Ideas"}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
