@@ -69,6 +69,7 @@ export default {
           'gray': '#555555',
           'mint': '#9EECC1',
           'lightmint': '#F2FCE2',
+          'charcoal': '#403E43',
         },
       },
       borderRadius: {

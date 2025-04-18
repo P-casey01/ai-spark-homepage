@@ -10,17 +10,17 @@ export const WavyBackground = ({
   className,
   containerClassName,
   colors = [
-    "#000000", // black
-    "#333333", // dark grey
-    "#2F4F4F", // dark green
-    "#9EECC1", // light green
-    "#FFFFFF", // white
+    "#403E43", // Charcoal Grey
+    "#333333", // Dark Grey
+    "#2F4F4F", // Dark green
+    "#9EECC1", // Light green
+    "#FFFFFF", // White
   ],
   waveWidth = 50,
-  backgroundFill = "#000000",
-  blur = 10,
+  backgroundFill = "#403E43", // Charcoal Grey background
+  blur = 12,
   speed = "slow",
-  waveOpacity = 0.5,
+  waveOpacity = 0.7,
   ...props
 }: {
   children?: any;
