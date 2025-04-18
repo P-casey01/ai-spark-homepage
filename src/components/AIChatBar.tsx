@@ -72,25 +72,25 @@ const AIChatBar = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto pt-4">
+    <div className="w-full max-w-4xl mx-auto pt-2">
       <Card className="border-0 shadow-lg">
-        <CardHeader className="text-center pb-2">
-          <CardTitle className="text-2xl md:text-3xl font-serif text-agency-black">
+        <CardHeader className="text-center pb-1 pt-3">
+          <CardTitle className="text-xl md:text-3xl font-serif text-agency-black">
             Not sure what AI solution you need?
           </CardTitle>
-          <p className="text-agency-gray mt-1 flex items-center justify-center gap-2 font-sans">
-            <MessageCircle className="h-5 w-5" />
+          <p className="text-agency-gray mt-0 flex items-center justify-center gap-2 font-sans text-sm">
+            <MessageCircle className="h-4 w-4" />
             we built this to help
           </p>
         </CardHeader>
-        <CardContent className="pb-4">
-          <div className="relative flex flex-col gap-3">
-            <div className="flex gap-3 relative">
+        <CardContent className="pb-3 px-3 md:px-4">
+          <div className="relative flex flex-col gap-2">
+            <div className="flex gap-2 relative">
               <Input
                 placeholder="Describe your business..."
                 value={businessDescription}
                 onChange={(e) => setBusinessDescription(e.target.value)}
-                className="py-5 text-base rounded-full font-sans text-agency-gray"
+                className="py-4 text-sm rounded-full font-sans text-agency-gray"
               />
               <div className="hidden md:block">
                 <Button
@@ -108,10 +108,10 @@ const AIChatBar = () => {
               <Button
                 onClick={generateIdeas}
                 disabled={loading}
-                className="w-full bg-[#6c5ce7] hover:bg-[#5b4bc4] text-white rounded-full px-6 whitespace-nowrap font-sans"
+                className="w-full bg-[#6c5ce7] hover:bg-[#5b4bc4] text-white rounded-full px-6 whitespace-nowrap font-sans text-sm"
               >
                 {loading ? "Generating..." : "Generate"}
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -119,22 +119,22 @@ const AIChatBar = () => {
           {loading && <IdeaGenerationLoader />}
 
           {ideas.length > 0 && (
-            <div className="mt-6 space-y-3">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="h-8 w-8 rounded-full bg-[#6c5ce7] flex items-center justify-center">
-                  <MessageCircle className="h-5 w-5 text-white" />
+            <div className="mt-4 space-y-2">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="h-7 w-7 rounded-full bg-[#6c5ce7] flex items-center justify-center">
+                  <MessageCircle className="h-4 w-4 text-white" />
                 </div>
-                <h3 className="text-lg font-serif text-agency-black">AI-Generated Ideas</h3>
+                <h3 className="text-base font-serif text-agency-black">AI-Generated Ideas</h3>
               </div>
 
               {ideas.map((idea, index) => (
-                <Card key={index} className="p-3">
-                  <div className={`flex ${isMobile ? 'flex-col' : 'justify-between'} items-start gap-3`}>
+                <Card key={index} className="p-2">
+                  <div className={`flex ${isMobile ? 'flex-col' : 'justify-between'} items-start gap-2`}>
                     <div className={`${isMobile ? 'w-full' : 'flex-1'}`}>
-                      <h4 className="font-serif text-lg mb-1 text-agency-black">{idea.title}</h4>
-                      <p className="text-agency-gray mb-2 font-sans text-sm">{idea.description}</p>
-                      <div className="flex items-center gap-3 text-xs font-sans text-agency-gray">
-                        <span className="bg-[#f0eeff] text-[#6c5ce7] px-2 py-1 rounded-full">
+                      <h4 className="font-serif text-base mb-1 text-agency-black">{idea.title}</h4>
+                      <p className="text-agency-gray mb-1 font-sans text-xs">{idea.description}</p>
+                      <div className="flex items-center gap-2 text-xs font-sans text-agency-gray">
+                        <span className="bg-[#f0eeff] text-[#6c5ce7] px-2 py-0.5 rounded-full">
                           {idea.complexity} Complexity
                         </span>
                         <span>Est. Time: {idea.estimatedTime}</span>
@@ -143,10 +143,10 @@ const AIChatBar = () => {
                     <Button
                       onClick={() => showRoadmap(idea)}
                       variant="outline"
-                      className={`${isMobile ? 'w-full mt-2' : 'shrink-0'} font-sans text-sm`}
+                      className={`${isMobile ? 'w-full mt-2' : 'shrink-0'} font-sans text-xs py-1`}
                     >
                       View Roadmap
-                      <ArrowRight className="ml-1 h-4 w-4" />
+                      <ArrowRight className="ml-1 h-3 w-3" />
                     </Button>
                   </div>
                 </Card>

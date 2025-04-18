@@ -7,8 +7,8 @@ import { WavyBackground } from "@/components/ui/wavy-background";
 const HeroSection: React.FC = () => {
   return (
     <WavyBackground
-      className="min-h-[45vh] px-4 py-6 flex flex-col items-center justify-center overflow-hidden"
-      containerClassName="relative"
+      className="min-h-[30vh] px-4 py-4 flex flex-col items-center justify-center overflow-hidden"
+      containerClassName="relative h-auto"
       colors={[
         "rgba(34, 34, 34, 0.8)", // semi-transparent black
         "rgba(85, 85, 85, 0.8)", // semi-transparent gray
@@ -23,17 +23,17 @@ const HeroSection: React.FC = () => {
       waveOpacity={0.3}
     >
       <div className="container mx-auto px-4 max-w-xl text-center z-10">
-        <div className="backdrop-blur-sm bg-white/30 rounded-xl p-4 md:p-6 md:bg-transparent">
-          <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold mb-2 md:mb-4 text-gray-900 max-w-md mx-auto">
+        <div className="backdrop-blur-sm bg-white/30 rounded-xl p-3 md:p-6 md:bg-transparent">
+          <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold mb-2 md:mb-4 text-gray-900 max-w-sm mx-auto">
             Transform Your Business with{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-green-400">
               Intelligent Automation
             </span>
           </h1>
-          <p className="text-base md:text-xl text-gray-800 font-medium mb-4 max-w-md mx-auto">
+          <p className="text-base md:text-xl text-gray-800 font-medium mb-3 max-w-xs mx-auto">
             Auto-mate Consultants: Driving Business Efficiency through Cutting-Edge Automation
           </p>
-          <Button className="inline-flex items-center bg-gray-900 text-white py-2 px-4 rounded-full shadow-lg hover:shadow-xl transition group text-sm max-w-xs mx-auto">
+          <Button className="inline-flex items-center bg-gray-900 text-white py-2 px-4 rounded-full shadow-lg hover:shadow-xl transition group text-sm max-w-[200px] mx-auto">
             Start Your Automation Journey
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
           </Button>

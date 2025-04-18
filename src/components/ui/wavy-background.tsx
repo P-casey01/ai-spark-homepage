@@ -129,15 +129,15 @@ export const WavyBackground = ({
   return (
     <div
       className={cn(
-        "h-screen flex flex-col items-center justify-center",
+        "flex flex-col items-center justify-center",
         containerClassName,
-        isMobile ? "scale-[1.5]" : "" // Slightly less aggressive scaling
+        isMobile ? "scale-[1.3]" : "" // Adjusted scaling for mobile
       )}
     >
       <canvas
         className={cn(
           "absolute inset-0 z-0",
-          isMobile ? "scale-[1.5]" : "" // Additional scaling for the canvas
+          isMobile ? "scale-[1.3]" : "" // Adjusted canvas scaling
         )}
         ref={canvasRef}
         id="canvas"
