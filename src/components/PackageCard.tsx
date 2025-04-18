@@ -36,7 +36,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
         <p className="text-agency-gray mb-4">{description}</p>
         <div className="mb-6">
           <span className="text-4xl font-bold text-agency-black">{price}</span>
-          {price !== 'Custom' && <span className="text-agency-gray">/month</span>}
+          {price !== 'Custom' && <span className="text-agency-gray"></span>}
         </div>
         <ul className="space-y-3 mb-8">
           {features.map((feature, index) => (
