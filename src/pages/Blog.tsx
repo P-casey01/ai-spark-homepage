@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { CalendarIcon } from "lucide-react";
+import { useTheme } from "@/hooks/use-theme";
 
 type Article = {
   id: string;
@@ -46,13 +47,15 @@ const staticArticles: Article[] = [
 ];
 
 const Blog = () => {
+  const { theme } = useTheme();
+  
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 bg-background text-foreground transition-colors duration-200">
       <h1 className="text-4xl font-bold mb-8">Blog</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {staticArticles.map((article) => (
           <Link key={article.id} to={`/blog/${article.slug}`}>
-            <Card className="h-full hover:shadow-lg transition-shadow">
+            <Card className="h-full hover:shadow-lg transition-shadow bg-card text-card-foreground">
               {article.image_url && (
                 <img
                   src={article.image_url}
@@ -68,7 +71,7 @@ const Blog = () => {
                   <CalendarIcon className="h-4 w-4 mr-1" />
                   <span>{format(new Date(article.created_at), "MMMM d, yyyy")}</span>
                 </div>
-                <p className="line-clamp-3 text-gray-600">{article.summary}</p>
+                <p className="line-clamp-3 text-muted-foreground">{article.summary}</p>
               </CardContent>
             </Card>
           </Link>

@@ -5,6 +5,7 @@ import { CalendarIcon, ArrowLeft, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useTheme } from "@/hooks/use-theme";
 
 type Article = {
   id: string;
@@ -86,10 +87,11 @@ const staticArticles: Article[] = [
 const BlogPost = () => {
   const { slug } = useParams();
   const article = staticArticles.find(a => a.slug === slug);
+  const { theme } = useTheme();
 
   if (!article) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="container mx-auto px-4 py-8 max-w-4xl bg-background text-foreground transition-colors duration-200">
         <div className="mb-6">
           <Button variant="ghost" size="sm" asChild>
             <Link to="/blog" className="flex items-center">
@@ -112,7 +114,7 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="container mx-auto px-4 py-8 max-w-4xl bg-background text-foreground transition-colors duration-200">
       <div className="mb-6">
         <Button variant="ghost" size="sm" asChild>
           <Link to="/blog" className="flex items-center">
@@ -127,13 +129,13 @@ const BlogPost = () => {
           className="w-full h-64 object-cover rounded-lg mb-8"
         />
       )}
-      <h1 className="text-4xl font-bold mb-4">{article.title}</h1>
-      <div className="flex items-center text-gray-600 mb-8">
+      <h1 className="text-4xl font-bold mb-4 text-foreground">{article.title}</h1>
+      <div className="flex items-center text-muted-foreground mb-8">
         <CalendarIcon className="h-5 w-5 mr-2" />
         <span>{format(new Date(article.created_at), "MMMM d, yyyy")}</span>
       </div>
       <div 
-        className="prose max-w-none" 
+        className={`prose max-w-none ${theme === 'dark' ? 'prose-invert' : ''}`}
         dangerouslySetInnerHTML={{ __html: article.content }} 
       />
     </div>

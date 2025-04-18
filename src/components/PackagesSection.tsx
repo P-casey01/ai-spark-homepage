@@ -1,8 +1,11 @@
 
 import React from 'react';
 import PackageCard from './PackageCard';
+import { useTheme } from '@/hooks/use-theme';
 
 const PackagesSection: React.FC = () => {
+  const { theme } = useTheme();
+  
   const packages = [
     {
       title: "Starter",
@@ -47,13 +50,13 @@ const PackagesSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-8 md:py-20 px-4">
+    <section className={`py-8 md:py-20 px-4 ${theme === 'dark' ? 'bg-background' : 'bg-gray-50'} transition-colors duration-200`}>
       <div className="container max-w-6xl mx-auto">
         <div className="text-center mb-8 md:mb-12">
-          <h2 className="text-2xl md:text-4xl font-bold text-white mb-3">
+          <h2 className={`text-2xl md:text-4xl font-bold ${theme === 'dark' ? 'text-foreground' : 'text-gray-800'} mb-3`}>
             Choose Your AI Package
           </h2>
-          <p className="text-sm md:text-base text-gray-300 max-w-2xl mx-auto">
+          <p className={`text-sm md:text-base ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} max-w-2xl mx-auto`}>
             Select the perfect package that fits your business needs and start your AI transformation journey today.
           </p>
         </div>

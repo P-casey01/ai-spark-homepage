@@ -7,6 +7,7 @@ import { Button } from "./ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme } from "@/hooks/use-theme";
 import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -15,11 +16,13 @@ const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   
   const isActive = (path: string) => {
-    return location.pathname === path ? "text-green-400" : "text-gray-400";
+    return location.pathname === path 
+      ? "text-green-400" 
+      : theme === 'dark' ? "text-gray-400" : "text-gray-600";
   };
 
   return (
-    <header className="fixed top-0 w-full bg-background/95 backdrop-blur-sm z-50 border-b border-border">
+    <header className="fixed top-0 w-full bg-background/95 backdrop-blur-sm z-50 border-b border-border transition-colors duration-200">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -44,18 +47,21 @@ const Header: React.FC = () => {
             </Button>
           ) : (
             <div className="flex items-center gap-6">
-              <div className="flex items-center space-x-2" onClick={toggleTheme}>
-                <span className="text-sm text-muted-foreground">
-                  {theme === 'dark' ? <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all text-yellow-400" /> : <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />}
-                </span>
-                <Switch 
-                  checked={theme === 'dark'}
-                  onCheckedChange={toggleTheme}
-                  className="data-[state=checked]:bg-slate-700"
-                />
-                <span className="text-sm text-muted-foreground">
-                  {theme === 'dark' ? 'Dark' : 'Light'}
-                </span>
+              <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1">
+                  {theme === 'dark' ? 
+                    <Sun className="h-[1.2rem] w-[1.2rem] text-yellow-400" /> : 
+                    <Moon className="h-[1.2rem] w-[1.2rem] text-slate-700" />
+                  }
+                  <Switch 
+                    checked={theme === 'dark'}
+                    onCheckedChange={toggleTheme}
+                    className="data-[state=checked]:bg-slate-700"
+                  />
+                  <Label className="text-sm text-muted-foreground">
+                    {theme === 'dark' ? 'Dark' : 'Light'}
+                  </Label>
+                </div>
               </div>
               
               <NavigationMenu>
@@ -71,12 +77,12 @@ const Header: React.FC = () => {
                     </Link>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <a href="#services" className="px-4 py-2 text-gray-400 hover:text-green-400 transition-colors">
+                    <a href="#services" className={`px-4 py-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} hover:text-green-400 transition-colors`}>
                       Services
                     </a>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <a href="#contact" className="px-4 py-2 text-gray-400 hover:text-green-400 transition-colors">
+                    <a href="#contact" className={`px-4 py-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} hover:text-green-400 transition-colors`}>
                       Contact
                     </a>
                   </NavigationMenuItem>
@@ -90,9 +96,15 @@ const Header: React.FC = () => {
           <div className="md:hidden py-4 bg-background animate-in slide-in-from-top">
             <nav className="flex flex-col space-y-4">
               <div className="flex items-center justify-between px-4 py-2">
-                <span className="text-sm font-medium text-foreground">
-                  {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
-                </span>
+                <div className="flex items-center gap-2">
+                  {theme === 'dark' ? 
+                    <Sun className="h-[1rem] w-[1rem] text-yellow-400" /> : 
+                    <Moon className="h-[1rem] w-[1rem] text-slate-700" />
+                  }
+                  <span className="text-sm font-medium text-foreground">
+                    {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
+                  </span>
+                </div>
                 <Switch 
                   checked={theme === 'dark'}
                   onCheckedChange={toggleTheme}
@@ -115,14 +127,14 @@ const Header: React.FC = () => {
               </Link>
               <a 
                 href="#services" 
-                className="px-4 py-2 text-gray-400 hover:bg-accent rounded-md"
+                className={`px-4 py-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} hover:bg-accent rounded-md`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Services
               </a>
               <a 
                 href="#contact" 
-                className="px-4 py-2 text-gray-400 hover:bg-accent rounded-md"
+                className={`px-4 py-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} hover:bg-accent rounded-md`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
