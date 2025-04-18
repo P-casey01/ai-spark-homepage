@@ -1,5 +1,4 @@
-
-import { createClient } from '@sanity/client';
+import { createClient } from '@sanity/client/legacy';
 import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
@@ -14,7 +13,6 @@ export const client = createClient({
   apiVersion,
   useCdn: true, // Set this to false if you want to ensure fresh data
   // Add CORS origins when ready:
-  // useCdn: true,
   // cors: {
   //   allowOrigins: ['http://localhost:8080', 'your-production-url.com']
   // }
