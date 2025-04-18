@@ -37,14 +37,27 @@ const Header: React.FC = () => {
           </div>
           
           {isMobile ? (
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-foreground hover:bg-accent"
-            >
-              {mobileMenuOpen ? <X /> : <Menu />}
-            </Button>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                {theme === 'dark' ? 
+                  <Sun className="h-[1.2rem] w-[1.2rem] text-yellow-400" /> : 
+                  <Moon className="h-[1.2rem] w-[1.2rem] text-slate-700" />
+                }
+                <Switch 
+                  checked={theme === 'dark'}
+                  onCheckedChange={toggleTheme}
+                  className="data-[state=checked]:bg-slate-700"
+                />
+              </div>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden text-foreground hover:bg-accent"
+              >
+                {mobileMenuOpen ? <X /> : <Menu />}
+              </Button>
+            </div>
           ) : (
             <div className="flex items-center gap-6">
               <div className="flex items-center space-x-2">
