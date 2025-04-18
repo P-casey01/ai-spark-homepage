@@ -10,7 +10,7 @@ const HeroSection: React.FC = () => {
   
   return (
     <WavyBackground
-      className="min-h-[85vh] px-6 py-20 flex flex-col items-center justify-center overflow-hidden"
+      className="min-h-[85vh] px-6 py-20 flex flex-col items-center justify-center overflow-hidden relative"
       containerClassName="relative h-auto w-full"
       colors={
         theme === 'dark' 
@@ -35,6 +35,13 @@ const HeroSection: React.FC = () => {
       speed="slow"
       waveOpacity={0.7}
     >
+      {/* Dark overlay for text area */}
+      <div 
+        className={`absolute inset-x-0 top-0 h-[70%] z-0 ${
+          theme === 'dark' ? 'bg-black' : 'bg-white'
+        }`}
+      />
+      
       <div className="container mx-auto px-6 md:max-w-3xl text-center z-10 mt-20 pt-12">
         <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold mb-2 md:mb-4 text-foreground md:max-w-2xl mx-auto drop-shadow-lg">
           Transform Your Business with{' '}
@@ -63,3 +70,4 @@ const HeroSection: React.FC = () => {
 };
 
 export default HeroSection;
+
