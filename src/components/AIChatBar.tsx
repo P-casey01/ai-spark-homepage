@@ -126,8 +126,8 @@ const AIChatBar = () => {
 
               {ideas.map((idea, index) => (
                 <Card key={index} className="p-4">
-                  <div className="flex justify-between items-start gap-4">
-                    <div>
+                  <div className={`flex ${isMobile ? 'flex-col' : 'justify-between'} items-start gap-4`}>
+                    <div className={`${isMobile ? 'w-full' : 'flex-1'}`}>
                       <h4 className="font-serif text-lg mb-2 text-agency-black">{idea.title}</h4>
                       <p className="text-agency-gray mb-3 font-sans">{idea.description}</p>
                       <div className="flex items-center gap-4 text-sm font-sans text-agency-gray">
@@ -140,7 +140,7 @@ const AIChatBar = () => {
                     <Button
                       onClick={() => showRoadmap(idea)}
                       variant="outline"
-                      className="shrink-0 font-sans"
+                      className={`${isMobile ? 'w-full mt-3' : 'shrink-0'} font-sans`}
                     >
                       View Roadmap
                       <ArrowRight className="ml-2 h-4 w-4" />
