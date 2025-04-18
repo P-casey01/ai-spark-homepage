@@ -7,7 +7,7 @@ import { WavyBackground } from "@/components/ui/wavy-background";
 const HeroSection: React.FC = () => {
   return (
     <WavyBackground
-      className="min-h-[20vh] px-4 py-2 flex flex-col items-center justify-center overflow-hidden"
+      className="min-h-[25vh] px-4 py-4 flex flex-col items-center justify-center overflow-hidden"
       containerClassName="relative h-auto"
       colors={[
         "rgba(34, 34, 34, 0.8)", // semi-transparent black
