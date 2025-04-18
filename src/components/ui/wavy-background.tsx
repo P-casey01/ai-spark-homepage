@@ -1,3 +1,4 @@
+
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -16,7 +17,7 @@ export const WavyBackground = ({
     "#FFFFFF", // white
   ],
   waveWidth = 50,
-  backgroundFill = "#111111",
+  backgroundFill = "#000000",
   blur = 10,
   speed = "slow",
   waveOpacity = 0.5,
@@ -148,6 +149,9 @@ export const WavyBackground = ({
           left: "0", // Ensure left edge alignment
           right: "0", // Ensure right edge alignment
           position: "absolute",
+          top: "0", // Ensure it starts at the very top
+          margin: "0", // Remove any margin
+          padding: "0", // Remove any padding
           ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
         }}
       ></canvas>

@@ -17,7 +17,7 @@ const HeroSection: React.FC = () => {
         "#FFFFFF", // White
       ]}
       waveWidth={100}
-      backgroundFill="rgba(17, 17, 17, 0.95)" // Very dark background
+      backgroundFill="#000000" // Pure black background
       blur={12}
       speed="slow"
       waveOpacity={0.7}

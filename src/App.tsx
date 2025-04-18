@@ -18,9 +18,9 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen bg-black">
           <Header />
-          <div className="pt-[72px]">
+          <div className="pt-0 mt-0">
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/blog" element={<Blog />} />
@@ -35,4 +35,3 @@ const App = () => (
 );
 
 export default App;
-

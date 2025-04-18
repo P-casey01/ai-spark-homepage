@@ -8,8 +8,8 @@ import Header from "@/components/Header";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gray-900">
-      <div className="pt-0">
+    <div className="min-h-screen bg-black">
+      <div className="pt-0 mt-0">
         <HeroSection />
         <div className="container mx-auto px-4 py-1">
           <AIChatBar />
