@@ -102,11 +102,11 @@ const HeroSection: React.FC = () => {
         </motion.div>
       </WavyBackground>
       <div 
-        className={`h-32 w-screen absolute left-0 right-0 ${
+        className={`h-32 w-screen absolute left-0 right-0 hidden md:block ${
           theme === 'dark' ? 'bg-black' : 'bg-white'
         }`}
         style={{ 
-          bottom: '14px',
+          bottom: '-1px',
           transform: 'translateY(45%)' 
         }}
       ></div>
