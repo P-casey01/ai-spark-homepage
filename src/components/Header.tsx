@@ -6,7 +6,7 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme } from "@/hooks/use-theme";
-import { Toggle } from "@/components/ui/toggle";
+import { Switch } from "@/components/ui/switch";
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -44,19 +44,19 @@ const Header: React.FC = () => {
             </Button>
           ) : (
             <div className="flex items-center gap-6">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleTheme}
-                className="rounded-full bg-accent hover:bg-accent/80 transition-colors"
-                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-              >
-                {theme === 'dark' ? (
-                  <Sun className="h-5 w-5 text-yellow-400" />
-                ) : (
-                  <Moon className="h-5 w-5 text-foreground" />
-                )}
-              </Button>
+              <div className="flex items-center space-x-2" onClick={toggleTheme}>
+                <span className="text-sm text-muted-foreground">
+                  {theme === 'dark' ? <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all text-yellow-400" /> : <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />}
+                </span>
+                <Switch 
+                  checked={theme === 'dark'}
+                  onCheckedChange={toggleTheme}
+                  className="data-[state=checked]:bg-slate-700"
+                />
+                <span className="text-sm text-muted-foreground">
+                  {theme === 'dark' ? 'Dark' : 'Light'}
+                </span>
+              </div>
               
               <NavigationMenu>
                 <NavigationMenuList>
@@ -89,20 +89,16 @@ const Header: React.FC = () => {
         {isMobile && mobileMenuOpen && (
           <div className="md:hidden py-4 bg-background animate-in slide-in-from-top">
             <nav className="flex flex-col space-y-4">
-              <Button
-                variant="ghost"
-                onClick={toggleTheme}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-accent hover:bg-accent/80 transition-colors w-full justify-start"
-              >
-                {theme === 'dark' ? (
-                  <Sun className="h-5 w-5 text-yellow-400" />
-                ) : (
-                  <Moon className="h-5 w-5 text-foreground" />
-                )}
-                <span className="text-sm font-medium">
-                  {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              <div className="flex items-center justify-between px-4 py-2">
+                <span className="text-sm font-medium text-foreground">
+                  {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
                 </span>
-              </Button>
+                <Switch 
+                  checked={theme === 'dark'}
+                  onCheckedChange={toggleTheme}
+                  className="data-[state=checked]:bg-slate-700"
+                />
+              </div>
               <Link 
                 to="/" 
                 className={`px-4 py-2 hover:bg-accent rounded-md ${isActive('/')}`}

@@ -23,7 +23,7 @@ const App = () => (
         <BrowserRouter>
           <div className="min-h-screen bg-background text-foreground">
             <Header />
-            <div className="pt-0 mt-0">
+            <div className="pt-16 md:pt-20">
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/blog" element={<Blog />} />
