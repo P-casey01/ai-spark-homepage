@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PackageCard from './PackageCard';
 
@@ -12,8 +11,8 @@ const PackagesSection: React.FC = () => {
         { name: "5-page responsive website" },
         { name: "Basic AI chatbot integration" },
         { name: "1 automation workflow" },
-        { name: "30 days support" }, // Added missing comma here
-        { name: "3 Years Cyber security protection" }, // Added missing comma here
+        { name: "30 days support" },
+        { name: "3 Years Cyber security protection" },
         { name: "Custom Domain" }
       ]
     },
@@ -26,7 +25,7 @@ const PackagesSection: React.FC = () => {
         { name: "Advanced AI chatbot with training" },
         { name: "3 automation workflows" },
         { name: "90 days support" },
-        { name: "3 Years Cyber security protection" }, // Added missing comma here
+        { name: "3 Years Cyber security protection" },
         { name: "SEO optimization" }
       ],
       popular: true
@@ -47,15 +46,15 @@ const PackagesSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 px-4">
-      <div className="container">
-        <div className="text-center mb-12">
+    <section className="py-12 px-4 md:py-20">
+      <div className="container max-w-6xl mx-auto">
+        <div className="text-center mb-8 md:mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-agency-black mb-4">Choose Your AI Package</h2>
           <p className="text-agency-gray max-w-2xl mx-auto">
             Select the perfect package that fits your business needs and start your AI transformation journey today.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {packages.map((pkg, index) => (
             <div key={index} className="relative">
               <PackageCard {...pkg} />
@@ -68,4 +67,3 @@ const PackagesSection: React.FC = () => {
 };
 
 export default PackagesSection;
-
