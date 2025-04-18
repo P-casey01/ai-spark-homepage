@@ -12,15 +12,15 @@ export const WavyBackground = ({
   colors = [
     "#222222", // agency-black
     "#555555", // agency-gray
+    "#2F4F4F", // dark green
     "#9EECC1", // agency-mint
-    "#F2FCE2", // agency-lightmint
-    "#8fc09c", // mint variant
+    "#FFFFFF", // white
   ],
   waveWidth = 50,
-  backgroundFill = "#FFFFFF",
+  backgroundFill = "#111111",
   blur = 10,
-  speed = "fast",
-  waveOpacity = 0.3,
+  speed = "slow",
+  waveOpacity = 0.5,
   ...props
 }: {
   children?: any;
@@ -46,11 +46,11 @@ export const WavyBackground = ({
   const getSpeed = () => {
     switch (speed) {
       case "slow":
-        return 0.001;
+        return 0.0005; // Slower speed
       case "fast":
-        return 0.004; // Increased speed for more dynamic waves
+        return 0.003;
       default:
-        return 0.001;
+        return 0.0005;
     }
   };
 
@@ -70,12 +70,13 @@ export const WavyBackground = ({
   };
 
   const waveColors = colors ?? [
-    "#38bdf8",
-    "#818cf8",
-    "#c084fc",
-    "#e879f9",
-    "#22d3ee",
+    "#222222",
+    "#555555",
+    "#2F4F4F",
+    "#9EECC1",
+    "#FFFFFF",
   ];
+  
   const drawWave = (n: number) => {
     nt += getSpeed();
     for (i = 0; i < n; i++) {
