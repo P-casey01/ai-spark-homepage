@@ -7,7 +7,7 @@ import { WavyBackground } from "@/components/ui/wavy-background";
 const HeroSection: React.FC = () => {
   return (
     <WavyBackground
-      className="min-h-[25vh] px-4 py-4 flex flex-col items-center justify-center overflow-hidden"
+      className="min-h-[35vh] px-4 py-8 flex flex-col items-center justify-center overflow-hidden"
       containerClassName="relative h-auto"
       colors={[
         "rgba(34, 34, 34, 0.8)", // semi-transparent black
@@ -16,11 +16,11 @@ const HeroSection: React.FC = () => {
         "#F2FCE2", // agency-lightmint
         "#8fc09c", // mint variant
       ]}
-      waveWidth={50}
+      waveWidth={70} // Increased wave width
       backgroundFill="rgba(255, 255, 255, 0.9)"
       blur={10}
       speed="fast"
-      waveOpacity={0.3}
+      waveOpacity={0.4} // Slightly increased opacity
     >
       <div className="container mx-auto px-4 md:max-w-3xl text-center z-10">
         <div className="backdrop-blur-sm bg-white/30 rounded-xl p-3 md:p-6 md:bg-transparent">
