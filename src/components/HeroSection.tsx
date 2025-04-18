@@ -65,8 +65,8 @@ const HeroSection: React.FC = () => {
           theme === 'dark' ? 'bg-black' : 'bg-white'
         }`}
         style={{ 
-          bottom: '0',
-          transform: 'translateY(40%)'
+          bottom: '-1px', /* Using -1px instead of 0 to ensure no gaps */
+          transform: 'translateY(45%)' 
         }}
       ></div>
     </div>
