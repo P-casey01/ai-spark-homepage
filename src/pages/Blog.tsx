@@ -11,10 +11,7 @@ const Blog = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("articles")
-        .select(`
-          *,
-          profiles (username)
-        `)
+        .select("*")
         .eq("published", true)
         .order("created_at", { ascending: false });
 
@@ -46,7 +43,6 @@ const Blog = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground mb-2">
-                  By {article.profiles?.username} on{" "}
                   {format(new Date(article.created_at), "MMMM d, yyyy")}
                 </p>
                 <p className="line-clamp-3 text-gray-600">{article.summary}</p>
