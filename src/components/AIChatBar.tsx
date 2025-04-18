@@ -72,10 +72,10 @@ const AIChatBar = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto pt-16 md:pt-24">
       <Card className="border-0 shadow-lg">
         <CardHeader className="text-center pb-2">
-          <CardTitle className="text-4xl font-serif text-agency-black">
+          <CardTitle className="text-3xl md:text-4xl font-serif text-agency-black">
             Not sure what AI solution you need?
           </CardTitle>
           <p className="text-agency-gray mt-2 flex items-center justify-center gap-2 font-sans">
@@ -89,14 +89,14 @@ const AIChatBar = () => {
               placeholder="Describe your business..."
               value={businessDescription}
               onChange={(e) => setBusinessDescription(e.target.value)}
-              className="pr-32 py-6 text-lg rounded-full font-sans text-agency-gray"
+              className="pr-24 py-6 text-lg rounded-full font-sans text-agency-gray"
             />
             <Button
               onClick={generateIdeas}
               disabled={loading}
               className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#6c5ce7] hover:bg-[#5b4bc4] text-white rounded-full px-6 whitespace-nowrap font-sans"
             >
-              {loading ? "Generating..." : (isMobile ? "Generate" : "Generate AI Ideas")}
+              {loading ? "Generating..." : (isMobile ? "Generate" : "Generate")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>

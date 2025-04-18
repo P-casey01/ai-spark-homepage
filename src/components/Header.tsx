@@ -1,10 +1,15 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { Button } from "./ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Header: React.FC = () => {
   const location = useLocation();
+  const isMobile = useIsMobile();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const isActive = (path: string) => {
     return location.pathname === path ? "text-agency-black" : "text-agency-gray";
@@ -24,31 +29,79 @@ const Header: React.FC = () => {
             </Link>
             <Link to="/" className="text-xl font-bold text-agency-black">Auto-mate Consultants</Link>
           </div>
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <Link to="/" className={`px-4 py-2 hover:text-agency-black transition-colors ${isActive('/')}`}>
-                  Home
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link to="/blog" className={`px-4 py-2 hover:text-agency-black transition-colors ${isActive('/blog')}`}>
-                  Blog
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <a href="#services" className="px-4 py-2 text-agency-gray hover:text-agency-black transition-colors">
-                  Services
-                </a>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <a href="#contact" className="px-4 py-2 text-agency-gray hover:text-agency-black transition-colors">
-                  Contact
-                </a>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+          
+          {isMobile ? (
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden"
+            >
+              {mobileMenuOpen ? <X /> : <Menu />}
+            </Button>
+          ) : (
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <Link to="/" className={`px-4 py-2 hover:text-agency-black transition-colors ${isActive('/')}`}>
+                    Home
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link to="/blog" className={`px-4 py-2 hover:text-agency-black transition-colors ${isActive('/blog')}`}>
+                    Blog
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <a href="#services" className="px-4 py-2 text-agency-gray hover:text-agency-black transition-colors">
+                    Services
+                  </a>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <a href="#contact" className="px-4 py-2 text-agency-gray hover:text-agency-black transition-colors">
+                    Contact
+                  </a>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          )}
         </div>
+        
+        {/* Mobile menu */}
+        {isMobile && mobileMenuOpen && (
+          <div className="md:hidden py-4 bg-white animate-in slide-in-from-top">
+            <nav className="flex flex-col space-y-4">
+              <Link 
+                to="/" 
+                className={`px-4 py-2 hover:bg-gray-100 rounded-md ${isActive('/')}`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link 
+                to="/blog" 
+                className={`px-4 py-2 hover:bg-gray-100 rounded-md ${isActive('/blog')}`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Blog
+              </Link>
+              <a 
+                href="#services" 
+                className="px-4 py-2 text-agency-gray hover:bg-gray-100 rounded-md"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Services
+              </a>
+              <a 
+                href="#contact" 
+                className="px-4 py-2 text-agency-gray hover:bg-gray-100 rounded-md"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Contact
+              </a>
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   );
