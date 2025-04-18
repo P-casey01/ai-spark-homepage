@@ -1,4 +1,3 @@
-
 import React from "react";
 import HeroSection from "@/components/HeroSection";
 import PackagesSection from "@/components/PackagesSection";
@@ -21,7 +20,7 @@ const Index = () => {
           </div>
         </div>
         
-        <footer className={`${theme === 'dark' ? 'bg-black text-white' : 'bg-gray-100 text-gray-800'} py-12 mt-16 transition-colors duration-200`}>
+        <footer className={`bg-background ${theme === 'dark' ? 'text-white' : 'text-gray-800'} py-12 mt-16 transition-colors duration-200`}>
           <div className="container px-4">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="mb-6 md:mb-0 flex items-center">
