@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { CalendarIcon, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 type Article = {
   id: string;
@@ -14,12 +15,13 @@ type Article = {
   content: string;
   image_url: string | null;
   created_at: string;
+  summary: string;
 };
 
 const BlogPost = () => {
   const { slug } = useParams();
 
-  const { data: article, isLoading } = useQuery({
+  const { data: article, isLoading, error } = useQuery({
     queryKey: ["article", slug],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -27,11 +29,19 @@ const BlogPost = () => {
         .select("*")
         .eq("slug", slug)
         .eq("published", true)
-        .single();
+        .maybeSingle();
 
-      if (error) throw error;
-      return data as Article;
+      if (error) {
+        throw error;
+      }
+
+      return data;
     },
+    onError: (error) => {
+      toast.error("Failed to load article", {
+        description: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
   });
 
   if (isLoading) {
@@ -99,7 +109,10 @@ const BlogPost = () => {
         <CalendarIcon className="h-5 w-5 mr-2" />
         <span>{format(new Date(article.created_at), "MMMM d, yyyy")}</span>
       </div>
-      <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: article.content }} />
+      <div 
+        className="prose max-w-none" 
+        dangerouslySetInnerHTML={{ __html: article.content }} 
+      />
     </div>
   );
 };
