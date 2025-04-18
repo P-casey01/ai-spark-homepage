@@ -6,6 +6,7 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme } from "@/hooks/use-theme";
+import { Toggle } from "@/components/ui/toggle";
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -18,7 +19,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 w-full bg-black/95 backdrop-blur-sm z-50 border-b border-gray-800">
+    <header className="fixed top-0 w-full bg-background/95 backdrop-blur-sm z-50 border-b border-border">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -29,7 +30,7 @@ const Header: React.FC = () => {
                 className="h-16 w-16 object-contain rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
               />
             </Link>
-            <Link to="/" className="text-xl font-bold text-white">Auto-mate Consultants</Link>
+            <Link to="/" className="text-xl font-bold text-foreground">Auto-mate Consultants</Link>
           </div>
           
           {isMobile ? (
@@ -37,7 +38,7 @@ const Header: React.FC = () => {
               variant="ghost" 
               size="icon" 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-white hover:bg-gray-800"
+              className="md:hidden text-foreground hover:bg-accent"
             >
               {mobileMenuOpen ? <X /> : <Menu />}
             </Button>
@@ -47,13 +48,13 @@ const Header: React.FC = () => {
                 variant="ghost"
                 size="icon"
                 onClick={toggleTheme}
-                className="rounded-full bg-gray-800/50 hover:bg-gray-700/50 transition-colors"
+                className="rounded-full bg-accent hover:bg-accent/80 transition-colors"
                 aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
               >
                 {theme === 'dark' ? (
                   <Sun className="h-5 w-5 text-yellow-400" />
                 ) : (
-                  <Moon className="h-5 w-5 text-gray-400" />
+                  <Moon className="h-5 w-5 text-foreground" />
                 )}
               </Button>
               
@@ -86,17 +87,17 @@ const Header: React.FC = () => {
         </div>
         
         {isMobile && mobileMenuOpen && (
-          <div className="md:hidden py-4 bg-black animate-in slide-in-from-top">
+          <div className="md:hidden py-4 bg-background animate-in slide-in-from-top">
             <nav className="flex flex-col space-y-4">
               <Button
                 variant="ghost"
                 onClick={toggleTheme}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 transition-colors w-full justify-start"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-accent hover:bg-accent/80 transition-colors w-full justify-start"
               >
                 {theme === 'dark' ? (
                   <Sun className="h-5 w-5 text-yellow-400" />
                 ) : (
-                  <Moon className="h-5 w-5 text-gray-400" />
+                  <Moon className="h-5 w-5 text-foreground" />
                 )}
                 <span className="text-sm font-medium">
                   {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
@@ -104,28 +105,28 @@ const Header: React.FC = () => {
               </Button>
               <Link 
                 to="/" 
-                className={`px-4 py-2 hover:bg-gray-800 rounded-md ${isActive('/')}`}
+                className={`px-4 py-2 hover:bg-accent rounded-md ${isActive('/')}`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
               </Link>
               <Link 
                 to="/blog" 
-                className={`px-4 py-2 hover:bg-gray-800 rounded-md ${isActive('/blog')}`}
+                className={`px-4 py-2 hover:bg-accent rounded-md ${isActive('/blog')}`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Blog
               </Link>
               <a 
                 href="#services" 
-                className="px-4 py-2 text-gray-400 hover:bg-gray-800 rounded-md"
+                className="px-4 py-2 text-gray-400 hover:bg-accent rounded-md"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Services
               </a>
               <a 
                 href="#contact" 
-                className="px-4 py-2 text-gray-400 hover:bg-gray-800 rounded-md"
+                className="px-4 py-2 text-gray-400 hover:bg-accent rounded-md"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact

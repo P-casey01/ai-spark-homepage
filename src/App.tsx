@@ -10,6 +10,7 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
+import "./App.css";
 
 const queryClient = new QueryClient();
 
