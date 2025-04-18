@@ -5,7 +5,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, AlertCircle } from "lucide-react";
+import { toast } from "sonner";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 type Article = {
   id: string;
@@ -18,7 +20,7 @@ type Article = {
 };
 
 const Blog = () => {
-  const { data: articles, isLoading } = useQuery({
+  const { data: articles, isLoading, error } = useQuery({
     queryKey: ["articles"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -31,6 +33,13 @@ const Blog = () => {
       return data as Article[];
     },
   });
+
+  // Handle error outside of the query hook
+  if (error) {
+    toast.error("Failed to load blog posts", {
+      description: error instanceof Error ? error.message : "Unknown error"
+    });
+  }
 
   if (isLoading) {
     return (
@@ -56,11 +65,26 @@ const Blog = () => {
     );
   }
 
+  if (!articles || articles.length === 0) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold mb-8">Blog</h1>
+        <Alert>
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>No articles found</AlertTitle>
+          <AlertDescription>
+            There are currently no blog posts available. Please check back later.
+          </AlertDescription>
+        </Alert>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-8">Blog</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {articles?.map((article) => (
+        {articles.map((article) => (
           <Link key={article.id} to={`/blog/${article.slug}`}>
             <Card className="h-full hover:shadow-lg transition-shadow">
               {article.image_url && (

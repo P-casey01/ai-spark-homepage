@@ -4,10 +4,11 @@ import { useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarIcon, ArrowLeft } from "lucide-react";
+import { CalendarIcon, ArrowLeft, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 type Article = {
   id: string;
@@ -79,9 +80,12 @@ const BlogPost = () => {
             </Link>
           </Button>
         </div>
-        <div className="text-center py-16">
-          <h1 className="text-2xl font-bold mb-4">Article not found</h1>
-          <p className="text-gray-600 mb-6">The article you're looking for doesn't exist or has been removed.</p>
+        <Alert variant="destructive" className="mb-6">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Article not found</AlertTitle>
+          <AlertDescription>The article you're looking for doesn't exist or has been removed.</AlertDescription>
+        </Alert>
+        <div className="text-center py-8">
           <Button asChild>
             <Link to="/blog">Return to Blog</Link>
           </Button>
