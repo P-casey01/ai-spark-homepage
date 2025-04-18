@@ -48,6 +48,7 @@ const Header: React.FC = () => {
                 size="icon"
                 onClick={toggleTheme}
                 className="rounded-full bg-gray-800/50 hover:bg-gray-700/50 transition-colors"
+                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
               >
                 {theme === 'dark' ? (
                   <Sun className="h-5 w-5 text-yellow-400" />
