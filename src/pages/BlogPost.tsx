@@ -37,10 +37,18 @@ const BlogPost = () => {
 
       return data;
     },
-    onError: (error) => {
-      toast.error("Failed to load article", {
-        description: error instanceof Error ? error.message : "Unknown error"
-      });
+    meta: {
+      errorMessage: "Failed to load article"
+    },
+    onSuccess: () => {
+      // Optional success handler if needed
+    },
+    onSettled: (_data, error) => {
+      if (error) {
+        toast.error("Failed to load article", {
+          description: error instanceof Error ? error.message : "Unknown error"
+        });
+      }
     }
   });
 
