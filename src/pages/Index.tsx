@@ -8,7 +8,7 @@ import Header from "@/components/Header";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-slate-900">
       <div className="pt-6 md:pt-10">
         <HeroSection />
         <div className="container mx-auto px-4 py-1">
@@ -19,7 +19,7 @@ const Index = () => {
           </div>
         </div>
         
-        <footer className="bg-agency-black text-white py-12 mt-16">
+        <footer className="bg-slate-950 text-white py-12 mt-16">
           <div className="container px-4">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="mb-6 md:mb-0 flex items-center">
@@ -35,18 +35,18 @@ const Index = () => {
               </div>
               <div className="flex gap-8">
                 <div>
-                  <h3 className="text-sm font-bold uppercase text-agency-mint mb-3">Connect</h3>
+                  <h3 className="text-sm font-bold uppercase text-emerald-400 mb-3">Connect</h3>
                   <ul className="space-y-2">
-                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
-                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About Auto-mate</a></li>
-                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+                    <li><a href="#" className="text-gray-300 hover:text-white transition-colors">About Auto-mate</a></li>
+                    <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Blog</a></li>
                   </ul>
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold uppercase text-agency-mint mb-3">Legal</h3>
+                  <h3 className="text-sm font-bold uppercase text-emerald-400 mb-3">Legal</h3>
                   <ul className="space-y-2">
-                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy</a></li>
-                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Terms</a></li>
+                    <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Privacy</a></li>
+                    <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Terms</a></li>
                   </ul>
                 </div>
               </div>
@@ -59,7 +59,7 @@ const Index = () => {
               <Mail className="text-gray-400 hover:text-white transition-colors cursor-pointer" />
               <Phone className="text-gray-400 hover:text-white transition-colors cursor-pointer" />
             </div>
-            <div className="mt-12 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">
+            <div className="mt-12 pt-6 border-t border-slate-800 text-center text-gray-500 text-sm">
               © {new Date().getFullYear()} Auto-mate Consultants. All rights reserved.
             </div>
           </div>
