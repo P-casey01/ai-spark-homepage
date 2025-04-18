@@ -19,27 +19,27 @@ interface RoadmapModalProps {
 const RoadmapModal: React.FC<RoadmapModalProps> = ({ isOpen, onClose, idea }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl bg-slate-900 text-white border-slate-800">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold mb-4">{idea.title} Roadmap</DialogTitle>
         </DialogHeader>
         <div className="space-y-6">
           <div className="flex items-center gap-4 mb-4">
-            <span className="bg-[#f0eeff] text-[#6c5ce7] px-3 py-1 rounded-full text-sm">
+            <span className="bg-emerald-900/50 text-emerald-200 px-3 py-1 rounded-full text-sm">
               {idea.complexity} Complexity
             </span>
-            <span className="text-agency-gray text-sm">
+            <span className="text-slate-300 text-sm">
               Est. Time: {idea.estimatedTime}
             </span>
           </div>
           
           <div className="space-y-4">
             {idea.roadmap?.map((step, index) => (
-              <div key={index} className="flex items-start gap-4 p-4 bg-white rounded-lg border border-gray-100 hover:shadow-md transition-shadow">
-                <CheckCircle className="h-6 w-6 text-[#6c5ce7] shrink-0 mt-1" />
+              <div key={index} className="flex items-start gap-4 p-4 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-800/80 transition-colors">
+                <CheckCircle className="h-6 w-6 text-emerald-400 shrink-0 mt-1" />
                 <div>
-                  <p className="text-agency-black">{step}</p>
-                  <Progress value={((index + 1) / idea.roadmap!.length) * 100} className="mt-2" />
+                  <p className="text-slate-200">{step}</p>
+                  <Progress value={((index + 1) / idea.roadmap!.length) * 100} className="mt-2 bg-slate-700" />
                 </div>
               </div>
             ))}
