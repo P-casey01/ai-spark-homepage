@@ -1,4 +1,3 @@
-
 import React from "react";
 import HeroSection from "@/components/HeroSection";
 import PackagesSection from "@/components/PackagesSection";
@@ -8,7 +7,7 @@ import Header from "@/components/Header";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-slate-900">
+    <div className="min-h-screen bg-slate-950">
       <div className="pt-6 md:pt-10">
         <HeroSection />
         <div className="container mx-auto px-4 py-1">
@@ -19,7 +18,7 @@ const Index = () => {
           </div>
         </div>
         
-        <footer className="bg-slate-950 text-white py-12 mt-16">
+        <footer className="bg-black text-white py-12 mt-16">
           <div className="container px-4">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="mb-6 md:mb-0 flex items-center">
