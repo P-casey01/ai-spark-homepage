@@ -12,11 +12,11 @@ const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const isActive = (path: string) => {
-    return location.pathname === path ? "text-agency-black" : "text-agency-gray";
+    return location.pathname === path ? "text-green-400" : "text-gray-400";
   };
 
   return (
-    <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
+    <header className="fixed top-0 w-full bg-black/95 backdrop-blur-sm z-50 border-b border-gray-800">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -27,7 +27,7 @@ const Header: React.FC = () => {
                 className="h-16 w-16 object-contain rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
               />
             </Link>
-            <Link to="/" className="text-xl font-bold text-agency-black">Auto-mate Consultants</Link>
+            <Link to="/" className="text-xl font-bold text-white">Auto-mate Consultants</Link>
           </div>
           
           {isMobile ? (
@@ -35,7 +35,7 @@ const Header: React.FC = () => {
               variant="ghost" 
               size="icon" 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden"
+              className="md:hidden text-white hover:bg-gray-800"
             >
               {mobileMenuOpen ? <X /> : <Menu />}
             </Button>
@@ -43,22 +43,22 @@ const Header: React.FC = () => {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <Link to="/" className={`px-4 py-2 hover:text-agency-black transition-colors ${isActive('/')}`}>
+                  <Link to="/" className={`px-4 py-2 hover:text-green-400 transition-colors ${isActive('/')}`}>
                     Home
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link to="/blog" className={`px-4 py-2 hover:text-agency-black transition-colors ${isActive('/blog')}`}>
+                  <Link to="/blog" className={`px-4 py-2 hover:text-green-400 transition-colors ${isActive('/blog')}`}>
                     Blog
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <a href="#services" className="px-4 py-2 text-agency-gray hover:text-agency-black transition-colors">
+                  <a href="#services" className="px-4 py-2 text-gray-400 hover:text-green-400 transition-colors">
                     Services
                   </a>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <a href="#contact" className="px-4 py-2 text-agency-gray hover:text-agency-black transition-colors">
+                  <a href="#contact" className="px-4 py-2 text-gray-400 hover:text-green-400 transition-colors">
                     Contact
                   </a>
                 </NavigationMenuItem>
@@ -69,32 +69,32 @@ const Header: React.FC = () => {
         
         {/* Mobile menu */}
         {isMobile && mobileMenuOpen && (
-          <div className="md:hidden py-4 bg-white animate-in slide-in-from-top">
+          <div className="md:hidden py-4 bg-black animate-in slide-in-from-top">
             <nav className="flex flex-col space-y-4">
               <Link 
                 to="/" 
-                className={`px-4 py-2 hover:bg-gray-100 rounded-md ${isActive('/')}`}
+                className={`px-4 py-2 hover:bg-gray-800 rounded-md ${isActive('/')}`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
               </Link>
               <Link 
                 to="/blog" 
-                className={`px-4 py-2 hover:bg-gray-100 rounded-md ${isActive('/blog')}`}
+                className={`px-4 py-2 hover:bg-gray-800 rounded-md ${isActive('/blog')}`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Blog
               </Link>
               <a 
                 href="#services" 
-                className="px-4 py-2 text-agency-gray hover:bg-gray-100 rounded-md"
+                className="px-4 py-2 text-gray-400 hover:bg-gray-800 rounded-md"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Services
               </a>
               <a 
                 href="#contact" 
-                className="px-4 py-2 text-agency-gray hover:bg-gray-100 rounded-md"
+                className="px-4 py-2 text-gray-400 hover:bg-gray-800 rounded-md"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
