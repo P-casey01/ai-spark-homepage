@@ -58,12 +58,12 @@ export const WavyBackground = ({
     canvas = canvasRef.current;
     ctx = canvas.getContext("2d");
     w = ctx.canvas.width = window.innerWidth;
-    h = ctx.canvas.height = window.innerHeight;
+    h = ctx.canvas.height = window.innerHeight * 0.4; // Reduced height
     ctx.filter = `blur(${blur}px)`;
     nt = 0;
     window.onresize = function () {
       w = ctx.canvas.width = window.innerWidth;
-      h = ctx.canvas.height = window.innerHeight;
+      h = ctx.canvas.height = window.innerHeight * 0.4; // Reduced height
       ctx.filter = `blur(${blur}px)`;
     };
     render();
@@ -83,7 +83,7 @@ export const WavyBackground = ({
       ctx.lineWidth = waveWidth || 50;
       ctx.strokeStyle = waveColors[i % waveColors.length];
       for (x = 0; x < w; x += 5) {
-        var y = noise(x / 800, 0.3 * i, nt) * 100;
+        var y = noise(x / 800, 0.3 * i, nt) * 70; // Reduced amplitude
         ctx.lineTo(x, y + h * 0.5); // adjust for height, currently at 50% of the container
       }
       ctx.stroke();
@@ -142,6 +142,8 @@ export const WavyBackground = ({
         ref={canvasRef}
         id="canvas"
         style={{
+          height: "20vh", // Fixed height 
+          maxHeight: "300px", // Prevent excessive height
           ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
         }}
       ></canvas>

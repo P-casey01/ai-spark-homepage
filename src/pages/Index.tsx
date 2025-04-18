@@ -9,13 +9,13 @@ import Header from "@/components/Header";
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <div className="pt-8 md:pt-16">
+      <div className="pt-4 md:pt-8">
         <HeroSection />
-        <div className="container mx-auto px-4 py-1">
-          <div className="mt-2 md:mt-6">
+        <div className="container mx-auto px-4 py-1 mt-0">
+          <div className="mt-0">
             <AIChatBar />
           </div>
-          <div className="mt-8 md:mt-16">
+          <div className="mt-6 md:mt-12">
             <PackagesSection />
           </div>
         </div>

@@ -75,7 +75,7 @@ const AIChatBar = () => {
     <div className="w-full max-w-4xl mx-auto pt-2">
       <Card className="border-0 shadow-lg">
         <CardHeader className="text-center pb-1 pt-3">
-          <CardTitle className="text-xl md:text-3xl font-serif text-agency-black">
+          <CardTitle className="text-xl md:text-3xl font-serif text-agency-black block">
             Not sure what AI solution you need?
           </CardTitle>
           <p className="text-agency-gray mt-0 flex items-center justify-center gap-2 font-sans text-sm">
