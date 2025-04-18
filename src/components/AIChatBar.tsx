@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import IdeaGenerationLoader from './IdeaGenerationLoader';
 import RoadmapModal from './RoadmapModal';
+import { cn } from '@/lib/utils';
+import { useMobile } from '@/hooks/use-mobile';
 
 interface AutomationIdea {
   title: string;
@@ -22,6 +24,7 @@ const AIChatBar = () => {
   const [loading, setLoading] = useState(false);
   const [selectedIdea, setSelectedIdea] = useState<AutomationIdea | null>(null);
   const [isRoadmapOpen, setIsRoadmapOpen] = useState(false);
+  const isMobile = useMobile();
 
   const generateIdeas = async () => {
     if (!businessDescription.trim()) {
@@ -71,28 +74,28 @@ const AIChatBar = () => {
     <div className="w-full max-w-4xl mx-auto">
       <Card className="border-0 shadow-lg">
         <CardHeader className="text-center pb-2">
-          <CardTitle className="text-4xl font-serif">
+          <CardTitle className="text-4xl font-serif text-agency-black">
             Not sure what AI solution you need?
           </CardTitle>
-          <p className="text-agency-gray mt-2 flex items-center justify-center gap-2">
+          <p className="text-agency-gray mt-2 flex items-center justify-center gap-2 font-sans">
             <MessageCircle className="h-5 w-5" />
             we built this to help
           </p>
         </CardHeader>
         <CardContent>
-          <div className="relative">
+          <div className={cn("relative", isMobile && "mobile-chat-input")}>
             <Input
               placeholder="Describe your business..."
               value={businessDescription}
               onChange={(e) => setBusinessDescription(e.target.value)}
-              className="pr-32 py-6 text-lg rounded-full"
+              className="pr-32 py-6 text-lg rounded-full font-sans text-agency-gray"
             />
             <Button
               onClick={generateIdeas}
               disabled={loading}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#6c5ce7] hover:bg-[#5b4bc4] text-white rounded-full px-6"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#6c5ce7] hover:bg-[#5b4bc4] text-white rounded-full px-6 whitespace-nowrap"
             >
-              {loading ? "Generating..." : "Generate AI Ideas"}
+              {loading ? "Generating..." : (isMobile ? "Generate" : "Generate AI Ideas")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
@@ -105,14 +108,14 @@ const AIChatBar = () => {
                 <div className="h-8 w-8 rounded-full bg-[#6c5ce7] flex items-center justify-center">
                   <MessageCircle className="h-5 w-5 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold">AI-Generated Ideas</h3>
+                <h3 className="text-xl font-semibold text-agency-black">AI-Generated Ideas</h3>
               </div>
 
               {ideas.map((idea, index) => (
-                <Card key={index} className="p-4">
+                <Card key={index} className="p-4 font-sans">
                   <div className="flex justify-between items-start gap-4">
                     <div>
-                      <h4 className="font-semibold text-lg mb-2">{idea.title}</h4>
+                      <h4 className="font-semibold text-lg mb-2 text-agency-black">{idea.title}</h4>
                       <p className="text-agency-gray mb-3">{idea.description}</p>
                       <div className="flex items-center gap-4 text-sm text-agency-gray">
                         <span className="bg-[#f0eeff] text-[#6c5ce7] px-3 py-1 rounded-full">
