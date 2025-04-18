@@ -3,6 +3,7 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Check } from 'lucide-react';
 import { useTheme } from '@/hooks/use-theme';
+import { motion } from 'framer-motion';
 
 interface Feature {
   name: string;
@@ -28,7 +29,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
   const { theme } = useTheme();
   
   return (
-    <div 
+    <motion.div 
       className={`package-card relative ${
         theme === 'dark' 
           ? 'bg-card text-card-foreground' 
@@ -36,6 +37,11 @@ const PackageCard: React.FC<PackageCardProps> = ({
       } rounded-xl shadow-lg p-3 md:p-5 ${
         popular ? 'border-agency-mint border-2' : `border ${theme === 'dark' ? 'border-border' : 'border-gray-100'}`
       } transition-all duration-200`}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.1 }}
+      whileHover={{ y: -5, transition: { duration: 0.2 } }}
     >
       {popular && (
         <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
@@ -54,10 +60,17 @@ const PackageCard: React.FC<PackageCardProps> = ({
         </div>
         <ul className="space-y-2">
           {features.map((feature, index) => (
-            <li key={index} className="flex items-start gap-2 text-sm">
+            <motion.li 
+              key={index} 
+              className="flex items-start gap-2 text-sm"
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: 0.1 * index }}
+            >
               <Check className="h-4 w-4 text-agency-mint shrink-0 mt-0.5" />
               <span className={theme === 'dark' ? 'text-muted-foreground' : 'text-agency-gray'}>{feature.name}</span>
-            </li>
+            </motion.li>
           ))}
         </ul>
       </div>
@@ -74,7 +87,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
           {ctaText}
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { CalendarIcon } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
+import { motion } from "framer-motion";
 
 type Article = {
   id: string;
@@ -48,36 +49,56 @@ const staticArticles: Article[] = [
 
 const Blog = () => {
   const { theme } = useTheme();
-  
+
   return (
-    <div className="container mx-auto px-4 py-8 bg-background text-foreground transition-colors duration-200">
-      <h1 className="text-4xl font-bold mb-8">Blog</h1>
+    <motion.div 
+      className="container mx-auto px-4 py-8 bg-background text-foreground transition-colors duration-200"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.h1 
+        className="text-4xl font-bold mb-8"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        Blog
+      </motion.h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {staticArticles.map((article) => (
-          <Link key={article.id} to={`/blog/${article.slug}`}>
-            <Card className="h-full hover:shadow-lg transition-shadow bg-card text-card-foreground">
-              {article.image_url && (
-                <img
-                  src={article.image_url}
-                  alt={article.title}
-                  className="w-full h-48 object-cover"
-                />
-              )}
-              <CardHeader>
-                <CardTitle>{article.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center text-sm text-muted-foreground mb-2">
-                  <CalendarIcon className="h-4 w-4 mr-1" />
-                  <span>{format(new Date(article.created_at), "MMMM d, yyyy")}</span>
-                </div>
-                <p className="line-clamp-3 text-muted-foreground">{article.summary}</p>
-              </CardContent>
-            </Card>
-          </Link>
+        {staticArticles.map((article, index) => (
+          <motion.div
+            key={article.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+          >
+            <Link to={`/blog/${article.slug}`}>
+              <Card className="h-full hover:shadow-lg transition-shadow bg-card text-card-foreground">
+                {article.image_url && (
+                  <img
+                    src={article.image_url}
+                    alt={article.title}
+                    className="w-full h-48 object-cover"
+                  />
+                )}
+                <CardHeader>
+                  <CardTitle>{article.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center text-sm text-muted-foreground mb-2">
+                    <CalendarIcon className="h-4 w-4 mr-1" />
+                    <span>{format(new Date(article.created_at), "MMMM d, yyyy")}</span>
+                  </div>
+                  <p className="line-clamp-3 text-muted-foreground">{article.summary}</p>
+                </CardContent>
+              </Card>
+            </Link>
+          </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

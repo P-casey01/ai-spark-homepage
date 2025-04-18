@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useTheme } from "@/hooks/use-theme";
+import { motion } from "framer-motion";
 
 type Article = {
   id: string;
@@ -91,54 +92,98 @@ const BlogPost = () => {
 
   if (!article) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-4xl bg-background text-foreground transition-colors duration-200">
-        <div className="mb-6">
+      <motion.div 
+        className="container mx-auto px-4 py-8 max-w-4xl bg-background text-foreground transition-colors duration-200"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.div 
+          className="mb-6"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <Button variant="ghost" size="sm" asChild>
             <Link to="/blog" className="flex items-center">
               <ArrowLeft className="h-4 w-4 mr-1" /> Back to blog
             </Link>
           </Button>
-        </div>
-        <Alert variant="destructive" className="mb-6">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Article not found</AlertTitle>
-          <AlertDescription>The article you're looking for doesn't exist or has been removed.</AlertDescription>
-        </Alert>
-        <div className="text-center py-8">
-          <Button asChild>
-            <Link to="/blog">Return to Blog</Link>
-          </Button>
-        </div>
-      </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <Alert variant="destructive" className="mb-6">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Article not found</AlertTitle>
+            <AlertDescription>The article you're looking for doesn't exist or has been removed.</AlertDescription>
+          </Alert>
+          <div className="text-center py-8">
+            <Button asChild>
+              <Link to="/blog">Return to Blog</Link>
+            </Button>
+          </div>
+        </motion.div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl bg-background text-foreground transition-colors duration-200">
-      <div className="mb-6">
+    <motion.div 
+      className="container mx-auto px-4 py-8 max-w-4xl bg-background text-foreground transition-colors duration-200"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.div 
+        className="mb-6"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         <Button variant="ghost" size="sm" asChild>
           <Link to="/blog" className="flex items-center">
             <ArrowLeft className="h-4 w-4 mr-1" /> Back to blog
           </Link>
         </Button>
-      </div>
+      </motion.div>
       {article.image_url && (
-        <img
+        <motion.img
           src={article.image_url}
           alt={article.title}
           className="w-full h-64 object-cover rounded-lg mb-8"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
         />
       )}
-      <h1 className="text-4xl font-bold mb-4 text-foreground">{article.title}</h1>
-      <div className="flex items-center text-muted-foreground mb-8">
+      <motion.h1 
+        className="text-4xl font-bold mb-4 text-foreground"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+      >
+        {article.title}
+      </motion.h1>
+      <motion.div 
+        className="flex items-center text-muted-foreground mb-8"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
+      >
         <CalendarIcon className="h-5 w-5 mr-2" />
         <span>{format(new Date(article.created_at), "MMMM d, yyyy")}</span>
-      </div>
-      <div 
+      </motion.div>
+      <motion.div 
         className={`prose max-w-none ${theme === 'dark' ? 'prose-invert' : ''}`}
-        dangerouslySetInnerHTML={{ __html: article.content }} 
+        dangerouslySetInnerHTML={{ __html: article.content }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
       />
-    </div>
+    </motion.div>
   );
 };
 
