@@ -22,18 +22,18 @@ const HeroSection: React.FC = () => {
       speed="fast"
       waveOpacity={0.3}
     >
-      <div className="container mx-auto px-4 max-w-4xl text-center z-10">
+      <div className="container mx-auto px-4 max-w-xl text-center z-10">
         <div className="backdrop-blur-sm bg-white/30 rounded-xl p-4 md:p-6 md:bg-transparent">
-          <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold mb-3 md:mb-6 text-gray-900">
+          <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold mb-3 md:mb-6 text-gray-900 max-w-md mx-auto">
             Transform Your Business with{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-green-400">
               Intelligent Automation
             </span>
           </h1>
-          <p className="text-base md:text-xl text-gray-800 font-medium mb-6">
+          <p className="text-base md:text-xl text-gray-800 font-medium mb-6 max-w-md mx-auto">
             Auto-mate Consultants: Driving Business Efficiency through Cutting-Edge Automation
           </p>
-          <Button className="inline-flex items-center bg-gray-900 text-white py-2 px-4 rounded-full shadow-lg hover:shadow-xl transition group text-sm">
+          <Button className="inline-flex items-center bg-gray-900 text-white py-2 px-4 rounded-full shadow-lg hover:shadow-xl transition group text-sm max-w-xs mx-auto">
             Start Your Automation Journey
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
           </Button>
