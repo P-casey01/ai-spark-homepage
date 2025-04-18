@@ -1,4 +1,3 @@
-
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -10,10 +9,10 @@ export const WavyBackground = ({
   className,
   containerClassName,
   colors = [
-    "#222222", // agency-black
-    "#555555", // agency-gray
+    "#000000", // black
+    "#333333", // dark grey
     "#2F4F4F", // dark green
-    "#9EECC1", // agency-mint
+    "#9EECC1", // light green
     "#FFFFFF", // white
   ],
   waveWidth = 50,
@@ -70,8 +69,8 @@ export const WavyBackground = ({
   };
 
   const waveColors = colors ?? [
-    "#222222",
-    "#555555",
+    "#000000",
+    "#333333",
     "#2F4F4F",
     "#9EECC1",
     "#FFFFFF",

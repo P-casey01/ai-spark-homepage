@@ -10,8 +10,8 @@ const HeroSection: React.FC = () => {
       className="min-h-[50vh] px-4 py-16 flex flex-col items-center justify-center overflow-hidden"
       containerClassName="relative h-auto w-full"
       colors={[
-        "#222222", // Black
-        "#555555", // Grey
+        "#000000", // Black
+        "#333333", // Dark Grey
         "#2F4F4F", // Dark green
         "#9EECC1", // Light green
         "#FFFFFF", // White
