@@ -98,3 +98,9 @@ body {
     max-width: 1280px;
   }
 }
+
+/* Fix any gap in header and hero section */
+header + div {
+  margin-top: 0;
+  padding-top: 0;
+}

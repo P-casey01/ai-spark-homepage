@@ -11,7 +11,7 @@ const Index = () => {
     <div className="min-h-screen bg-black">
       <div className="pt-0 mt-0">
         <HeroSection />
-        <div className="container mx-auto px-4 py-1">
+        <div className="container mx-auto px-4 py-1 bg-black">
           <AIChatBar />
           
           <div className="mt-20 md:mt-28">
