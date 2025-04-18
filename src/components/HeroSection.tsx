@@ -58,6 +58,8 @@ const HeroSection: React.FC = () => {
             Start Your Automation Journey
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
           </Button>
+          {/* Add black space below the button */}
+          <div className={`h-24 w-full ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}></div>
         </div>
       </WavyBackground>
     </div>
@@ -65,3 +67,4 @@ const HeroSection: React.FC = () => {
 };
 
 export default HeroSection;
+
