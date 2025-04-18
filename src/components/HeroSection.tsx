@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { WavyBackground } from "@/components/ui/wavy-background";
@@ -9,52 +9,45 @@ const HeroSection: React.FC = () => {
   const { theme } = useTheme();
   
   return (
-    <WavyBackground
-      className="min-h-[85vh] px-6 py-20 flex flex-col items-center justify-center overflow-hidden"
-      containerClassName="relative h-auto w-full"
-      colors={
-        theme === 'dark' 
-          ? [
-              "#000000", // Black
-              "#333333", // Dark Grey
-              "#2F4F4F", // Dark green
-              "#9EECC1", // Light green
-              "#FFFFFF", // White
-            ]
-          : [
-              "#FFFFFF", // White
-              "#E5E5E5", // Light Grey
-              "#C5F0D8", // Very Light green
-              "#9EECC1", // Light green
-              "#333333", // Dark Grey
-            ]
-      }
-      waveWidth={100}
-      backgroundFill={theme === 'dark' ? '#000000' : '#FFFFFF'}
-      blur={12}
-      speed="slow"
-      waveOpacity={0.7}
-    >
-      <div className="relative w-full h-full">
-        {/* Dark overlay for text content */}
-        <div 
-          className={`absolute inset-0 z-0 ${
-            theme === 'dark' ? 'bg-black bg-opacity-90' : 'bg-white bg-opacity-90'
-          } h-3/4`}
-        />
-        
-        <div className="container mx-auto px-6 md:max-w-3xl text-center relative z-10 mt-20 pt-12">
-          <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold mb-2 md:mb-4 text-foreground md:max-w-2xl mx-auto drop-shadow-lg">
+    <>
+      <WavyBackground
+        className="min-h-[60vh] px-6 py-20 flex flex-col items-center justify-center overflow-hidden"
+        containerClassName="relative h-auto w-full"
+        colors={
+          theme === 'dark' 
+            ? [
+                "#000000",
+                "#333333",
+                "#2F4F4F",
+                "#9EECC1",
+                "#FFFFFF",
+              ]
+            : [
+                "#FFFFFF",
+                "#E5E5E5",
+                "#C5F0D8",
+                "#9EECC1",
+                "#333333",
+              ]
+        }
+        waveWidth={100}
+        backgroundFill={theme === 'dark' ? '#000000' : '#FFFFFF'}
+        blur={12}
+        speed="slow"
+        waveOpacity={0.7}
+      >
+        <div className="container mx-auto px-6 md:max-w-3xl text-center relative z-10 mt-20">
+          <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold mb-2 md:mb-4 text-foreground md:max-w-2xl mx-auto">
             Transform Your Business with{' '}
             <span className={`bg-clip-text text-transparent ${
               theme === 'dark' 
                 ? 'bg-gradient-to-r from-green-300 to-green-500'
                 : 'bg-gradient-to-r from-green-600 to-green-800'
-            } drop-shadow-md`}>
+            }`}>
               Intelligent Automation
             </span>
           </h1>
-          <p className="text-base md:text-xl text-foreground font-medium mb-3 md:max-w-lg mx-auto drop-shadow-md">
+          <p className="text-base md:text-xl text-foreground font-medium mb-6 md:max-w-lg mx-auto">
             Auto-mate Consultants: Driving Business Efficiency through Cutting-Edge Automation
           </p>
           <Button className={`inline-flex items-center ${
@@ -66,8 +59,9 @@ const HeroSection: React.FC = () => {
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
           </Button>
         </div>
-      </div>
-    </WavyBackground>
+      </WavyBackground>
+      <div className={`${theme === 'dark' ? 'bg-black' : 'bg-white'} min-h-[25vh]`} />
+    </>
   );
 };
 
