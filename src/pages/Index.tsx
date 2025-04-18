@@ -11,11 +11,10 @@ const Index = () => {
     <div className="min-h-screen">
       <div className="pt-6 md:pt-10">
         <HeroSection />
-        <div className="container mx-auto px-4 py-1 mt-8 md:mt-12">
-          <div className="mt-8 md:mt-16">
-            <AIChatBar />
-          </div>
-          <div className="mt-16 md:mt-24">
+        <div className="container mx-auto px-4 py-1">
+          <AIChatBar />
+          
+          <div className="mt-20 md:mt-28">
             <PackagesSection />
           </div>
         </div>

@@ -72,19 +72,19 @@ const AIChatBar = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto pt-2">
+    <div className="w-full max-w-4xl mx-auto pt-8 md:pt-10 mt-8 md:mt-12 relative z-20">
       <Card className="border-0 shadow-lg">
-        <CardHeader className="text-center pb-1 pt-3">
+        <CardHeader className="text-center pb-1 pt-4 md:pt-6">
           <CardTitle className="text-xl md:text-3xl font-serif text-agency-black block">
             Not sure what AI solution you need?
           </CardTitle>
-          <p className="text-agency-gray mt-0 flex items-center justify-center gap-2 font-sans text-sm">
+          <p className="text-agency-gray mt-2 flex items-center justify-center gap-2 font-sans text-sm">
             <MessageCircle className="h-4 w-4" />
             we built this to help
           </p>
         </CardHeader>
-        <CardContent className="pb-3 px-3 md:px-4">
-          <div className="relative flex flex-col gap-2">
+        <CardContent className="pb-4 px-4 md:px-6">
+          <div className="relative flex flex-col gap-3">
             <div className="flex gap-2 relative">
               <Input
                 placeholder="Describe your business..."

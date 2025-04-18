@@ -48,7 +48,7 @@ export const WavyBackground = ({
       case "slow":
         return 0.001;
       case "fast":
-        return 0.003; // Increased speed for more dynamic waves
+        return 0.004; // Increased speed for more dynamic waves
       default:
         return 0.001;
     }
@@ -57,13 +57,13 @@ export const WavyBackground = ({
   const init = () => {
     canvas = canvasRef.current;
     ctx = canvas.getContext("2d");
-    w = ctx.canvas.width = window.innerWidth;
-    h = ctx.canvas.height = window.innerHeight; // Full viewport height for more dramatic effect
+    w = ctx.canvas.width = window.innerWidth + 100; // Add extra width to ensure coverage
+    h = ctx.canvas.height = window.innerHeight * 1.2; // Increased height for more coverage
     ctx.filter = `blur(${blur}px)`;
     nt = 0;
     window.onresize = function () {
-      w = ctx.canvas.width = window.innerWidth;
-      h = ctx.canvas.height = window.innerHeight; // Full viewport height
+      w = ctx.canvas.width = window.innerWidth + 100; // Add extra width to ensure coverage
+      h = ctx.canvas.height = window.innerHeight * 1.2; // Increased height for more coverage
       ctx.filter = `blur(${blur}px)`;
     };
     render();
@@ -82,8 +82,8 @@ export const WavyBackground = ({
       ctx.beginPath();
       ctx.lineWidth = waveWidth || 50;
       ctx.strokeStyle = waveColors[i % waveColors.length];
-      for (x = 0; x < w; x += 5) {
-        var y = noise(x / 700, 0.3 * i, nt) * 200; // Further increased amplitude and adjusted frequency
+      for (x = -50; x < w + 50; x += 5) { // Extended drawing range
+        var y = noise(x / 600, 0.3 * i, nt) * 250; // Further increased amplitude and adjusted frequency
         ctx.lineTo(x, y + h * 0.5); // adjust for height, currently at 50% of the container
       }
       ctx.stroke();
@@ -129,25 +129,29 @@ export const WavyBackground = ({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center",
+        "flex flex-col items-center justify-center overflow-hidden w-full",
         containerClassName,
         isMobile ? "scale-[1.3]" : "" // Adjusted scaling for mobile
       )}
     >
       <canvas
         className={cn(
-          "absolute inset-0 z-0",
+          "absolute inset-0 z-0 w-screen",
           isMobile ? "scale-[1.3]" : "" // Adjusted canvas scaling
         )}
         ref={canvasRef}
         id="canvas"
         style={{
-          height: "50vh", // Increased to 50vh for even more pronounced waves
-          maxHeight: "600px", // Increased max height
+          height: "60vh", // Further increased to ensure full coverage
+          width: "100vw", // Full viewport width
+          maxHeight: "800px", // Increased max height
+          left: "0", // Ensure left edge alignment
+          right: "0", // Ensure right edge alignment
+          position: "absolute",
           ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
         }}
       ></canvas>
-      <div className={cn("relative z-10", className)} {...props}>
+      <div className={cn("relative z-10 w-full", className)} {...props}>
         {children}
       </div>
     </div>
