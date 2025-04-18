@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PackageCard from './PackageCard';
 
@@ -46,15 +47,17 @@ const PackagesSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 px-4 md:py-20">
+    <section className="py-8 md:py-20 px-4">
       <div className="container max-w-6xl mx-auto">
         <div className="text-center mb-8 md:mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-agency-black mb-4">Choose Your AI Package</h2>
-          <p className="text-agency-gray max-w-2xl mx-auto">
+          <h2 className="text-2xl md:text-4xl font-bold text-agency-black mb-3">
+            Choose Your AI Package
+          </h2>
+          <p className="text-sm md:text-base text-agency-gray max-w-2xl mx-auto">
             Select the perfect package that fits your business needs and start your AI transformation journey today.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
           {packages.map((pkg, index) => (
             <div key={index} className="relative">
               <PackageCard {...pkg} />
