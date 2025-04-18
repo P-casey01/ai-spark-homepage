@@ -11,7 +11,7 @@ export const WavyBackground = ({
   className,
   containerClassName,
   colors,
-  waveWidth = 60,
+  waveWidth = 50,
   backgroundFill,
   blur = 12,
   speed = "slow",
@@ -54,12 +54,12 @@ export const WavyBackground = ({
     canvas = canvasRef.current;
     ctx = canvas.getContext("2d");
     w = ctx.canvas.width = window.innerWidth + 100; // Add extra width to ensure coverage
-    h = ctx.canvas.height = window.innerHeight * 1.4; // Increased height for more coverage
+    h = ctx.canvas.height = window.innerHeight * 1.2; // Increased height for more coverage
     ctx.filter = `blur(${blur}px)`;
     nt = 0;
     window.onresize = function () {
       w = ctx.canvas.width = window.innerWidth + 100; // Add extra width to ensure coverage
-      h = ctx.canvas.height = window.innerHeight * 1.4; // Increased height for more coverage
+      h = ctx.canvas.height = window.innerHeight * 1.2; // Increased height for more coverage
       ctx.filter = `blur(${blur}px)`;
     };
     render();
@@ -153,7 +153,7 @@ export const WavyBackground = ({
         style={{
           height: "60vh", // Further increased to ensure full coverage
           width: "100vw", // Full viewport width
-          maxHeight: "900px", // Increased max height
+          maxHeight: "800px", // Increased max height
           left: "0", // Ensure left edge alignment
           right: "0", // Ensure right edge alignment
           position: "absolute",

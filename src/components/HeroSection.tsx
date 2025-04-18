@@ -11,7 +11,7 @@ const HeroSection: React.FC = () => {
   return (
     <div className="relative overflow-hidden">
       <WavyBackground
-        className="min-h-[20vh] px-6 py-20 flex flex-col items-center justify-center"
+        className="min-h-[40vh] px-6 py-20 flex flex-col items-center justify-center"
         containerClassName="relative h-auto w-full"
         colors={
           theme === 'dark' 
