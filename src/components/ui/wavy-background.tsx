@@ -153,7 +153,7 @@ export const WavyBackground = ({
         style={{
           height: "60vh", // Further increased to ensure full coverage
           width: "100vw", // Full viewport width
-          maxHeight: "800px", // Increased max height
+          maxHeight: "900px", // Increased max height
           left: "0", // Ensure left edge alignment
           right: "0", // Ensure right edge alignment
           position: "absolute",
