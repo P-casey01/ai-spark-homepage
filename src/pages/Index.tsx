@@ -1,4 +1,3 @@
-
 import React from "react";
 import HeroSection from "@/components/HeroSection";
 import PackagesSection from "@/components/PackagesSection";
@@ -9,12 +8,11 @@ import Header from "@/components/Header";
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <Header />
-      <div>
+      <div className="pt-20 md:pt-24">
         <HeroSection />
-        <div className="container px-4 pt-8 pb-12">
+        <div className="container mx-auto px-4 py-8 md:py-12">
           <AIChatBar />
-          <div className="mt-20">
+          <div className="mt-16 md:mt-20">
             <PackagesSection />
           </div>
         </div>

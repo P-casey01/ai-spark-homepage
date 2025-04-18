@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -92,17 +91,18 @@
 
   html {
     overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
     @apply bg-background text-foreground;
     max-width: 100vw;
     overflow-x: hidden;
-    padding-top: 70px; /* Add padding for fixed header */
+    padding-top: 72px;
   }
 
   img {
-    @apply overflow-hidden max-w-full;
+    @apply max-w-full h-auto;
   }
 
   #root {
@@ -133,11 +133,11 @@
   }
 
   .chat-bubble-user {
-    @apply bg-agency-lightmint text-agency-black rounded-tr-2xl rounded-tl-2xl rounded-bl-2xl p-4 max-w-[80%] ml-auto;
+    @apply bg-agency-lightmint text-agency-black rounded-tr-2xl rounded-tl-2xl rounded-bl-2xl p-4 max-w-[85%] md:max-w-[80%] ml-auto text-sm md:text-base;
   }
 
   .chat-bubble-ai {
-    @apply bg-agency-darkgray text-white rounded-tr-2xl rounded-tl-2xl rounded-br-2xl p-4 max-w-[80%] mr-auto;
+    @apply bg-agency-darkgray text-white rounded-tr-2xl rounded-tl-2xl rounded-br-2xl p-4 max-w-[85%] md:max-w-[80%] mr-auto text-sm md:text-base;
   }
 
   .package-card {
@@ -177,17 +177,16 @@
   }
 
   .mobile-chat-input {
-    @apply relative;
+    @apply relative w-full;
   }
   
-  /* Special handling for mobile navigation */
   @media (max-width: 768px) {
     .mobile-chat-input {
-      @apply p-0;
+      @apply px-0;
     }
     
     body {
-      padding-top: 80px; /* Increase padding to account for mobile header */
+      padding-top: 72px;
     }
   }
 }
