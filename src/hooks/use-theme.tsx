@@ -58,6 +58,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         htmlElement.classList.remove('dark');
         htmlElement.classList.add('light');
       }
+      
+      // Force re-render of canvas elements
+      const canvasElements = document.querySelectorAll('canvas');
+      canvasElements.forEach(canvas => {
+        if (canvas.getContext) {
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+          }
+        }
+      });
     }
   }, [theme, mounted]);
 

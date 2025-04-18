@@ -4,20 +4,15 @@
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef, useState } from "react";
 import { createNoise3D } from "simplex-noise";
+import { useTheme } from "@/hooks/use-theme";
 
 export const WavyBackground = ({
   children,
   className,
   containerClassName,
-  colors = [
-    "#403E43", // Charcoal Grey
-    "#333333", // Dark Grey
-    "#2F4F4F", // Dark green
-    "#9EECC1", // Light green
-    "#FFFFFF", // White
-  ],
+  colors,
   waveWidth = 50,
-  backgroundFill = "#403E43", // Charcoal Grey background
+  backgroundFill,
   blur = 12,
   speed = "slow",
   waveOpacity = 0.7,
@@ -34,6 +29,7 @@ export const WavyBackground = ({
   waveOpacity?: number;
   [key: string]: any;
 }) => {
+  const { theme } = useTheme();
   const noise = createNoise3D();
   let w: number,
     h: number,
@@ -69,13 +65,23 @@ export const WavyBackground = ({
     render();
   };
 
-  const waveColors = colors ?? [
-    "#000000",
-    "#333333",
-    "#2F4F4F",
-    "#9EECC1",
-    "#FFFFFF",
-  ];
+  const defaultColors = theme === 'dark' 
+    ? [
+        "#000000", // Black
+        "#333333", // Dark Grey
+        "#2F4F4F", // Dark green
+        "#9EECC1", // Light green
+        "#FFFFFF", // White
+      ]
+    : [
+        "#FFFFFF", // White
+        "#E5E5E5", // Light Grey
+        "#C5F0D8", // Very Light green
+        "#9EECC1", // Light green
+        "#333333", // Dark Grey
+      ];
+
+  const waveColors = colors ?? defaultColors;
   
   const drawWave = (n: number) => {
     nt += getSpeed();
@@ -94,7 +100,7 @@ export const WavyBackground = ({
 
   let animationId: number;
   const render = () => {
-    ctx.fillStyle = backgroundFill || "black";
+    ctx.fillStyle = backgroundFill || (theme === 'dark' ? "#000000" : "#FFFFFF");
     ctx.globalAlpha = waveOpacity || 0.5;
     ctx.fillRect(0, 0, w, h);
     drawWave(5);
@@ -102,11 +108,13 @@ export const WavyBackground = ({
   };
 
   useEffect(() => {
-    init();
+    if (canvasRef.current) {
+      init();
+    }
     return () => {
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [theme]); // Re-initialize when theme changes
 
   const [isSafari, setIsSafari] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
