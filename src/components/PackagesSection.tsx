@@ -7,7 +7,7 @@ const PackagesSection: React.FC = () => {
     {
       title: "Starter",
       description: "Perfect for small businesses or MVPs",
-      price: "£500",
+      price: "£499",
       features: [
         { name: "5-page responsive website" },
         { name: "Basic AI chatbot integration" },
@@ -20,7 +20,7 @@ const PackagesSection: React.FC = () => {
     {
       title: "Professional",
       description: "Ideal for growing businesses",
-      price: "£1,500",
+      price: "£1,499",
       features: [
         { name: "5-10-page responsive website" },
         { name: "Advanced AI chatbot with training" },
