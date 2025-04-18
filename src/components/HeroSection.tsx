@@ -36,7 +36,7 @@ const HeroSection: React.FC = () => {
         speed="slow"
         waveOpacity={0.7}
       >
-        <div className="container mx-auto px-6 md:max-w-3xl text-center relative z-10 mt-20">
+        <div className="w-full px-6 md:max-w-full text-center relative z-10 mt-20">
           <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold mb-2 md:mb-4 text-foreground md:max-w-2xl mx-auto">
             Transform Your Business with{' '}
             <span className={`bg-clip-text text-transparent ${
@@ -58,8 +58,7 @@ const HeroSection: React.FC = () => {
             Start Your Automation Journey
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
           </Button>
-          {/* Add black space below the button */}
-          <div className={`h-24 w-full ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}></div>
+          <div className={`h-24 w-screen absolute left-0 right-0 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}></div>
         </div>
       </WavyBackground>
     </div>
@@ -67,4 +66,3 @@ const HeroSection: React.FC = () => {
 };
 
 export default HeroSection;
-
