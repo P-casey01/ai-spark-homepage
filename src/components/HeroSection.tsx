@@ -61,10 +61,13 @@ const HeroSection: React.FC = () => {
         </div>
       </WavyBackground>
       <div 
-        className={`h-24 w-screen absolute bottom-0 left-0 right-0 ${
+        className={`h-32 w-screen absolute left-0 right-0 ${
           theme === 'dark' ? 'bg-black' : 'bg-white'
         }`}
-        style={{ transform: 'translateY(50%)' }}
+        style={{ 
+          bottom: '0',
+          transform: 'translateY(40%)'
+        }}
       ></div>
     </div>
   );
