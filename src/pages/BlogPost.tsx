@@ -36,18 +36,15 @@ const BlogPost = () => {
       }
 
       return data;
-    },
-    meta: {
-      errorMessage: "Failed to load article"
-    },
-    onSettled: (data, error) => {
-      if (error) {
-        toast.error("Failed to load article", {
-          description: error instanceof Error ? error.message : "Unknown error"
-        });
-      }
     }
   });
+
+  // Handle error outside of the query options
+  if (error) {
+    toast.error("Failed to load article", {
+      description: error instanceof Error ? error.message : "Unknown error"
+    });
+  }
 
   if (isLoading) {
     return (
