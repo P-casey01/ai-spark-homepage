@@ -3,6 +3,18 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
+import { Skeleton } from "@/components/ui/skeleton";
+import { CalendarIcon, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+
+type Article = {
+  id: string;
+  title: string;
+  content: string;
+  image_url: string | null;
+  created_at: string;
+};
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -18,20 +30,63 @@ const BlogPost = () => {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as Article;
     },
   });
 
   if (isLoading) {
-    return <div>Loading article...</div>;
+    return (
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <div className="mb-6">
+          <Button variant="ghost" size="sm" asChild>
+            <Link to="/blog" className="flex items-center">
+              <ArrowLeft className="h-4 w-4 mr-1" /> Back to blog
+            </Link>
+          </Button>
+        </div>
+        <Skeleton className="w-full h-64 rounded-lg mb-8" />
+        <Skeleton className="h-10 w-3/4 mb-4" />
+        <Skeleton className="h-4 w-1/4 mb-8" />
+        <div className="space-y-4">
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-3/4" />
+        </div>
+      </div>
+    );
   }
 
   if (!article) {
-    return <div>Article not found</div>;
+    return (
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <div className="mb-6">
+          <Button variant="ghost" size="sm" asChild>
+            <Link to="/blog" className="flex items-center">
+              <ArrowLeft className="h-4 w-4 mr-1" /> Back to blog
+            </Link>
+          </Button>
+        </div>
+        <div className="text-center py-16">
+          <h1 className="text-2xl font-bold mb-4">Article not found</h1>
+          <p className="text-gray-600 mb-6">The article you're looking for doesn't exist or has been removed.</p>
+          <Button asChild>
+            <Link to="/blog">Return to Blog</Link>
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="mb-6">
+        <Button variant="ghost" size="sm" asChild>
+          <Link to="/blog" className="flex items-center">
+            <ArrowLeft className="h-4 w-4 mr-1" /> Back to blog
+          </Link>
+        </Button>
+      </div>
       {article.image_url && (
         <img
           src={article.image_url}
@@ -40,8 +95,9 @@ const BlogPost = () => {
         />
       )}
       <h1 className="text-4xl font-bold mb-4">{article.title}</h1>
-      <div className="text-gray-600 mb-8">
-        Posted on {format(new Date(article.created_at), "MMMM d, yyyy")}
+      <div className="flex items-center text-gray-600 mb-8">
+        <CalendarIcon className="h-5 w-5 mr-2" />
+        <span>{format(new Date(article.created_at), "MMMM d, yyyy")}</span>
       </div>
       <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: article.content }} />
     </div>

@@ -4,6 +4,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
+import { Skeleton } from "@/components/ui/skeleton";
+import { CalendarIcon } from "lucide-react";
+
+type Article = {
+  id: string;
+  title: string;
+  summary: string;
+  content: string;
+  image_url: string | null;
+  created_at: string;
+  slug: string;
+};
 
 const Blog = () => {
   const { data: articles, isLoading } = useQuery({
@@ -16,12 +28,32 @@ const Blog = () => {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      return data;
+      return data as Article[];
     },
   });
 
   if (isLoading) {
-    return <div>Loading articles...</div>;
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold mb-8">Blog</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[1, 2, 3].map((i) => (
+            <Card key={i} className="h-full">
+              <Skeleton className="w-full h-48" />
+              <CardHeader>
+                <Skeleton className="h-8 w-3/4" />
+              </CardHeader>
+              <CardContent>
+                <Skeleton className="h-4 w-1/4 mb-2" />
+                <Skeleton className="h-4 w-full mb-1" />
+                <Skeleton className="h-4 w-full mb-1" />
+                <Skeleton className="h-4 w-2/3" />
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -42,9 +74,10 @@ const Blog = () => {
                 <CardTitle>{article.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-2">
-                  {format(new Date(article.created_at), "MMMM d, yyyy")}
-                </p>
+                <div className="flex items-center text-sm text-muted-foreground mb-2">
+                  <CalendarIcon className="h-4 w-4 mr-1" />
+                  <span>{format(new Date(article.created_at), "MMMM d, yyyy")}</span>
+                </div>
                 <p className="line-clamp-3 text-gray-600">{article.summary}</p>
               </CardContent>
             </Card>

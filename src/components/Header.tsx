@@ -24,6 +24,11 @@ const Header: React.FC = () => {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
+                <Link to="/blog" className="px-4 py-2 text-agency-gray hover:text-agency-black transition-colors">
+                  Blog
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
                 <Link to="#services" className="px-4 py-2 text-agency-gray hover:text-agency-black transition-colors">
                   Services
                 </Link>
