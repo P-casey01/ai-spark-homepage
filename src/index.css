@@ -91,10 +91,17 @@
 
   body {
     @apply bg-background text-foreground;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   img {
-    @apply overflow-hidden;
+    @apply overflow-hidden max-w-full;
+  }
+
+  #root {
+    @apply w-full overflow-hidden;
+    max-width: 100vw;
   }
 }
 
