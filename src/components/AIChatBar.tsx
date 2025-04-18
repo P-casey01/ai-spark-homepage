@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import IdeaGenerationLoader from './IdeaGenerationLoader';
 import RoadmapModal from './RoadmapModal';
 import { cn } from '@/lib/utils';
-import { useMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface AutomationIdea {
   title: string;
@@ -24,7 +24,7 @@ const AIChatBar = () => {
   const [loading, setLoading] = useState(false);
   const [selectedIdea, setSelectedIdea] = useState<AutomationIdea | null>(null);
   const [isRoadmapOpen, setIsRoadmapOpen] = useState(false);
-  const isMobile = useMobile();
+  const isMobile = useIsMobile();
 
   const generateIdeas = async () => {
     if (!businessDescription.trim()) {
