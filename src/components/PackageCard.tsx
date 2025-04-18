@@ -26,7 +26,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
 }) => {
   return (
     <div 
-      className={`package-card relative bg-white rounded-xl shadow-lg p-4 md:p-6 ${
+      className={`package-card relative bg-white rounded-xl shadow-lg p-3 md:p-5 ${
         popular ? 'border-agency-mint border-2' : 'border border-gray-100'
       }`}
     >
@@ -37,30 +37,30 @@ const PackageCard: React.FC<PackageCardProps> = ({
           </span>
         </div>
       )}
-      <div className="flex-1 space-y-4">
+      <div className="flex-1 space-y-3">
         <div className="text-center">
-          <h3 className="text-xl md:text-2xl font-bold text-agency-black mb-2">{title}</h3>
-          <p className="text-sm md:text-base text-agency-gray mb-3">{description}</p>
-          <div className="mb-4">
-            <span className="text-3xl md:text-4xl font-bold text-agency-black">{price}</span>
+          <h3 className="text-lg md:text-xl font-bold text-agency-black mb-1">{title}</h3>
+          <p className="text-sm md:text-base text-agency-gray mb-2">{description}</p>
+          <div className="mb-3">
+            <span className="text-2xl md:text-3xl font-bold text-agency-black">{price}</span>
           </div>
         </div>
-        <ul className="space-y-3">
+        <ul className="space-y-2">
           {features.map((feature, index) => (
-            <li key={index} className="flex items-start gap-2 text-sm md:text-base">
-              <Check className="h-5 w-5 text-agency-mint shrink-0 mt-0.5" />
+            <li key={index} className="flex items-start gap-2 text-sm">
+              <Check className="h-4 w-4 text-agency-mint shrink-0 mt-0.5" />
               <span className="text-agency-gray">{feature.name}</span>
             </li>
           ))}
         </ul>
       </div>
-      <div className="mt-6">
+      <div className="mt-4">
         <Button 
           className={`w-full ${
             popular 
               ? 'bg-agency-mint text-agency-black hover:bg-agency-mint/90' 
               : 'bg-agency-darkgray text-white hover:bg-agency-black'
-          } text-sm md:text-base py-2 md:py-3`}
+          } text-sm md:text-base py-1 md:py-2`}
         >
           {ctaText}
         </Button>

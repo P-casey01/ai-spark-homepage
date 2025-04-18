@@ -9,16 +9,18 @@ import Header from "@/components/Header";
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <div className="pt-16 md:pt-20">
+      <div className="pt-12 md:pt-16">
         <HeroSection />
-        <div className="container mx-auto px-4 py-4 md:py-8">
-          <AIChatBar />
-          <div className="mt-16 md:mt-20">
+        <div className="container mx-auto px-4 py-2">
+          <div className="mt-4 md:mt-6">
+            <AIChatBar />
+          </div>
+          <div className="mt-10 md:mt-16">
             <PackagesSection />
           </div>
         </div>
         
-        <footer className="bg-agency-black text-white py-12 mt-20">
+        <footer className="bg-agency-black text-white py-12 mt-16">
           <div className="container px-4">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="mb-6 md:mb-0 flex items-center">

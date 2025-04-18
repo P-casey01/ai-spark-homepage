@@ -7,7 +7,7 @@ import { WavyBackground } from "@/components/ui/wavy-background";
 const HeroSection: React.FC = () => {
   return (
     <WavyBackground
-      className="min-h-[60vh] px-4 py-8 flex flex-col items-center justify-center overflow-hidden"
+      className="min-h-[45vh] px-4 py-6 flex flex-col items-center justify-center overflow-hidden"
       containerClassName="relative"
       colors={[
         "rgba(34, 34, 34, 0.8)", // semi-transparent black
@@ -24,13 +24,13 @@ const HeroSection: React.FC = () => {
     >
       <div className="container mx-auto px-4 max-w-xl text-center z-10">
         <div className="backdrop-blur-sm bg-white/30 rounded-xl p-4 md:p-6 md:bg-transparent">
-          <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold mb-3 md:mb-6 text-gray-900 max-w-md mx-auto">
+          <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold mb-2 md:mb-4 text-gray-900 max-w-md mx-auto">
             Transform Your Business with{' '}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-green-400">
               Intelligent Automation
             </span>
           </h1>
-          <p className="text-base md:text-xl text-gray-800 font-medium mb-6 max-w-md mx-auto">
+          <p className="text-base md:text-xl text-gray-800 font-medium mb-4 max-w-md mx-auto">
             Auto-mate Consultants: Driving Business Efficiency through Cutting-Edge Automation
           </p>
           <Button className="inline-flex items-center bg-gray-900 text-white py-2 px-4 rounded-full shadow-lg hover:shadow-xl transition group text-sm max-w-xs mx-auto">
