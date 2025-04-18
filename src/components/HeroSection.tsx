@@ -9,9 +9,9 @@ const HeroSection: React.FC = () => {
   const { theme } = useTheme();
   
   return (
-    <>
+    <div className="relative overflow-hidden">
       <WavyBackground
-        className="min-h-[60vh] px-6 py-20 flex flex-col items-center justify-center overflow-hidden"
+        className="min-h-[80vh] px-6 py-20 flex flex-col items-center justify-center"
         containerClassName="relative h-auto w-full"
         colors={
           theme === 'dark' 
@@ -60,8 +60,7 @@ const HeroSection: React.FC = () => {
           </Button>
         </div>
       </WavyBackground>
-      <div className={`${theme === 'dark' ? 'bg-black' : 'bg-white'} min-h-[25vh]`} />
-    </>
+    </div>
   );
 };
 
