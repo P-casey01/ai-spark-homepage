@@ -1,6 +1,4 @@
-
 import React from "react";
-import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import PackagesSection from "@/components/PackagesSection";
 import AIChatBar from "@/components/AIChatBar";
@@ -9,8 +7,7 @@ import { Facebook, Instagram, Linkedin, Twitter, Mail, Phone } from "lucide-reac
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <Header />
-      <div className="pt-[72px]">
+      <div>
         <HeroSection />
         <div className="container px-4 py-12">
           <AIChatBar />
