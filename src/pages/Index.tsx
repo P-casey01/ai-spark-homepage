@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import HeroSection from "@/components/HeroSection";
 import PackagesSection from "@/components/PackagesSection";
@@ -57,51 +56,50 @@ const Index = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="container px-4">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <motion.div 
-                className="mb-6 md:mb-0 flex items-center"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <img 
-                  src="/lovable-uploads/7f3f86e8-9c9f-43b0-b816-834fd576d490.png" 
-                  alt="Auto-mate Consultants" 
-                  className="h-16 w-16 mr-4 rounded-lg"
-                />
-                <div>
-                  <h2 className="text-xl font-bold mb-2">Auto-mate Consultants</h2>
-                  <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Intelligent Business Automation Solutions</p>
-                </div>
-              </motion.div>
-              <div className="flex gap-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                >
-                  <h3 className="text-sm font-bold uppercase text-agency-mint mb-3">Connect</h3>
-                  <ul className="space-y-2">
-                    <li><a href="#contact" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>Contact Us</a></li>
-                    <li><a href="#" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>About Auto-mate</a></li>
-                    <li><a href="/blog" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>Blog</a></li>
-                  </ul>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                >
-                  <h3 className="text-sm font-bold uppercase text-agency-mint mb-3">Legal</h3>
-                  <ul className="space-y-2">
-                    <li><a href="#" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>Privacy</a></li>
-                    <li><a href="#" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>Terms</a></li>
-                  </ul>
-                </motion.div>
+            <motion.div
+              className="flex flex-col items-center justify-center mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <img 
+                src="/lovable-uploads/7f3f86e8-9c9f-43b0-b816-834fd576d490.png" 
+                alt="Auto-mate Consultants" 
+                className="h-16 w-16 mb-4 rounded-lg"
+              />
+              <div className="text-center">
+                <h2 className="text-xl font-bold mb-2">Auto-mate Consultants</h2>
+                <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Intelligent Business Automation Solutions</p>
               </div>
+            </motion.div>
+            
+            <div className="flex justify-center gap-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <h3 className="text-sm font-bold uppercase text-agency-mint mb-3">Connect</h3>
+                <ul className="space-y-2">
+                  <li><a href="#contact" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>Contact Us</a></li>
+                  <li><a href="#" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>About Auto-mate</a></li>
+                  <li><a href="/blog" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>Blog</a></li>
+                </ul>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <h3 className="text-sm font-bold uppercase text-agency-mint mb-3">Legal</h3>
+                <ul className="space-y-2">
+                  <li><a href="#" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>Privacy</a></li>
+                  <li><a href="#" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>Terms</a></li>
+                </ul>
+              </motion.div>
             </div>
             <motion.div 
               className="mt-8 flex justify-center space-x-6"
