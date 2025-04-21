@@ -55,7 +55,7 @@ const Header: React.FC = () => {
               <img 
                 src="/lovable-uploads/7f3f86e8-9c9f-43b0-b816-834fd576d490.png" 
                 alt="Auto-mate Consultants" 
-                className="h-50 w-50 object-contain rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
+                className="h-20 w-20 object-contain rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
               />
             </Link>
             <Link to="/" className="text-xl font-bold text-foreground">Auto-mate Consultants</Link>
@@ -116,19 +116,24 @@ const Header: React.FC = () => {
                     </Link>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
+                    <Link to="/services" className={`px-4 py-2 hover:text-green-400 transition-colors ${isActive('/services')}`}>
+                      Services
+                    </Link>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <Link to="/about" className={`px-4 py-2 hover:text-green-400 transition-colors ${isActive('/about')}`}>
+                      About
+                    </Link>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
                     <Link to="/blog" className={`px-4 py-2 hover:text-green-400 transition-colors ${isActive('/blog')}`}>
                       Blog
                     </Link>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <a href="#services" className={`px-4 py-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} hover:text-green-400 transition-colors`}>
-                      Services
-                    </a>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <a href="#contact" className={`px-4 py-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} hover:text-green-400 transition-colors`}>
+                    <Link to="/contact" className={`px-4 py-2 hover:text-green-400 transition-colors ${isActive('/contact')}`}>
                       Contact
-                    </a>
+                    </Link>
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
@@ -170,26 +175,33 @@ const Header: React.FC = () => {
                   Home
                 </Link>
                 <Link 
+                  to="/services" 
+                  className={`px-4 py-2 hover:bg-accent rounded-md ${isActive('/services')}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Services
+                </Link>
+                <Link 
+                  to="/about" 
+                  className={`px-4 py-2 hover:bg-accent rounded-md ${isActive('/about')}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  About
+                </Link>
+                <Link 
                   to="/blog" 
                   className={`px-4 py-2 hover:bg-accent rounded-md ${isActive('/blog')}`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Blog
                 </Link>
-                <a 
-                  href="#services" 
-                  className={`px-4 py-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} hover:bg-accent rounded-md`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Services
-                </a>
-                <a 
-                  href="#contact" 
-                  className={`px-4 py-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} hover:bg-accent rounded-md`}
+                <Link 
+                  to="/contact" 
+                  className={`px-4 py-2 hover:bg-accent rounded-md ${isActive('/contact')}`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Contact
-                </a>
+                </Link>
               </nav>
             </motion.div>
           )}
