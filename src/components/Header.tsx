@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { Link, useLocation } from "react-router-dom";
@@ -56,7 +55,7 @@ const Header: React.FC = () => {
               <img 
                 src="/lovable-uploads/7f3f86e8-9c9f-43b0-b816-834fd576d490.png" 
                 alt="Auto-mate Consultants" 
-                className="h-16 w-16 object-contain rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
+                className="h-20 w-20 object-contain rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
               />
             </Link>
             <Link to="/" className="text-xl font-bold text-foreground">Auto-mate Consultants</Link>
