@@ -66,7 +66,7 @@ const Index = () => {
               <img 
                 src="/lovable-uploads/7f3f86e8-9c9f-43b0-b816-834fd576d490.png" 
                 alt="Auto-mate Consultants" 
-                className="h-54 w-54 mb-4 rounded-lg"
+                className="h-34 w-34 mb-4 rounded-lg"
               />
               <div className="text-center">
                 <h2 className="text-xl font-bold mb-2">Auto-mate Consultants</h2>
