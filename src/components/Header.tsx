@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { Link, useLocation } from "react-router-dom";
@@ -168,6 +169,27 @@ const Header: React.FC = () => {
                 >
                   Contact
                 </Link>
+                
+                {/* Add theme toggle button in mobile menu */}
+                <div className="px-4 py-2 flex items-center gap-3">
+                  <button
+                    onClick={toggleTheme}
+                    className={`p-2 rounded-full transition-all duration-300 ${
+                      theme === 'dark'
+                        ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700'
+                        : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                    }`}
+                    aria-label="Toggle theme"
+                  >
+                    {theme === 'dark' ? 
+                      <Sun className="h-5 w-5" /> : 
+                      <Moon className="h-5 w-5" />
+                    }
+                  </button>
+                  <span className="text-sm text-muted-foreground">
+                    {theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                  </span>
+                </div>
               </nav>
             </motion.div>
           )}
