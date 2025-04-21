@@ -63,17 +63,20 @@ const Header: React.FC = () => {
           
           {isMobile ? (
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
+              <button
+                onClick={toggleTheme}
+                className={`p-2 rounded-full transition-all duration-300 ${
+                  theme === 'dark' 
+                    ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700' 
+                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                }`}
+                aria-label="Toggle theme"
+              >
                 {theme === 'dark' ? 
-                  <Sun className="h-[1.2rem] w-[1.2rem] text-yellow-400" /> : 
-                  <Moon className="h-[1.2rem] w-[1.2rem] text-slate-700" />
+                  <Sun className="h-5 w-5" /> : 
+                  <Moon className="h-5 w-5" />
                 }
-                <Switch 
-                  checked={theme === 'dark'}
-                  onCheckedChange={toggleTheme}
-                  className="data-[state=checked]:bg-slate-700"
-                />
-              </div>
+              </button>
               <Button 
                 variant="ghost" 
                 size="icon" 
@@ -90,22 +93,20 @@ const Header: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <div className="flex items-center space-x-2">
-                <div className="flex items-center space-x-1">
-                  {theme === 'dark' ? 
-                    <Sun className="h-[1.2rem] w-[1.2rem] text-yellow-400" /> : 
-                    <Moon className="h-[1.2rem] w-[1.2rem] text-slate-700" />
-                  }
-                  <Switch 
-                    checked={theme === 'dark'}
-                    onCheckedChange={toggleTheme}
-                    className="data-[state=checked]:bg-slate-700"
-                  />
-                  <Label className="text-sm text-muted-foreground">
-                    {theme === 'dark' ? 'Dark' : 'Light'}
-                  </Label>
-                </div>
-              </div>
+              <button
+                onClick={toggleTheme}
+                className={`p-3 rounded-full transition-all duration-300 ${
+                  theme === 'dark'
+                    ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700'
+                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                }`}
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? 
+                  <Sun className="h-6 w-6" /> : 
+                  <Moon className="h-6 w-6" />
+                }
+              </button>
               
               <NavigationMenu>
                 <NavigationMenuList>

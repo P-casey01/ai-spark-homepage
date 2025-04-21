@@ -49,7 +49,11 @@ const Index = () => {
         
         <motion.footer 
           id="contact"
-          className={`bg-background ${theme === 'dark' ? 'text-white' : 'text-gray-800'} py-12 mt-16 transition-colors duration-200`}
+          className={`bg-background ${
+            theme === 'dark' 
+              ? 'bg-gradient-to-b from-gray-800 to-gray-900 text-white' 
+              : 'text-gray-800'
+          } py-12 mt-16 transition-colors duration-200`}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
