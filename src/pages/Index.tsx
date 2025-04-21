@@ -49,11 +49,7 @@ const Index = () => {
         
         <motion.footer 
           id="contact"
-          className={`bg-background ${
-            theme === 'dark' 
-              ? 'bg-gradient-to-b from-gray-800 to-gray-900 text-white' 
-              : 'text-gray-800'
-          } py-12 mt-16 transition-colors duration-200`}
+          className={`bg-background ${theme === 'dark' ? 'text-white' : 'text-gray-800'} py-12 mt-16 transition-colors duration-200`}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -70,7 +66,7 @@ const Index = () => {
               <img 
                 src="/lovable-uploads/7f3f86e8-9c9f-43b0-b816-834fd576d490.png" 
                 alt="Auto-mate Consultants" 
-                className="h-40 w-40 mb-4 rounded-lg"
+                className="h-54 w-54 mb-4 rounded-lg"
               />
               <div className="text-center">
                 <h2 className="text-xl font-bold mb-2">Auto-mate Consultants</h2>
