@@ -5,8 +5,6 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme } from "@/hooks/use-theme";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Header: React.FC = () => {
@@ -53,39 +51,23 @@ const Header: React.FC = () => {
           >
             <Link to="/">
               <img 
-                src="/lovable-uploads/7f3f86e8-9c9f-43b0-b816-834fd576d490.png" 
+                src="/lovable-uploads/fbc7796a-e983-486e-b8f9-fb81e753551d.png" 
                 alt="Auto-mate Consultants" 
-                className="h-20 w-20 object-contain rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
+                className="h-20 w-20 object-contain"
               />
             </Link>
             <Link to="/" className="text-xl font-bold text-foreground">Auto-mate Consultants</Link>
           </motion.div>
           
           {isMobile ? (
-            <div className="flex items-center gap-4">
-              <button
-                onClick={toggleTheme}
-                className={`p-2 rounded-full transition-all duration-300 ${
-                  theme === 'dark' 
-                    ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700' 
-                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                }`}
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? 
-                  <Sun className="h-5 w-5" /> : 
-                  <Moon className="h-5 w-5" />
-                }
-              </button>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden text-foreground hover:bg-accent"
-              >
-                {mobileMenuOpen ? <X /> : <Menu />}
-              </Button>
-            </div>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden text-foreground hover:bg-accent"
+            >
+              {mobileMenuOpen ? <X /> : <Menu />}
+            </Button>
           ) : (
             <motion.div 
               className="flex items-center gap-6"
@@ -151,22 +133,6 @@ const Header: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               <nav className="flex flex-col space-y-4">
-                <div className="flex items-center justify-between px-4 py-2">
-                  <div className="flex items-center gap-2">
-                    {theme === 'dark' ? 
-                      <Sun className="h-[1rem] w-[1rem] text-yellow-400" /> : 
-                      <Moon className="h-[1rem] w-[1rem] text-slate-700" />
-                    }
-                    <span className="text-sm font-medium text-foreground">
-                      {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
-                    </span>
-                  </div>
-                  <Switch 
-                    checked={theme === 'dark'}
-                    onCheckedChange={toggleTheme}
-                    className="data-[state=checked]:bg-slate-700"
-                  />
-                </div>
                 <Link 
                   to="/" 
                   className={`px-4 py-2 hover:bg-accent rounded-md ${isActive('/')}`}
