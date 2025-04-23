@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
-import HeroSection from "@/components/HeroSection";
-import PackagesSection from "@/components/PackagesSection";
-import AIChatBar from "@/components/AIChatBar";
+import React, { Suspense, lazy, useEffect } from "react";
 import { Facebook, Instagram, Linkedin, Twitter, Mail, Phone } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { motion } from "framer-motion";
+
+// Dynamic imports for large components
+const AIChatBar = lazy(() => import("@/components/AIChatBar"));
+const PackagesSection = lazy(() => import("@/components/PackagesSection"));
+const HeroSection = lazy(() => import("@/components/HeroSection"));
 
 const Index = () => {
   const { theme } = useTheme();
@@ -38,12 +40,17 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background transition-colors duration-200">
       <div className="pt-0 mt-0">
-        <HeroSection />
+        <Suspense fallback={<div className="text-center py-10">Loading hero...</div>}>
+          <HeroSection />
+        </Suspense>
         <div className="container mx-auto px-4 py-1 bg-background">
-          <AIChatBar />
-          
+          <Suspense fallback={<div className="text-center py-10">Loading chat...</div>}>
+            <AIChatBar />
+          </Suspense>
           <div className="mt-20 md:mt-28">
-            <PackagesSection />
+            <Suspense fallback={<div className="text-center py-10">Loading packages...</div>}>
+              <PackagesSection />
+            </Suspense>
           </div>
         </div>
         
@@ -66,7 +73,10 @@ const Index = () => {
               <img 
                 src="/lovable-uploads/7f3f86e8-9c9f-43b0-b816-834fd576d490.png" 
                 alt="Auto-mate Consultants" 
-                className="h-34 w-34 mb-4 rounded-lg"
+                className="h-30 w-30 mb-4 rounded-lg"
+                width={120}
+                height={120}
+                loading="eager"
               />
               <div className="text-center">
                 <h2 className="text-xl font-bold mb-2">Auto-mate Consultants</h2>

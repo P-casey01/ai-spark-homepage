@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { Link, useLocation } from "react-router-dom";
@@ -33,14 +32,18 @@ const Header: React.FC = () => {
       : theme === 'dark' ? "text-gray-400" : "text-gray-600";
   };
 
+  const headerClass = `fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+    theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'
+  }`;
+
+  const expandedMenuClass = `md:hidden py-4 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`;
+
   return (
     <motion.header 
-      className={`fixed top-0 w-full bg-background/95 backdrop-blur-sm z-50 border-b transition-all duration-300 ${
-        scrolled ? "border-border shadow-sm" : "border-transparent"
-      }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      className={headerClass}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
@@ -127,7 +130,7 @@ const Header: React.FC = () => {
         <AnimatePresence>
           {isMobile && mobileMenuOpen && (
             <motion.div 
-              className="md:hidden py-4 bg-background"
+              className={expandedMenuClass}
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}

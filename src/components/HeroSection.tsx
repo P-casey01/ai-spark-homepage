@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -32,10 +31,17 @@ const HeroSection: React.FC = () => {
   };
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden" style={{ opacity: 0.92 }}>
       <WavyBackground
-        className="min-h-[60vh] px-6 py-20 flex flex-col items-center justify-center"
-        containerClassName="relative h-auto w-full"
+        className="min-h-[60vh] px-6 md:px-10 py-14 md:py-20 flex flex-col items-center justify-center text-center overflow-hidden"
+        containerClassName="relative h-auto w-full overflow-hidden"
+        style={{
+          maxWidth: '100%',
+          wordWrap: 'break-word',
+          overflowWrap: 'break-word',
+          fontSize: 'clamp(1rem, 2.5vw, 2rem)',
+          lineHeight: '1.5',
+        }}
         colors={
           theme === 'dark' 
             ? [
@@ -53,20 +59,20 @@ const HeroSection: React.FC = () => {
                 "#333333",
               ]
         }
-        waveWidth={100}
+        waveWidth={60}
         backgroundFill={theme === 'dark' ? '#000000' : '#FFFFFF'}
         blur={12}
         speed="slow"
         waveOpacity={0.7}
       >
         <motion.div 
-          className="w-full px-6 md:max-w-full text-center relative z-10 mt-20"
+          className="w-full px-2 md:px-6 md:max-w-full text-center relative z-10 mt-16 md:mt-20"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
         >
           <motion.h1 
-            className="text-2xl md:text-5xl lg:text-6xl font-extrabold mb-2 md:mb-4 text-foreground md:max-w-2xl mx-auto"
+            className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold mb-2 md:mb-4 text-foreground md:max-w-2xl mx-auto"
             variants={itemVariants}
           >
             Transform Your Business with{' '}
@@ -79,7 +85,7 @@ const HeroSection: React.FC = () => {
             </span>
           </motion.h1>
           <motion.p 
-            className="text-base md:text-xl text-foreground font-medium mb-6 md:max-w-lg mx-auto"
+            className="text-sm sm:text-base md:text-xl text-foreground font-medium mb-6 md:max-w-lg mx-auto"
             variants={itemVariants}
           >
             Auto-mate Consultants: Driving Business Efficiency through Cutting-Edge Automation
@@ -101,15 +107,15 @@ const HeroSection: React.FC = () => {
           </motion.div>
         </motion.div>
       </WavyBackground>
-      <div 
-        className={`h-36 w-screen absolute left-0 right-0 hidden md:block ${
-          theme === 'dark' ? 'bg-black' : 'bg-white'
-        }`}
-        style={{ 
-          bottom: '-5px',
-          transform: 'translateY(45%)' 
+      <div
+        className="h-16 md:h-36 w-screen absolute left-0 right-0 bottom-0 z-10 pointer-events-none"
+        style={{
+          background: theme === 'dark'
+            ? 'linear-gradient(to bottom, rgba(0,0,0,0.01) 0%, #000 100%)'
+            : 'linear-gradient(to bottom, rgba(255,255,255,0.01) 0%, #fff 100%)',
+          transform: 'translateY(45%)',
         }}
-      ></div>
+      />
     </div>
   );
 };

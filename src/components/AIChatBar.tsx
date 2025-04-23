@@ -1,15 +1,17 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageCircle, ArrowRight, Sparkles } from "lucide-react";
+import { MessageCircle, ArrowRight, Sparkles, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import IdeaGenerationLoader from './IdeaGenerationLoader';
 import RoadmapModal from './RoadmapModal';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { useTheme } from '@/hooks/use-theme';
 
 interface AutomationIdea {
   title: string;
@@ -26,6 +28,11 @@ const AIChatBar = () => {
   const [selectedIdea, setSelectedIdea] = useState<AutomationIdea | null>(null);
   const [isRoadmapOpen, setIsRoadmapOpen] = useState(false);
   const isMobile = useIsMobile();
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.2
+  });
+  const { theme } = useTheme();
 
   const generateIdeas = async () => {
     if (!businessDescription.trim()) {
@@ -72,95 +79,171 @@ const AIChatBar = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto pt-8 md:pt-12 mt-8 md:mt-12 relative z-20">
-      <Card className="border-0 shadow-xl bg-agency-charcoal/90 backdrop-blur-sm">
-        <CardHeader className="text-center pb-4 pt-8 md:pt-10">
-          <CardTitle className="text-2xl md:text-3xl font-serif text-white flex items-center justify-center gap-3">
-            <Sparkles className="h-6 w-6 text-green-400" />
-            Not sure what AI solution you need?
-          </CardTitle>
-          <p className="text-gray-300 mt-3 flex items-center justify-center gap-2 font-sans text-sm md:text-base">
-            <MessageCircle className="h-4 w-4" />
-            we built this to help
-          </p>
-        </CardHeader>
-        <CardContent className="pb-8 px-6 md:px-8">
-          <div className="relative flex flex-col gap-4">
-            <div className="flex gap-2 relative">
-              <Input
-                placeholder="Describe your business..."
-                value={businessDescription}
-                onChange={(e) => setBusinessDescription(e.target.value)}
-                className="py-6 text-base rounded-full bg-gray-800/70 border-gray-700 text-white placeholder:text-gray-400 focus:border-green-500/50 focus:ring-green-500/30"
-              />
-              <div className="hidden md:block">
-                <Button
-                  onClick={generateIdeas}
-                  disabled={loading}
-                  className="bg-green-600 hover:bg-green-700 text-white rounded-full px-8 py-6 whitespace-nowrap font-sans absolute top-1/2 right-2 -translate-y-1/2 transition-all duration-200 hover:scale-105"
-                >
-                  {loading ? "Generating..." : "Generate Ideas"}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
-            </div>
-            
-            <div className="md:hidden">
-              <Button
-                onClick={generateIdeas}
-                disabled={loading}
-                className="w-full bg-green-600 hover:bg-green-700 text-white rounded-full px-6 py-6 whitespace-nowrap font-sans text-base transition-all duration-200 hover:scale-105"
-              >
-                {loading ? "Generating..." : "Generate"}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-
-          {loading && <IdeaGenerationLoader />}
-
-          {ideas.length > 0 && (
-            <div className="mt-8 space-y-4">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-10 w-10 rounded-full bg-green-600/20 flex items-center justify-center">
-                  <Sparkles className="h-5 w-5 text-green-400" />
-                </div>
-                <h3 className="text-xl font-serif text-white">AI-Generated Ideas</h3>
-              </div>
-
-              <div className="grid gap-4">
-                {ideas.map((idea, index) => (
-                  <Card key={index} className="p-5 bg-gray-800/50 border-gray-700/50 backdrop-blur-sm hover:bg-gray-800/70 transition-all duration-200">
-                    <div className={`flex ${isMobile ? 'flex-col' : 'justify-between'} items-start gap-4`}>
-                      <div className={`${isMobile ? 'w-full' : 'flex-1'}`}>
-                        <h4 className="font-serif text-lg mb-3 text-white">{idea.title}</h4>
-                        <p className="text-gray-300 mb-3 font-sans text-sm leading-relaxed">{idea.description}</p>
-                        <div className="flex flex-wrap items-center gap-3 text-xs font-sans">
-                          <span className="bg-green-900/30 text-green-400 px-3 py-1.5 rounded-full border border-green-500/20">
-                            {idea.complexity} Complexity
-                          </span>
-                          <span className="text-gray-400 bg-gray-700/30 px-3 py-1.5 rounded-full">
-                            Est. Time: {idea.estimatedTime}
-                          </span>
-                        </div>
-                      </div>
+    <div ref={ref} className="w-full max-w-4xl mx-auto pt-8 md:pt-12 mt-8 md:mt-12 relative z-20">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6 }}
+      >
+        <Card
+          className={
+            cn(
+              'border-0 shadow-2xl rounded-3xl overflow-hidden',
+              theme === 'dark'
+                ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900/90 backdrop-blur-md'
+                : 'bg-gradient-to-br from-white via-gray-50 to-gray-100/90 backdrop-blur-md'
+            )
+          }
+        >
+          <CardHeader className="text-center pb-4 pt-10 md:pt-14">
+            <motion.div
+              initial={{ scale: 0.95 }}
+              animate={inView ? { scale: 1 } : {}}
+              transition={{ delay: 0.2, duration: 0.4 }}
+            >
+              <CardTitle className={
+                cn(
+                  'text-2xl sm:text-3xl md:text-4xl font-extrabold flex items-center justify-center gap-3',
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                )
+              }>
+                <Sparkles className={theme === 'dark' ? 'h-7 w-7 text-green-400' : 'h-7 w-7 text-green-700'} />
+                Discover Your Next AI Breakthrough
+              </CardTitle>
+              <p className={
+                cn(
+                  'text-base md:text-lg font-medium mt-2',
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                )
+              }>
+                Unsure where to start? Let us generate tailored automation ideas for your business.
+              </p>
+            </motion.div>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-8">
+              {loading ? (
+                <div className="py-10"><IdeaGenerationLoader /></div>
+              ) : (
+                <>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: 0.3, duration: 0.4 }}
+                  >
+                    <form onSubmit={(e) => { e.preventDefault(); generateIdeas(); }} className="relative flex flex-col md:flex-row gap-4 items-center justify-center">
+                      <textarea
+                        value={businessDescription}
+                        onChange={(e) => setBusinessDescription(e.target.value)}
+                        placeholder="Describe your business, goals, or challenges..."
+                        className={
+                          cn(
+                            'w-full md:w-2/3 min-h-[64px] max-h-40 px-5 py-4 rounded-2xl border text-base transition-all duration-200 resize-none shadow-sm',
+                            theme === 'dark'
+                              ? 'bg-gray-900/80 border-gray-700 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-green-500/30 focus:border-green-500/30'
+                              : 'bg-white/80 border-gray-300 text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-green-600/20 focus:border-green-600/20'
+                          )
+                        }
+                      />
                       <Button
-                        onClick={() => showRoadmap(idea)}
-                        variant="outline"
-                        className={`${isMobile ? 'w-full mt-4' : 'shrink-0'} font-sans text-sm py-2 bg-gray-700/50 text-white hover:bg-green-600 hover:text-white border-gray-600/50 transition-all duration-200`}
+                        type="submit"
+                        disabled={loading}
+                        className={
+                          cn(
+                            'h-12 px-8 rounded-2xl font-semibold flex items-center gap-2 shadow-md transition-colors duration-200',
+                            theme === 'dark'
+                              ? 'bg-green-600 hover:bg-green-500 text-white'
+                              : 'bg-green-700 hover:bg-green-600 text-white'
+                          )
+                        }
                       >
-                        View Roadmap
-                        <ArrowRight className="ml-1 h-3 w-3" />
+                        <Sparkles className="h-5 w-5" />
+                        Generate Ideas
                       </Button>
+                    </form>
+                  </motion.div>
+                  {ideas.length > 0 && (
+                    <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {ideas.map((idea, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.15 * index, duration: 0.5 }}
+                        >
+                          <Card className={
+                            cn(
+                              'rounded-2xl border-0 shadow-lg transition-all duration-200 hover:scale-[1.025] group',
+                              theme === 'dark'
+                                ? 'bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800/90'
+                                : 'bg-gradient-to-br from-white via-gray-50 to-gray-100/90'
+                            )
+                          }>
+                            <div className="p-6 flex flex-col gap-3">
+                              <div className="flex items-center gap-2 mb-2">
+                                <MessageCircle className={theme === 'dark' ? 'h-5 w-5 text-green-400' : 'h-5 w-5 text-green-700'} />
+                                <h4 className={
+                                  cn(
+                                    'font-bold text-lg',
+                                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                  )
+                                }>{idea.title}</h4>
+                              </div>
+                              <p className={
+                                cn(
+                                  'mb-2 text-base',
+                                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                                )
+                              }>{idea.description}</p>
+                              <div className="flex flex-wrap items-center gap-2 text-xs">
+                                <span className={
+                                  cn(
+                                    'px-3 py-1 rounded-full border font-semibold',
+                                    theme === 'dark'
+                                      ? 'bg-green-900/30 text-green-400 border-green-500/20'
+                                      : 'bg-green-100 text-green-700 border-green-400/20'
+                                  )
+                                }>
+                                  {idea.complexity} Complexity
+                                </span>
+                                <span className={
+                                  cn(
+                                    'px-3 py-1 rounded-full border',
+                                    theme === 'dark'
+                                      ? 'bg-gray-700/30 text-gray-300 border-gray-600/20'
+                                      : 'bg-gray-200 text-gray-700 border-gray-400/20'
+                                  )
+                                }>
+                                  Est. Time: {idea.estimatedTime}
+                                </span>
+                              </div>
+                              <Button
+                                onClick={() => showRoadmap(idea)}
+                                variant="outline"
+                                className={
+                                  cn(
+                                    'mt-4 w-full font-sans text-sm py-2 rounded-xl border transition-all duration-200 flex items-center justify-center gap-2',
+                                    theme === 'dark'
+                                      ? 'bg-gray-800/60 text-white border-gray-700 hover:bg-green-600 hover:text-white hover:border-green-500'
+                                      : 'bg-white/60 text-gray-900 border-gray-300 hover:bg-green-700 hover:text-white hover:border-green-600'
+                                  )
+                                }
+                              >
+                                View Roadmap
+                                <ArrowRight className="ml-1 h-4 w-4" />
+                              </Button>
+                            </div>
+                          </Card>
+                        </motion.div>
+                      ))}
                     </div>
-                  </Card>
-                ))}
-              </div>
+                  )}
+                </>
+              )}
             </div>
-          )}
-        </CardContent>
-      </Card>
-
+          </CardContent>
+        </Card>
+      </motion.div>
       {selectedIdea && (
         <RoadmapModal
           isOpen={isRoadmapOpen}

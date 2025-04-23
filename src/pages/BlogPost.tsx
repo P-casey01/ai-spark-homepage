@@ -1,4 +1,4 @@
-
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { CalendarIcon, ArrowLeft, AlertCircle } from "lucide-react";
@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useTheme } from "@/hooks/use-theme";
 import { motion } from "framer-motion";
+import { getPostBySlug, urlFor } from "@/lib/sanity";
+import { PortableText } from "@portabletext/react";
 
 type Article = {
   id: string;
@@ -89,8 +91,83 @@ const BlogPost = () => {
   const { slug } = useParams();
   const article = staticArticles.find(a => a.slug === slug);
   const { theme } = useTheme();
+  const [sanityPost, setSanityPost] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  if (!article) {
+  useEffect(() => {
+    if (!article && slug) {
+      setLoading(true);
+      getPostBySlug(slug)
+        .then((post) => setSanityPost(post))
+        .catch(() => setError("Article not found."))
+        .finally(() => setLoading(false));
+    }
+  }, [article, slug]);
+
+  if (article) {
+    return (
+      <motion.div 
+        className="container mx-auto px-4 py-8 max-w-4xl bg-background text-foreground transition-colors duration-200"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.div 
+          className="mb-6"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <Button variant="ghost" size="sm" asChild>
+            <Link to="/blog" className="flex items-center">
+              <ArrowLeft className="h-4 w-4 mr-1" /> Back to blog
+            </Link>
+          </Button>
+        </motion.div>
+        {article.image_url && (
+          <motion.img
+            src={article.image_url}
+            alt={article.title}
+            className="w-full h-64 object-cover rounded-lg mb-8"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          />
+        )}
+        <motion.h1 
+          className="text-4xl font-bold mb-4 text-foreground"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          {article.title}
+        </motion.h1>
+        <motion.div 
+          className="flex items-center text-muted-foreground mb-8"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <CalendarIcon className="h-5 w-5 mr-2" />
+          <span>{format(new Date(article.created_at), "MMMM d, yyyy")}</span>
+        </motion.div>
+        <motion.div 
+          className={`prose max-w-none ${theme === 'dark' ? 'prose-invert' : ''}`}
+          dangerouslySetInnerHTML={{ __html: article.content }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        />
+      </motion.div>
+    );
+  }
+
+  if (loading) {
+    return <div className="container mx-auto px-4 py-8 max-w-4xl">Loading...</div>;
+  }
+
+  if (error || !sanityPost) {
     return (
       <motion.div 
         className="container mx-auto px-4 py-8 max-w-4xl bg-background text-foreground transition-colors duration-200"
@@ -149,10 +226,10 @@ const BlogPost = () => {
           </Link>
         </Button>
       </motion.div>
-      {article.image_url && (
+      {sanityPost.heroImage && (
         <motion.img
-          src={article.image_url}
-          alt={article.title}
+          src={urlFor(sanityPost.heroImage).width(1200).height(400).url()}
+          alt={sanityPost.heroImage.alt || sanityPost.title}
           className="w-full h-64 object-cover rounded-lg mb-8"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -165,7 +242,7 @@ const BlogPost = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
       >
-        {article.title}
+        {sanityPost.title}
       </motion.h1>
       <motion.div 
         className="flex items-center text-muted-foreground mb-8"
@@ -174,15 +251,16 @@ const BlogPost = () => {
         transition={{ duration: 0.5, delay: 0.5 }}
       >
         <CalendarIcon className="h-5 w-5 mr-2" />
-        <span>{format(new Date(article.created_at), "MMMM d, yyyy")}</span>
+        <span>{format(new Date(sanityPost.publishedAt), "MMMM d, yyyy")}</span>
       </motion.div>
       <motion.div 
         className={`prose max-w-none ${theme === 'dark' ? 'prose-invert' : ''}`}
-        dangerouslySetInnerHTML={{ __html: article.content }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.6 }}
-      />
+      >
+        <PortableText value={sanityPost.body} />
+      </motion.div>
     </motion.div>
   );
 };

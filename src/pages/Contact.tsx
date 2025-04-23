@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/hooks/use-theme";
@@ -12,20 +11,20 @@ const Contact = () => {
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Phone",
-      details: "+1 (555) 123-4567",
-      link: "tel:+15551234567"
+      details: "+44 07783904804",
+      link: "tel:+4407783904804"
     },
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email",
-      details: "contact@auto-mate.com",
-      link: "mailto:contact@auto-mate.com"
+      details: "Piaras@auto-mateconsultants.co.uk",
+      link: "mailto:Piaras@auto-mateconsultants.co.uk"
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Address",
-      details: "123 Innovation Drive, Tech City, TC 12345",
-      link: "https://maps.google.com"
+      details: "12 mansefield grove",
+      link: "https://maps.google.com/?q=12+mansefield+grove"
     }
   ];
 
@@ -134,5 +133,8 @@ const Contact = () => {
     </div>
   );
 };
+
+// Image optimization: add width/height to images in contact cards if any are added in the future.
+// Performance: React.memo can be used for Contact if props are added in the future.
 
 export default Contact;

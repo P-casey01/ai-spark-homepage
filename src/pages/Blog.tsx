@@ -1,54 +1,38 @@
-
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { CalendarIcon } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { motion } from "framer-motion";
+import { getAllPosts, BlogPost, urlFor } from "@/lib/sanity";
+import staticArticles, { Article } from "@/content/staticArticles";
 
-type Article = {
-  id: string;
-  title: string;
-  summary: string;
-  content: string;
-  image_url: string | null;
-  created_at: string;
-  slug: string;
-};
-
-// Static blog posts data
-const staticArticles: Article[] = [
-  {
-    id: "1",
-    title: "Getting Started with Web Development",
-    summary: "Learn the basics of web development and how to build your first website.",
-    content: "Full content of the article goes here...",
-    image_url: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500",
-    created_at: "2025-04-18T10:00:00Z",
-    slug: "getting-started-with-web-development"
-  },
-  {
-    id: "2",
-    title: "Understanding React Hooks",
-    summary: "Deep dive into React Hooks and how they can improve your components.",
-    content: "Full content about React Hooks...",
-    image_url: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=500",
-    created_at: "2025-04-17T10:00:00Z",
-    slug: "understanding-react-hooks"
-  },
-  {
-    id: "3",
-    title: "Modern CSS Techniques",
-    summary: "Explore modern CSS techniques and best practices for web design.",
-    content: "Full content about CSS techniques...",
-    image_url: "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=500",
-    created_at: "2025-04-16T10:00:00Z",
-    slug: "modern-css-techniques"
-  }
-];
+// Type guard to check if an article is a Sanity post
+function isSanityPost(article: BlogPost | Article): article is BlogPost {
+  return (article as BlogPost).slug !== undefined && typeof (article as BlogPost).slug !== 'string';
+}
 
 const Blog = () => {
   const { theme } = useTheme();
+  const [sanityPosts, setSanityPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    getAllPosts()
+      .then((posts) => setSanityPosts(posts))
+      .catch((err) => setError("Failed to load blog posts."))
+      .finally(() => setLoading(false));
+  }, []);
+
+  // Merge static and sanity posts, keeping static first for SEO
+  const allArticles = [
+    ...staticArticles,
+    ...sanityPosts.filter(
+      (sp) => !staticArticles.some((sa) => sa.slug === (sp.slug && typeof sp.slug === 'object' ? sp.slug.current : sp.slug))
+    ),
+  ];
 
   return (
     <motion.div 
@@ -65,38 +49,91 @@ const Blog = () => {
       >
         Blog
       </motion.h1>
+      {loading && <div>Loading blog posts...</div>}
+      {error && <div className="text-red-500">{error}</div>}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {staticArticles.map((article, index) => (
-          <motion.div
-            key={article.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
-            whileHover={{ y: -5, transition: { duration: 0.2 } }}
-          >
-            <Link to={`/blog/${article.slug}`}>
-              <Card className="h-full hover:shadow-lg transition-shadow bg-card text-card-foreground">
-                {article.image_url && (
-                  <img
-                    src={article.image_url}
-                    alt={article.title}
-                    className="w-full h-48 object-cover"
-                  />
-                )}
-                <CardHeader>
-                  <CardTitle>{article.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center text-sm text-muted-foreground mb-2">
-                    <CalendarIcon className="h-4 w-4 mr-1" />
-                    <span>{format(new Date(article.created_at), "MMMM d, yyyy")}</span>
-                  </div>
-                  <p className="line-clamp-3 text-muted-foreground">{article.summary}</p>
-                </CardContent>
-              </Card>
-            </Link>
-          </motion.div>
-        ))}
+        {allArticles.map((article, index) => {
+          if (isSanityPost(article)) {
+            const slug = article.slug.current;
+            const image = article.heroImage ? urlFor(article.heroImage).width(800).height(400).url() : undefined;
+            const title = article.title;
+            const summary = article.excerpt;
+            const date = article.publishedAt;
+            return (
+              <motion.div
+                key={article._id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              >
+                <Link to={`/blog/${slug}`}>
+                  <Card className="h-full hover:shadow-lg transition-shadow bg-card text-card-foreground">
+                    {image && (
+                      <img
+                        src={image}
+                        alt={title}
+                        width={800}
+                        height={192}
+                        className="w-full h-48 object-cover"
+                      />
+                    )}
+                    <CardHeader>
+                      <CardTitle>{title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center text-sm text-muted-foreground mb-2">
+                        <CalendarIcon className="h-4 w-4 mr-1" />
+                        <span>{format(new Date(date), "MMMM d, yyyy")}</span>
+                      </div>
+                      <p className="line-clamp-3 text-muted-foreground">{summary}</p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
+            );
+          } else {
+            // Static article
+            const slug = article.slug;
+            const image = article.image_url;
+            const title = article.title;
+            const summary = article.summary;
+            const date = article.created_at;
+            return (
+              <motion.div
+                key={article.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              >
+                <Link to={`/blog/${slug}`}>
+                  <Card className="h-full hover:shadow-lg transition-shadow bg-card text-card-foreground">
+                    {image && (
+                      <img
+                        src={image}
+                        alt={title}
+                        width={800}
+                        height={192}
+                        className="w-full h-48 object-cover"
+                      />
+                    )}
+                    <CardHeader>
+                      <CardTitle>{title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center text-sm text-muted-foreground mb-2">
+                        <CalendarIcon className="h-4 w-4 mr-1" />
+                        <span>{format(new Date(date), "MMMM d, yyyy")}</span>
+                      </div>
+                      <p className="line-clamp-3 text-muted-foreground">{summary}</p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
+            );
+          }
+        })}
       </div>
     </motion.div>
   );

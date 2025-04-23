@@ -1,5 +1,6 @@
 
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
+// @ts-ignore
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
@@ -29,14 +30,7 @@ serve(async (req) => {
         messages: [
           {
             role: 'system',
-            content: `You are an AI automation expert. Generate 3 specific automation ideas for businesses. 
-            For each idea, provide:
-            1. A clear title
-            2. A detailed description
-            3. Complexity level (Low/Medium/High)
-            4. Estimated implementation time
-            Format the response as a JSON array with objects containing title, description, complexity, and estimatedTime fields.
-            Do NOT include any markdown formatting syntax (like \`\`\`json). Return ONLY the raw JSON array.`
+            content: `You are an AI automation expert. Generate 3 highly specific automation ideas tailored to the business described by the user. Consider the business's industry, size, pain points, and potential growth opportunities. For each idea, provide:\n1. A clear, relevant title\n2. A detailed, business-specific description (explain why it fits this business)\n3. Complexity level (Low/Medium/High)\n4. Estimated implementation time.\nFormat the response as a JSON array with objects containing title, description, complexity, and estimatedTime fields.\nDo NOT include any markdown formatting syntax (like \`\`\`json). Return ONLY the raw JSON array.`
           },
           {
             role: 'user',

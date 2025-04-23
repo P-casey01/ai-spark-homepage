@@ -1,8 +1,9 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/hooks/use-theme";
-import { Wrench, Users, Globe, Clock } from "lucide-react";
+import { Wrench, Users, Globe } from "lucide-react";
+import AnimatedTimeline from "@/components/AnimatedTimeline";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Services = () => {
   const { theme } = useTheme();
@@ -28,28 +29,28 @@ const Services = () => {
   const timeline = [
     {
       title: "Initial Consultation",
-      description: "Meet with our team to discuss your needs and goals",
-      day: "Day 1"
+      description: "Quick 30-minute meeting to understand your requirements and goals",
+      day: "Hour 1"
     },
     {
-      title: "Project Planning",
-      description: "We create a detailed roadmap and begin development",
-      day: "Day 1"
+      title: "Design & Planning",
+      description: "Rapid wireframing and design approval process",
+      day: "Hours 2-4"
     },
     {
-      title: "Development",
-      description: "Rapid development of your custom website",
-      day: "Day 1-2"
+      title: "Development Sprint",
+      description: "Fast-paced development of your custom website",
+      day: "Hours 5-16"
     },
     {
-      title: "Review & Refinement",
-      description: "Review the development and make any necessary adjustments",
-      day: "Day 2"
+      title: "Testing & Optimization",
+      description: "Thorough testing and performance optimization",
+      day: "Hours 17-20"
     },
     {
-      title: "Launch",
-      description: "Your website goes live with our full support",
-      day: "Within 24 Hours"
+      title: "Launch & Deployment",
+      description: "Final review, deployment, and go-live",
+      day: "Hours 21-24"
     }
   ];
 
@@ -58,7 +59,7 @@ const Services = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6 }}
         className="container mx-auto px-4"
       >
         <motion.h1 
@@ -102,99 +103,17 @@ const Services = () => {
             </motion.div>
           ))}
         </div>
+      </motion.div>
 
-        <motion.div 
-          className="mt-24 mb-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+      <div className="py-16 bg-gradient-to-b from-transparent to-gray-50/5">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
             Our 24-Hour Website Development Process
           </h2>
           
-          {/* Timeline for desktop view */}
-          <div className="relative hidden md:block">
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-green-500/20 rounded-full" />
-            
-            {timeline.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 * index }}
-                className={`relative flex items-center mb-12 ${
-                  index % 2 === 0 ? 'justify-start' : 'justify-end'
-                }`}
-              >
-                <div 
-                  className={`w-full md:w-5/12 ${
-                    index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'
-                  }`}
-                >
-                  <div className={`p-6 rounded-xl ${
-                    theme === 'dark' 
-                      ? 'bg-gradient-to-br from-gray-800 to-gray-900 shadow-lg' 
-                      : 'bg-white shadow-md'
-                  }`}>
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-xl font-semibold">{item.title}</h3>
-                      <span className={`px-3 py-1 rounded-full text-sm ${
-                        theme === 'dark' 
-                          ? 'bg-green-900/50 text-green-400' 
-                          : 'bg-green-100 text-green-800'
-                      }`}>
-                        {item.day}
-                      </span>
-                    </div>
-                    <p className="text-muted-foreground">{item.description}</p>
-                  </div>
-                </div>
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-green-500" />
-              </motion.div>
-            ))}
-          </div>
-          
-          {/* Timeline for mobile view - vertical layout */}
-          <div className="md:hidden relative">
-            <div className="absolute left-4 top-0 h-full w-1 bg-green-500/20 rounded-full" />
-            
-            {timeline.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.15 * index }}
-                className="relative ml-12 mb-8 pl-6"
-              >
-                {/* Timeline dot */}
-                <div className="absolute left-[-2.25rem] top-4 w-4 h-4 rounded-full bg-green-500" />
-                
-                {/* Timeline connector line */}
-                <div className="absolute left-[-0.5rem] top-4 h-1 w-6 bg-green-500/20"></div>
-                
-                <div className={`p-4 rounded-xl ${
-                  theme === 'dark' 
-                    ? 'bg-gradient-to-br from-gray-800 to-gray-900 shadow-lg' 
-                    : 'bg-white shadow-md'
-                }`}>
-                  <div className="flex flex-wrap items-center justify-between mb-2 gap-2">
-                    <h3 className="text-lg font-semibold">{item.title}</h3>
-                    <span className={`px-3 py-1 rounded-full text-sm ${
-                      theme === 'dark' 
-                        ? 'bg-green-900/50 text-green-400' 
-                        : 'bg-green-100 text-green-800'
-                    }`}>
-                      {item.day}
-                    </span>
-                  </div>
-                  <p className="text-muted-foreground text-sm">{item.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </motion.div>
+          <AnimatedTimeline items={timeline} />
+        </div>
+      </div>
     </div>
   );
 };
