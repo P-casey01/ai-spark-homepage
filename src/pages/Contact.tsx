@@ -11,7 +11,7 @@ const Contact = () => {
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Phone",
-      details: "+44 07783904804",
+      details: "+44 7783904804",
       link: "tel:+4407783904804"
     },
     {
@@ -23,7 +23,7 @@ const Contact = () => {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Address",
-      details: "12 mansefield grove",
+      details: "12 Mansefield Grove",
       link: "https://maps.google.com/?q=12+mansefield+grove"
     }
   ];

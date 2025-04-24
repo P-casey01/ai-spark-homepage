@@ -1,12 +1,13 @@
 import React, { Suspense, lazy, useEffect } from "react";
 import { Facebook, Instagram, Linkedin, Twitter, Mail, Phone } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // Revert: Import motion directly
+import HeroSection from "@/components/HeroSection";
 
 // Dynamic imports for large components
 const AIChatBar = lazy(() => import("@/components/AIChatBar"));
 const PackagesSection = lazy(() => import("@/components/PackagesSection"));
-const HeroSection = lazy(() => import("@/components/HeroSection"));
+// Remove LazyMotion import and Skeleton
 
 const Index = () => {
   const { theme } = useTheme();
@@ -40,9 +41,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background transition-colors duration-200">
       <div className="pt-0 mt-0">
-        <Suspense fallback={<div className="text-center py-10">Loading hero...</div>}>
-          <HeroSection />
-        </Suspense>
+        <HeroSection />
         <div className="container mx-auto px-4 py-1 bg-background">
           <Suspense fallback={<div className="text-center py-10">Loading chat...</div>}>
             <AIChatBar />
@@ -54,6 +53,7 @@ const Index = () => {
           </div>
         </div>
         
+        {/* Revert: Use motion.footer directly */}
         <motion.footer 
           id="contact"
           className={`bg-background ${theme === 'dark' ? 'text-white' : 'text-gray-800'} py-12 mt-16 transition-colors duration-200`}
@@ -63,6 +63,7 @@ const Index = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="container px-4">
+            {/* Revert: Use motion.div directly */}
             <motion.div
               className="flex flex-col items-center justify-center mb-10"
               initial={{ opacity: 0, y: 20 }}
@@ -71,12 +72,12 @@ const Index = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <img 
-                src="/lovable-uploads/7f3f86e8-9c9f-43b0-b816-834fd576d490.png" 
+                src="/lovable-uploads/optimized/other-logo.webp" // Use optimized WebP image
                 alt="Auto-mate Consultants" 
                 className="h-30 w-30 mb-4 rounded-lg"
                 width={120}
                 height={120}
-                loading="eager"
+                loading="lazy" // Change loading to lazy
               />
               <div className="text-center">
                 <h2 className="text-xl font-bold mb-2">Auto-mate Consultants</h2>
@@ -85,6 +86,7 @@ const Index = () => {
             </motion.div>
             
             <div className="flex justify-center gap-8">
+              {/* Revert: Use motion.div directly */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -98,6 +100,7 @@ const Index = () => {
                   <li><a href="/blog" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>Blog</a></li>
                 </ul>
               </motion.div>
+              {/* Revert: Use motion.div directly */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -111,6 +114,7 @@ const Index = () => {
                 </ul>
               </motion.div>
             </div>
+            {/* Revert: Use motion.div directly */}
             <motion.div 
               className="mt-8 flex justify-center space-x-6"
               initial={{ opacity: 0, y: 20 }}
@@ -118,6 +122,7 @@ const Index = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
+              {/* Revert: Use motion.div directly */}
               <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
                 <Facebook className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors cursor-pointer`} />
               </motion.div>

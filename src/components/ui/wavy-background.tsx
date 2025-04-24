@@ -1,8 +1,7 @@
-
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { createNoise3D } from "simplex-noise";
 import { useTheme } from "@/hooks/use-theme";
 
@@ -39,7 +38,7 @@ export const WavyBackground = ({
     ctx: any,
     canvas: any;
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const getSpeed = () => {
+  const getSpeed = useCallback(() => {
     switch (speed) {
       case "slow":
         return 0.0005; // Slower speed
@@ -48,7 +47,7 @@ export const WavyBackground = ({
       default:
         return 0.0005;
     }
-  };
+  }, [speed]);
 
   const init = () => {
     canvas = canvasRef.current;
@@ -57,29 +56,36 @@ export const WavyBackground = ({
     h = ctx.canvas.height = window.innerHeight * 1.2; // Increased height for more coverage
     ctx.filter = `blur(${blur}px)`;
     nt = 0;
-    window.onresize = function () {
-      w = ctx.canvas.width = window.innerWidth + 100; // Add extra width to ensure coverage
-      h = ctx.canvas.height = window.innerHeight * 1.2; // Increased height for more coverage
-      ctx.filter = `blur(${blur}px)`;
-    };
+
+    let resizeTimer: number;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        w = ctx.canvas.width = window.innerWidth + 100; // Add extra width to ensure coverage
+        h = ctx.canvas.height = window.innerHeight * 1.2; // Increased height for more coverage
+        ctx.filter = `blur(${blur}px)`;
+      }, 200);
+    });
     render();
   };
 
-  const defaultColors = theme === 'dark' 
-    ? [
-        "#000000", // Black
-        "#333333", // Dark Grey
-        "#2F4F4F", // Dark green
-        "#9EECC1", // Light green
-        "#FFFFFF", // White
-      ]
-    : [
-        "#FFFFFF", // White
-        "#E5E5E5", // Light Grey
-        "#C5F0D8", // Very Light green
-        "#9EECC1", // Light green
-        "#333333", // Dark Grey
-      ];
+  const defaultColors = useMemo(() => 
+    theme === 'dark' 
+      ? [
+          "#000000", // Black
+          "#333333", // Dark Grey
+          "#2F4F4F", // Dark green
+          "#9EECC1", // Light green
+          "#FFFFFF", // White
+        ]
+      : [
+          "#FFFFFF", // White
+          "#E5E5E5", // Light Grey
+          "#C5F0D8", // Very Light green
+          "#9EECC1", // Light green
+          "#333333", // Dark Grey
+        ]
+  , [theme]);
 
   const waveColors = colors ?? defaultColors;
   
@@ -87,7 +93,7 @@ export const WavyBackground = ({
     nt += getSpeed();
     for (i = 0; i < n; i++) {
       ctx.beginPath();
-      ctx.lineWidth = waveWidth || 50;
+      ctx.lineWidth = waveWidth || 70; // Increased default width from 50 to 70
       ctx.strokeStyle = waveColors[i % waveColors.length];
       for (x = -50; x < w + 50; x += 5) { // Extended drawing range
         var y = noise(x / 600, 0.3 * i, nt) * 250; // Further increased amplitude and adjusted frequency
@@ -99,13 +105,26 @@ export const WavyBackground = ({
   };
 
   let animationId: number;
-  const render = () => {
-    ctx.fillStyle = backgroundFill || (theme === 'dark' ? "#000000" : "#FFFFFF");
-    ctx.globalAlpha = waveOpacity || 0.5;
-    ctx.fillRect(0, 0, w, h);
-    drawWave(5);
+  let lastTime = 0;
+  const render = (time = 0) => {
     animationId = requestAnimationFrame(render);
+    // Throttle rendering to ~30 FPS
+    if (time - lastTime < 1000 / 30) return;
+    lastTime = time;
+    ctx.fillStyle = backgroundFill || (theme === 'dark' ? "#000000" : "#FFFFFF");
+    ctx.globalAlpha = waveOpacity || 0.4; // Decreased default opacity from 0.5 to 0.4
+    ctx.fillRect(0, 0, w, h);
+    drawWave(3); // Reduced number of waves from 5 to 3
   };
+
+  useEffect(() => {
+    const onVisChange = () => {
+      if (document.hidden) cancelAnimationFrame(animationId);
+      else render(performance.now());
+    };
+    document.addEventListener('visibilitychange', onVisChange);
+    return () => document.removeEventListener('visibilitychange', onVisChange);
+  }, []);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -145,7 +164,7 @@ export const WavyBackground = ({
     >
       <canvas
         className={cn(
-          "absolute inset-0 z-0 w-screen",
+          "absolute inset-0 z-0 w-screen blur-[12px] dark:filter-none",
           isMobile ? "scale-[1.3]" : "" // Adjusted canvas scaling
         )}
         ref={canvasRef}
@@ -160,7 +179,6 @@ export const WavyBackground = ({
           top: "0", // Ensure it starts at the very top
           margin: "0", // Remove any margin
           padding: "0", // Remove any padding
-          ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
         }}
       ></canvas>
       <div className={cn("relative z-10 w-full", className)} {...props}>

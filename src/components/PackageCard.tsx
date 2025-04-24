@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Check } from 'lucide-react';
@@ -83,8 +82,15 @@ const PackageCard: React.FC<PackageCardProps> = ({
                 ? 'bg-secondary text-secondary-foreground hover:bg-secondary/80' 
                 : 'bg-agency-darkgray text-white hover:bg-agency-black'
           } text-sm md:text-base py-1 md:py-2`}
+          asChild
         >
-          {ctaText}
+          <a 
+            href="https://calendly.com/piaras-auto-mateconsultants/30min" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            {ctaText}
+          </a>
         </Button>
       </div>
     </motion.div>
