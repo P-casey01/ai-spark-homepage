@@ -76,7 +76,7 @@ const HeroSection: React.FC = () => {
         }
         waveWidth={60}
         backgroundFill={theme === 'dark' ? '#000000' : '#FFFFFF'}
-        blur={12}
+        blur={8}
         speed="slow"
         waveOpacity={0.7}
       >
@@ -90,27 +90,27 @@ const HeroSection: React.FC = () => {
           <motion.h1
             className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold mb-2 md:mb-4 text-foreground max-w-[90%] sm:max-w-md md:max-w-2xl mx-auto"
             variants={itemVariants}
-            style={{ y: titleY }}
+            style={{ y: titleY, willChange: 'transform, opacity' }} // Added will-change
           >
-            Transform Your Business with{' '}
-            <span className={`bg-clip-text text-transparent ${
+            AI-Powered Automation & Web Design in Derry
+            <span className={`block mt-2 bg-clip-text text-transparent ${
               theme === 'dark'
                 ? 'bg-gradient-to-r from-green-300 to-green-500'
                 : 'bg-gradient-to-r from-green-600 to-green-800'
             }`}>
-              Intelligent Automation
+              Transform Your Business
             </span>
           </motion.h1>
           <motion.p
-            className="text-sm sm:text-base md:text-xl text-foreground font-medium mb-6 md:max-w-lg mx-auto"
+            className="text-sm sm:text-base md:text-xl text-foreground font-medium mb-6 max-w-xs md:max-w-lg mx-auto"
             variants={itemVariants}
-            style={{ y: subtitleY }}
+            style={{ y: subtitleY, willChange: 'transform, opacity' }} // Added will-change
           >
-            Auto-Mate Consultants: Driving Business Efficiency through Cutting-Edge Automation
+            Auto-Mate Consultants: Your Derry experts for cutting-edge AI solutions and professional web design services.
           </motion.p>
-          <motion.div 
+          <motion.div
             variants={itemVariants}
-            style={{ y: buttonY }}
+            style={{ y: buttonY, willChange: 'transform, opacity' }} // Added will-change
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >

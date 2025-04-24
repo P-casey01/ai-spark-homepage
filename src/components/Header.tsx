@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Moon, Sun } from "lucide-react";
+import { Menu, X, Moon, Sun, Facebook, Linkedin } from "lucide-react"; // Import social icons
 import { Button } from "./ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme } from "@/hooks/use-theme";
@@ -71,13 +71,13 @@ const Header: React.FC = () => {
           </div>
 
           {/* Center Section: Logo (Always Visible) */}
-          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 p-1"> {/* Added p-1 */}
             <Link to="/">
               <img 
                 src="/lovable-uploads/optimized/navbar-logo.webp" 
                 alt="Auto-mate Consultants Logo" 
-                className="h-16 w-auto object-contain" // Adjusted height, auto width
-                height={64} // Explicit height for performance
+                className="h-16 w-auto object-contain" 
+                height={64} 
               />
             </Link>
           </div>
@@ -90,7 +90,7 @@ const Header: React.FC = () => {
                 Auto-mate<br/>Consultants
               </Link>
             ) : (
-              // Desktop: Navigation & Theme Toggle
+              // Desktop: Navigation, Social Icons & Theme Toggle
               <motion.div 
                 className="flex items-center gap-4" // Reduced gap slightly
                 initial={{ opacity: 0, x: 20 }}
@@ -116,6 +116,15 @@ const Header: React.FC = () => {
                     </NavigationMenuItem>
                   </NavigationMenuList>
                 </NavigationMenu>
+                {/* Social Media Icons */}
+                <div className="flex items-center gap-4"> {/* Increased gap from 2 to 4 */}
+                  <a href="https://www.facebook.com/profile.php?id=61558944215453" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-muted-foreground hover:text-foreground transition-colors">
+                    <Facebook className="h-5 w-5" />
+                  </a>
+                  <a href="https://www.linkedin.com/company/auto-mate-consultants/about/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-muted-foreground hover:text-foreground transition-colors">
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                </div>
                 <button
                   onClick={toggleTheme}
                   className={`p-2 rounded-full transition-all duration-300 ${
@@ -132,7 +141,7 @@ const Header: React.FC = () => {
           </div>
         </div>
         
-        {/* Mobile Menu Dropdown (remains the same) */}
+        {/* Mobile Menu Dropdown */}
         <AnimatePresence>
           {isMobile && mobileMenuOpen && (
             <motion.div 
@@ -178,8 +187,18 @@ const Header: React.FC = () => {
                 >
                   Contact
                 </Link>
-                {/* Add theme toggle button in mobile menu */}
-                <div className="px-4 py-2 flex items-center justify-center gap-3"> {/* Added justify-center */}
+                {/* Social Media Links in Mobile Menu */}
+                <div className="px-4 py-2 flex items-center justify-center gap-6 border-t border-border pt-4"> {/* Increased gap from 4 to 6 */}
+                  <a href="https://www.facebook.com/profile.php?id=61558944215453" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-muted-foreground hover:text-foreground transition-colors">
+                    <Facebook className="h-6 w-6" />
+                  </a>
+                  <a href="https://www.linkedin.com/company/auto-mate-consultants/about/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-muted-foreground hover:text-foreground transition-colors">
+                    <Linkedin className="h-6 w-6" />
+                  </a>
+                </div>
+
+                {/* Theme toggle button in mobile menu */}
+                <div className="px-4 py-2 flex items-center justify-center gap-3 border-t border-border pt-4"> {/* Added border-t and pt-4 */}
                   <button
                     onClick={toggleTheme}
                     className={`p-2 rounded-full transition-all duration-300 ${

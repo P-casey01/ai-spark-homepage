@@ -12,7 +12,7 @@ export const WavyBackground = ({
   colors,
   waveWidth = 50,
   backgroundFill,
-  blur = 12,
+  blur = 10, // Reduced blur from 12 to 10
   speed = "slow",
   waveOpacity = 0.7,
   ...props

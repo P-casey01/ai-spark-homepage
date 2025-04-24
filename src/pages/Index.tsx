@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect } from "react";
-import { Facebook, Instagram, Linkedin, Twitter, Mail, Phone } from "lucide-react";
+import { Facebook, Linkedin, Mail, Phone } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { motion } from "framer-motion"; // Revert: Import motion directly
 import HeroSection from "@/components/HeroSection";
@@ -80,8 +80,8 @@ const Index = () => {
                 loading="lazy" // Change loading to lazy
               />
               <div className="text-center">
-                <h2 className="text-xl font-bold mb-2">Auto-mate Consultants</h2>
-                <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Intelligent Business Automation Solutions</p>
+                <h2 className="text-xl font-bold mb-2">Auto-mate Consultants - Derry</h2>
+                <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>AI, Web Design & Business Automation Solutions in Derry</p>
               </div>
             </motion.div>
             
@@ -107,11 +107,31 @@ const Index = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
-                <h3 className="text-sm font-bold uppercase text-agency-mint mb-3">Legal</h3>
-                <ul className="space-y-2">
-                  <li><a href="#" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>Privacy</a></li>
-                  <li><a href="#" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>Terms</a></li>
-                </ul>
+                <h3 className={`${theme === 'dark' ? 'text-white' : 'text-black'} text-lg font-semibold mb-4`}>Connect With Us</h3>
+                <div className="flex justify-center gap-6">
+                  <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                    <a href="https://www.facebook.com/profile.php?id=61558944215453" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                      <Facebook className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors cursor-pointer`} />
+                    </a>
+                  </motion.div>
+                  {/* Removed Instagram link */}
+                  <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                    <a href="https://www.linkedin.com/company/auto-mate-consultants/about/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                      <Linkedin className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors cursor-pointer`} />
+                    </a>
+                  </motion.div>
+                  {/* Removed Twitter link */}
+                  <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                    <a href="mailto:Piaras@auto-mateconsultants.co.uk" aria-label="Email">
+                      <Mail className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors cursor-pointer`} />
+                    </a>
+                  </motion.div>
+                  <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                    <a href="tel:+4407783904804" aria-label="Phone">
+                      <Phone className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors cursor-pointer`} />
+                    </a>
+                  </motion.div>
+                </div>
               </motion.div>
             </div>
             {/* Revert: Use motion.div directly */}
@@ -127,19 +147,7 @@ const Index = () => {
                 <Facebook className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors cursor-pointer`} />
               </motion.div>
               <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                <Instagram className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors cursor-pointer`} />
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
                 <Linkedin className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors cursor-pointer`} />
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                <Twitter className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors cursor-pointer`} />
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                <Mail className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors cursor-pointer`} />
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                <Phone className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors cursor-pointer`} />
               </motion.div>
             </motion.div>
             <div className={`mt-12 pt-6 ${theme === 'dark' ? 'border-gray-800 text-gray-500' : 'border-gray-200 text-gray-500'} border-t text-center text-sm`}>

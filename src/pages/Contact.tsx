@@ -43,9 +43,9 @@ const Contact = () => {
             transition={{ delay: 0.2 }}
             className="text-center mb-16"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-8">Contact Us</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-8">Contact Us - AI & Web Design in Derry</h1>
             <p className="text-lg text-muted-foreground">
-              Get in touch with our team to discuss your automation needs
+              Get in touch with our Derry-based team to discuss your AI and web design needs.
             </p>
           </motion.div>
 
@@ -84,7 +84,7 @@ const Contact = () => {
                 : 'bg-white shadow-md'
             }`}
           >
-            <h2 className="text-2xl font-semibold mb-6 text-center">Send us a message</h2>
+            <h2 className="text-2xl font-semibold mb-6 text-center">Send our Derry team a message</h2>
             <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>

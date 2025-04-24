@@ -20,7 +20,7 @@ const otherLogoPath = path.join(__dirname, '../public/lovable-uploads/7f3f86e8-9
 
 // Optimize navbar logo
 sharp(navbarLogoPath)
-  .resize(112, 112) // 2x the display size for high-DPI screens (56px * 2)
+  .resize({ height: 128 }) // Resize based on height (2 * 64px), maintain aspect ratio
   .webp({ quality: 80 }) // Good balance between quality and file size
   .toFile(path.join(optimizedDir, 'navbar-logo.webp'))
   .then(() => console.log('Navbar logo optimized successfully'))

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/hooks/use-theme";
@@ -45,9 +44,9 @@ const About = () => {
             transition={{ delay: 0.2 }}
             className="text-center mb-16"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-8">About Us</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-8">About Auto-mate Consultants | Derry</h1>
             <p className="text-lg text-muted-foreground">
-              Empowering businesses through efficient digital solutions
+              Your local Derry experts in AI solutions and professional web design.
             </p>
           </motion.div>
 
@@ -61,12 +60,12 @@ const About = () => {
                 : 'bg-white shadow-md'
             }`}
           >
-            <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
+            <h2 className="text-2xl font-semibold mb-4">Our Mission in Derry</h2>
             <p className="text-muted-foreground mb-6">
-              At Auto-mate Consultants, we're dedicated to revolutionizing how businesses operate in the digital space. Our mission is to help you save valuable time and money while building a strong digital presence that drives growth and success.
+              At Auto-mate Consultants, based in Derry, we're dedicated to revolutionizing how local businesses operate with cutting-edge AI and bespoke web design. Our mission is to save you time and money while building a powerful digital presence that drives growth right here in Derry.
             </p>
             <p className="text-muted-foreground">
-              We understand that in today's fast-paced business environment, having a strong digital footprint is crucial. Our team works tirelessly to ensure your business not only establishes but thrives in the digital landscape, helping you reach new customers and markets efficiently.
+              We understand the Derry business landscape and the need for a strong digital footprint. Our team provides expert AI integration and web design services to help your business thrive locally and beyond.
             </p>
           </motion.div>
 
@@ -76,7 +75,7 @@ const About = () => {
             transition={{ delay: 0.4 }}
             className="mb-16"
           >
-            <h2 className="text-3xl font-bold text-center mb-12">Why Choose Us?</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">Why Choose Us for AI & Web Design in Derry?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {whyUsReasons.map((reason, index) => (
                 <motion.div
@@ -94,6 +93,7 @@ const About = () => {
                     {reason.icon}
                   </div>
                   <h3 className="text-xl font-semibold mb-3">{reason.title}</h3>
+                  {/* Keep original descriptions for Why Choose Us, or update if relevant */} 
                   <p className="text-muted-foreground">{reason.description}</p>
                 </motion.div>
               ))}
