@@ -1,3 +1,4 @@
+
 import { createContext, useContext, useEffect, useState } from 'react';
 
 type Theme = 'dark' | 'light';
@@ -36,9 +37,17 @@ export const ThemeProvider = ({
   });
 
   const [mounted, setMounted] = useState(false);
+  const [isAlternateThemeLoaded, setIsAlternateThemeLoaded] = useState(false);
 
-  const applyTheme = (newTheme: Theme) => {
+  const applyTheme = async (newTheme: Theme) => {
     try {
+      // If switching to the alternate theme and it hasn't been loaded yet
+      if (!isAlternateThemeLoaded && newTheme !== defaultTheme) {
+        // Simulate loading of alternate theme styles
+        await new Promise(resolve => setTimeout(resolve, 0));
+        setIsAlternateThemeLoaded(true);
+      }
+
       const root = window.document.documentElement;
       root.classList.remove('dark', 'light');
       root.classList.add(newTheme);
@@ -54,7 +63,7 @@ export const ThemeProvider = ({
     applyTheme(newTheme);
   };
 
-  // Create a default context value instead of rendering children with hidden visibility
+  // Create a default context value
   const contextValue = { theme, toggleTheme };
 
   useEffect(() => {
@@ -80,8 +89,6 @@ export const ThemeProvider = ({
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [storageKey]);
 
-  // Return the provider with context values even when not mounted
-  // This prevents the "useTheme must be used within ThemeProvider" error
   return (
     <ThemeContext.Provider value={contextValue}>
       {!mounted ? (
@@ -100,3 +107,4 @@ export const useTheme = () => {
   }
   return context;
 };
+
