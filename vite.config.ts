@@ -9,6 +9,14 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    cors: false, // Disable CORS to prevent cross-origin access
+    hmr: {
+      // Limit Hot Module Replacement connections to localhost
+      host: 'localhost',
+      port: 8080,
+    },
+    // For extra security, consider adding this as well:
+    origin: 'http://localhost:8080'
   },
   plugins: [
     react(),
@@ -57,4 +65,4 @@ export default defineConfig(({ mode }) => ({
       }
     }
   }
-}));
+}))
