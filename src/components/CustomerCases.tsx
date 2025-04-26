@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, TouchEvent } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -158,8 +158,10 @@ const caseStudies: CaseStudy[] = [
   }
 ];
 
-export function CustomerCases() {
+export default function CustomerCases() {
   const [currentIndex, setCurrentIndex] = React.useState(0);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % caseStudies.length);
@@ -167,6 +169,27 @@ export function CustomerCases() {
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev - 1 + caseStudies.length) % caseStudies.length);
+  };
+
+  const handleTouchStart = (e: TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current - touchEndX.current > 75) {
+      nextSlide();
+    }
+
+    if (touchStartX.current - touchEndX.current < -75) {
+      prevSlide();
+    }
+
+    touchStartX.current = 0;
+    touchEndX.current = 0;
   };
 
   return (
@@ -182,7 +205,12 @@ export function CustomerCases() {
       </div>
 
       <div className="relative max-w-4xl mx-auto">
-        <div className="overflow-hidden rounded-lg shadow-lg dark:shadow-none border border-gray-200 dark:border-gray-700">
+        <div 
+          className="overflow-hidden rounded-lg shadow-lg dark:shadow-none border border-gray-200 dark:border-gray-700"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <div 
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}

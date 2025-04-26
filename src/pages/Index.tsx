@@ -7,6 +7,7 @@ import HeroSection from "@/components/HeroSection";
 // Dynamic imports for large components
 const AIChatBar = lazy(() => import("@/components/AIChatBar"));
 const PackagesSection = lazy(() => import("@/components/PackagesSection"));
+const CustomerCases = lazy(() => import("@/components/CustomerCases")); // Add this import
 // Remove LazyMotion import and Skeleton
 
 const Index = () => {
@@ -49,6 +50,12 @@ const Index = () => {
           <div className="mt-20 md:mt-28">
             <Suspense fallback={<div className="text-center py-10">Loading packages...</div>}>
               <PackagesSection />
+            </Suspense>
+          </div>
+          {/* Add CustomerCases section here */}
+          <div className="mt-20 md:mt-28">
+            <Suspense fallback={<div className="text-center py-10">Loading customer cases...</div>}>
+              <CustomerCases />
             </Suspense>
           </div>
         </div>
