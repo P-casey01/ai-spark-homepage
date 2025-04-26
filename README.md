@@ -1,73 +1,94 @@
-# Welcome to your Lovable project
+# AI Spark Homepage
 
-## Project info
+AI Spark is the official website for Auto-mate Consultants, showcasing state-of-the-art AI solutions, consulting services, and a portfolio of completed projects.
 
-**URL**: https://lovable.dev/projects/bd21655f-992e-4ded-b064-e0dfd0e801a2
+## Live Demo
 
-## How can I edit this code?
+https://your-live-domain.com  <!-- Replace with your actual URL -->
 
-There are several ways of editing your application.
+## Features
 
-**Use Lovable**
+- Interactive AI chatbot for idea generation
+- Responsive design with Tailwind CSS
+- Animations powered by Framer Motion
+- Data fetching and state management with React Query
+- Content management via Sanity CMS
+- Authentication and storage with Supabase
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/bd21655f-992e-4ded-b064-e0dfd0e801a2) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
+## Technologies Used
 
 - Vite
 - TypeScript
 - React
-- shadcn-ui
+- shadcn-ui (Radix UI + Tailwind)
 - Tailwind CSS
+- Framer Motion
+- React Query (@tanstack/react-query)
+- Sanity
+- Supabase
 
-## How can I deploy this project?
+## Getting Started
 
-Simply open [Lovable](https://lovable.dev/projects/bd21655f-992e-4ded-b064-e0dfd0e801a2) and click on Share -> Publish.
+### Prerequisites
 
-## Can I connect a custom domain to my Lovable project?
+- Node.js (>=16)
+- npm or yarn
 
-Yes, you can!
+### Installation
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```bash
+# Clone the repository
+git clone https://github.com/your-username/ai-spark-homepage.git
+cd ai-spark-homepage
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+# Install dependencies
+npm install
+# or
+# yarn install
+```
+
+### Development
+
+```bash
+# Start the dev server
+npm run dev
+```
+
+Open http://localhost:5173 in your browser to view the site.
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production (runs TypeScript compile + Vite build)
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint checks
+
+## Project Structure
+
+```
+├── public/               # Static assets
+├── src/
+│   ├── components/       # UI components
+│   ├── hooks/            # Custom hooks
+│   ├── integrations/     # Supabase, Sanity integration
+│   ├── lib/              # Utility functions
+│   ├── pages/            # Route components
+│   ├── App.tsx           # App entry component
+│   └── main.tsx          # Main entry point
+├── scripts/              # Build utilities (e.g., image optimizer)
+├── package.json          # NPM scripts and dependencies
+├── tsconfig.json         # TypeScript configuration
+└── vite.config.ts        # Vite configuration
+```
+
+## Deployment
+
+Build the project and deploy the contents of the `dist/` folder to a static hosting service of your choice.
+
+## Contributing
+
+Contributions are welcome! Please open issues or submit pull requests.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
