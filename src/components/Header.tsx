@@ -1,229 +1,181 @@
-import React, { useState, useEffect } from "react";
-import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@/components/ui/navigation-menu";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Moon, Sun, Facebook, Linkedin } from "lucide-react"; // Import social icons
-import { Button } from "./ui/button";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useTheme } from "@/hooks/use-theme";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Moon, Sun, Menu, X, Linkedin, Facebook } from 'lucide-react';
+import { useTheme } from '@/hooks/use-theme';
+import { useIsMobile } from '@/hooks/use-mobile'; 
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/services', label: 'Services' },
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
+];
 
 const Header: React.FC = () => {
-  const location = useLocation();
-  const isMobile = useIsMobile();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  
+  const isMobile = useIsMobile();
+  const location = useLocation();
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      setIsScrolled(window.scrollY > 10);
     };
-    
-    window.addEventListener("scroll", handleScroll);
-    
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const closeSheet = () => setIsSheetOpen(false);
+
+  const headerClasses = `
+    sticky top-0 z-50 w-full transition-all duration-300 ease-in-out 
+    ${isScrolled ? (theme === 'dark' ? 'bg-black/80 backdrop-blur-md shadow-md' : 'bg-white/80 backdrop-blur-md shadow-md') : 'bg-transparent'}
+  `;
+
+  const navLinkClasses = (href: string) => `
+    px-5 py-2 text-sm font-medium rounded-md
+    ${location.pathname === href ? (theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-gray-200 text-black') : ''}
+    ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-700' : 'hover:bg-gray-200 focus:bg-gray-200'}
+    transition-colors
+  `;
+
+  const mobileNavLinkClasses = (href: string) => `
+    block px-4 py-3 rounded-md text-base font-medium 
+    ${location.pathname === href ? (theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-gray-200 text-black') : (theme === 'dark' ? 'text-gray-300 hover:bg-gray-700 hover:text-white' : 'text-gray-700 hover:bg-gray-100 hover:text-black')}
+  `;
   
-  const isActive = (path: string) => {
-    return location.pathname === path 
-      ? "text-green-400" 
-      : theme === 'dark' ? "text-gray-400" : "text-gray-600";
-  };
-
   return (
-    <motion.header 
-      className={`fixed top-0 w-full bg-background/95 backdrop-blur-sm z-50 border-b transition-all duration-300 ${
-        scrolled ? "border-border shadow-sm" : "border-transparent"
-      }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="container mx-auto px-4">
-        <div className="relative flex items-center justify-between h-20"> {/* Maintain height */}
-          
-          {/* Left Section */}
-          <div className="flex-1 flex items-center justify-start">
-            {isMobile ? (
-              // Mobile: Hamburger Menu
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="text-foreground hover:bg-accent"
-              >
-                {mobileMenuOpen ? <X /> : <Menu />}
-              </Button>
-            ) : (
-              // Desktop: Text
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <Link to="/" className="text-lg font-bold text-foreground whitespace-nowrap">
-                  Auto-Mate Consultants
-                </Link>
-              </motion.div>
-            )}
+    <header className={headerClasses}>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {isMobile ? (
+          // Mobile header layout
+          <div className="flex items-center justify-between h-20">
+            <div className="flex justify-start items-center">
+              <span className={`text-lg sm:text-xl font-medium whitespace-nowrap ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                Auto-Mate Consultants
+              </span>
+            </div>
+            
+            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" aria-label="Open menu">
+                  <Menu className="h-6 w-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className={`w-[280px] sm:w-[320px] ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
+                <SheetHeader className="flex justify-between items-center mb-6">
+                  <SheetTitle className="text-lg font-semibold">Menu</SheetTitle>
+                  <Button variant="ghost" size="icon" onClick={closeSheet} aria-label="Close menu">
+                    <X className="h-6 w-6" />
+                  </Button>
+                </SheetHeader>
+                <nav className="flex flex-col space-y-2">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      to={link.href}
+                      className={mobileNavLinkClasses(link.href)}
+                      onClick={closeSheet}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                  <div className={`border-t pt-4 mt-4 ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}`}>
+                    <a
+                      href="https://www.facebook.com/profile.php?id=61558944215453"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Facebook"
+                      className={`flex items-center px-4 py-3 rounded-md text-base font-medium ${theme === 'dark' ? 'text-gray-300 hover:bg-gray-700 hover:text-white' : 'text-gray-700 hover:bg-gray-100 hover:text-black'}`}
+                      onClick={closeSheet}
+                    >
+                      <Facebook className="h-5 w-5 mr-3" />
+                      Facebook
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/company/auto-mate-consultants/about/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="LinkedIn"
+                      className={`flex items-center px-4 py-3 rounded-md text-base font-medium ${theme === 'dark' ? 'text-gray-300 hover:bg-gray-700 hover:text-white' : 'text-gray-700 hover:bg-gray-100 hover:text-black'}`}
+                      onClick={closeSheet}
+                    >
+                      <Linkedin className="h-5 w-5 mr-3" />
+                      LinkedIn
+                    </a>
+                    <Button
+                      variant="ghost"
+                      onClick={() => { toggleTheme(); closeSheet(); }}
+                      aria-label="Toggle theme"
+                      className={`w-full justify-start flex items-center px-4 py-3 rounded-md text-base font-medium mt-2 ${theme === 'dark' ? 'text-gray-300 hover:bg-gray-700 hover:text-white' : 'text-gray-700 hover:bg-gray-100 hover:text-black'}`}
+                    >
+                      {theme === 'dark' ? <Sun className="h-5 w-5 mr-3" /> : <Moon className="h-5 w-5 mr-3" />}
+                      Toggle Theme
+                    </Button>
+                  </div>
+                </nav>
+              </SheetContent>
+            </Sheet>
           </div>
-
-          {/* Center Section: Logo (Always Visible) */}
-          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 p-1"> {/* Added p-1 */}
-            <Link to="/">
-              <img 
-                src="/lovable-uploads/optimized/navbar-logo.webp" 
-                alt="Auto-mate Consultants Logo" 
-                className="h-16 w-auto object-contain" 
-                height={64} 
+        ) : (
+          // Desktop header with properly spaced navigation and centered logo
+          <div className="relative h-20 flex items-center justify-between">
+            {/* Site title on the left */}
+            <div className="flex-shrink-0">
+              <span className={`text-lg sm:text-xl font-medium whitespace-nowrap ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                Auto-Mate Consultants
+              </span>
+            </div>
+            
+            {/* Centered logo */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
+              <img
+                className="h-12 w-auto"
+                src={theme === 'dark' ? "/lovable-uploads/optimized/other-logo.webp" : "/lovable-uploads/optimized/navbar-logo.webp"}
+                alt="Auto-Mate Consultants Logo"
               />
-            </Link>
-          </div>
-
-          {/* Right Section */}
-          <div className="flex-1 flex items-center justify-end">
-            {isMobile ? (
-              // Mobile: Text (Wrapped)
-              <Link to="/" className="text-sm font-bold text-foreground text-right">
-                Auto-mate<br/>Consultants
-              </Link>
-            ) : (
-              // Desktop: Navigation, Social Icons & Theme Toggle
-              <motion.div 
-                className="flex items-center gap-4" // Reduced gap slightly
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <NavigationMenu>
-                  <NavigationMenuList>
-                    <NavigationMenuItem>
-                      <Link to="/" className={`px-3 py-2 text-sm hover:text-green-400 transition-colors ${isActive('/')}`}>Home</Link>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                      <Link to="/services" className={`px-3 py-2 text-sm hover:text-green-400 transition-colors ${isActive('/services')}`}>Services</Link>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                      <Link to="/about" className={`px-3 py-2 text-sm hover:text-green-400 transition-colors ${isActive('/about')}`}>About</Link>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                      <Link to="/blog" className={`px-3 py-2 text-sm hover:text-green-400 transition-colors ${isActive('/blog')}`}>Blog</Link>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                      <Link to="/contact" className={`px-3 py-2 text-sm hover:text-green-400 transition-colors ${isActive('/contact')}`}>Contact</Link>
-                    </NavigationMenuItem>
-                  </NavigationMenuList>
-                </NavigationMenu>
-                {/* Social Media Icons */}
-                <div className="flex items-center gap-4"> {/* Increased gap from 2 to 4 */}
-                  <a href="https://www.facebook.com/profile.php?id=61558944215453" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-muted-foreground hover:text-foreground transition-colors">
-                    <Facebook className="h-5 w-5" />
-                  </a>
-                  <a href="https://www.linkedin.com/company/auto-mate-consultants/about/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-muted-foreground hover:text-foreground transition-colors">
-                    <Linkedin className="h-5 w-5" />
-                  </a>
-                </div>
-                <button
+            </div>
+            
+            {/* Navigation on the right with proper spacing */}
+            <nav className="flex items-center space-x-6">
+              <div className="hidden md:flex items-center -space-x-4">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className={navLinkClasses(link.href)}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+              <div className="flex items-center space-x-3">
+                <a href="https://www.facebook.com/profile.php?id=61558944215453" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>
+                  <Facebook className="h-5 w-5" />
+                </a>
+                <a href="https://www.linkedin.com/company/auto-mate-consultants/about/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>
+                  <Linkedin className="h-5 w-5" />
+                </a>
+                <Button
+                  variant="ghost"
+                  size="icon"
                   onClick={toggleTheme}
-                  className={`p-2 rounded-full transition-all duration-300 ${
-                    theme === 'dark'
-                      ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700'
-                      : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                  }`}
                   aria-label="Toggle theme"
                 >
                   {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-                </button>
-              </motion.div>
-            )}
+                </Button>
+              </div>
+            </nav>
           </div>
-        </div>
-        
-        {/* Mobile Menu Dropdown */}
-        <AnimatePresence>
-          {isMobile && mobileMenuOpen && (
-            <motion.div 
-              className="md:hidden py-4 bg-background"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <nav className="flex flex-col space-y-4 pt-4">
-                <Link 
-                  to="/" 
-                  className={`px-4 py-2 hover:bg-accent rounded-md ${isActive('/')}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Home
-                </Link>
-                <Link 
-                  to="/services" 
-                  className={`px-4 py-2 hover:bg-accent rounded-md ${isActive('/services')}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Services
-                </Link>
-                <Link 
-                  to="/about" 
-                  className={`px-4 py-2 hover:bg-accent rounded-md ${isActive('/about')}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  About
-                </Link>
-                <Link 
-                  to="/blog" 
-                  className={`px-4 py-2 hover:bg-accent rounded-md ${isActive('/blog')}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Blog
-                </Link>
-                <Link 
-                  to="/contact" 
-                  className={`px-4 py-2 hover:bg-accent rounded-md ${isActive('/contact')}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Contact
-                </Link>
-                {/* Social Media Links in Mobile Menu */}
-                <div className="px-4 py-2 flex items-center justify-center gap-6 border-t border-border pt-4"> {/* Increased gap from 4 to 6 */}
-                  <a href="https://www.facebook.com/profile.php?id=61558944215453" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-muted-foreground hover:text-foreground transition-colors">
-                    <Facebook className="h-6 w-6" />
-                  </a>
-                  <a href="https://www.linkedin.com/company/auto-mate-consultants/about/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-muted-foreground hover:text-foreground transition-colors">
-                    <Linkedin className="h-6 w-6" />
-                  </a>
-                </div>
-
-                {/* Theme toggle button in mobile menu */}
-                <div className="px-4 py-2 flex items-center justify-center gap-3 border-t border-border pt-4"> {/* Added border-t and pt-4 */}
-                  <button
-                    onClick={toggleTheme}
-                    className={`p-2 rounded-full transition-all duration-300 ${
-                      theme === 'dark'
-                        ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700'
-                        : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                    }`}
-                    aria-label="Toggle theme"
-                  >
-                    {theme === 'dark' ? 
-                      <Sun className="h-5 w-5" /> : 
-                      <Moon className="h-5 w-5" />
-                    }
-                  </button>
-                  <span className="text-sm text-muted-foreground">
-                    {theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-                  </span>
-                </div>
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        )}
       </div>
-    </motion.header>
+    </header>
   );
 };
 
-export { Header };
+export default Header;

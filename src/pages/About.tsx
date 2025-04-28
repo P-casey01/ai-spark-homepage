@@ -1,10 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/hooks/use-theme";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Clock, DollarSign, Globe, Award } from "lucide-react";
 
 const About = () => {
   const { theme } = useTheme();
+  const isMobile = useIsMobile();
 
   const whyUsReasons = [
     {
@@ -44,7 +46,9 @@ const About = () => {
             transition={{ delay: 0.2 }}
             className="text-center mb-16"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-8">About Auto-mate Consultants | Derry</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-8">
+              About {isMobile ? "Auto-Mate Consultants" : "Auto-mate Consultants"} | Derry
+            </h1>
             <p className="text-lg text-muted-foreground">
               Your local Derry experts in AI solutions and professional web design.
             </p>
@@ -62,7 +66,7 @@ const About = () => {
           >
             <h2 className="text-2xl font-semibold mb-4">Our Mission in Derry</h2>
             <p className="text-muted-foreground mb-6">
-              At Auto-mate Consultants, based in Derry, we're dedicated to revolutionizing how local businesses operate with cutting-edge AI and bespoke web design. Our mission is to save you time and money while building a powerful digital presence that drives growth right here in Derry.
+              At {isMobile ? "Auto-Mate Consultants" : "Auto-mate Consultants"}, based in Derry, we're dedicated to revolutionizing how local businesses operate with cutting-edge AI and bespoke web design. Our mission is to save you time and money while building a powerful digital presence that drives growth right here in Derry.
             </p>
             <p className="text-muted-foreground">
               We understand the Derry business landscape and the need for a strong digital footprint. Our team provides expert AI integration and web design services to help your business thrive locally and beyond.
@@ -93,7 +97,6 @@ const About = () => {
                     {reason.icon}
                   </div>
                   <h3 className="text-xl font-semibold mb-3">{reason.title}</h3>
-                  {/* Keep original descriptions for Why Choose Us, or update if relevant */} 
                   <p className="text-muted-foreground">{reason.description}</p>
                 </motion.div>
               ))}

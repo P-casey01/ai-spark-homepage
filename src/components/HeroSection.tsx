@@ -15,38 +15,44 @@ const HeroSection: React.FC = () => {
     offset: ["start start", "end start"]
   });
   
-  // Transform scroll progress into animation values
-  const titleY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
-  const subtitleY = useTransform(scrollYProgress, [0, 0.5], [0, -30]);
-  const buttonY = useTransform(scrollYProgress, [0, 0.5], [0, -10]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  
-  // Element entry animations (when first visible)
+  // Transform scroll progress into animation values - reduced transform distance to minimize blur
+  const titleY = useTransform(scrollYProgress, [0, 0.5], [0, -30]);
+  const subtitleY = useTransform(scrollYProgress, [0, 0.5], [0, -20]);
+  const buttonY = useTransform(scrollYProgress, [0, 0.5], [0, -5]);
+  // Individual opacity transforms
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]); 
+  const subtitleOpacity = useTransform(scrollYProgress, [0.8, 0.95], [1, 0]); 
+  const buttonOpacity = useTransform(scrollYProgress, [0.5, 0.95], [1, 0]); 
+
+  // Element entry animations (when first visible) - smoother transitions
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
+        staggerChildren: 0.12,
+        delayChildren: 0.2
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 15, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.7,
+        duration: 0.4,
         ease: "easeOut"
       }
     }
   };
 
+  // Enhanced text rendering classes for maximum clarity
+  const textRenderingClass = "text-crisp-heading";
+
   return (
-    <div className="relative overflow-hidden" style={{ opacity: 0.92 }} ref={heroRef}>
+    <div className="relative overflow-hidden" style={{ opacity: 1 }} ref={heroRef}>
       <WavyBackground
         className="min-h-[70vh] px-6 md:px-10 py-14 md:py-20 flex flex-col items-center justify-center text-center overflow-hidden"
         containerClassName="relative h-auto w-full overflow-hidden"
@@ -85,15 +91,30 @@ const HeroSection: React.FC = () => {
           initial="hidden"
           animate="visible"
           variants={containerVariants}
-          style={{ opacity }}
+          style={{ 
+            isolation: 'isolate',
+            perspectiveOrigin: 'center center',
+            perspective: '1000px',
+          }} 
         >
           <motion.h1
-            className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold mb-2 md:mb-4 text-foreground max-w-[90%] sm:max-w-md md:max-w-2xl mx-auto"
+            className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold mb-3 md:mb-4 text-foreground max-w-[95%] sm:max-w-md md:max-w-2xl mx-auto leading-tight font-heading text-crisp-heading"
             variants={itemVariants}
-            style={{ y: titleY, willChange: 'transform, opacity' }} // Added will-change
+            style={{ 
+              y: titleY, 
+              opacity: titleOpacity, 
+              willChange: 'transform, opacity',
+              letterSpacing: '-0.015em',
+              backfaceVisibility: 'hidden',
+              transform: 'translate3d(0, 0, 0)',
+              WebkitFontSmoothing: 'antialiased',
+              MozOsxFontSmoothing: 'grayscale',
+              textRendering: 'optimizeLegibility',
+              filter: 'drop-shadow(0 0 1px rgba(0,0,0,0.01))'
+            }}
           >
             AI-Powered Automation & Web Design in Derry
-            <span className={`block mt-2 bg-clip-text text-transparent ${
+            <span className={`block mt-3 bg-clip-text text-transparent text-crisp-heading ${
               theme === 'dark'
                 ? 'bg-gradient-to-r from-green-300 to-green-500'
                 : 'bg-gradient-to-r from-green-600 to-green-800'
@@ -102,24 +123,40 @@ const HeroSection: React.FC = () => {
             </span>
           </motion.h1>
           <motion.p
-            className="text-sm sm:text-base md:text-xl text-foreground font-medium mb-6 max-w-xs md:max-w-lg mx-auto"
+            className="text-base sm:text-lg md:text-xl text-foreground font-medium mb-8 max-w-[90%] sm:max-w-md md:max-w-lg mx-auto leading-relaxed text-crisp"
             variants={itemVariants}
-            style={{ y: subtitleY, willChange: 'transform, opacity' }} // Added will-change
+            style={{ 
+              y: subtitleY, 
+              opacity: subtitleOpacity, 
+              willChange: 'transform, opacity',
+              letterSpacing: '0.01em',
+              backfaceVisibility: 'hidden',
+              transform: 'translate3d(0, 0, 0)',
+              WebkitFontSmoothing: 'antialiased',
+              MozOsxFontSmoothing: 'grayscale',
+              textRendering: 'optimizeLegibility',
+            }}
           >
             Auto-Mate Consultants: Your Derry experts for cutting-edge AI solutions and professional web design services.
           </motion.p>
           <motion.div
             variants={itemVariants}
-            style={{ y: buttonY, willChange: 'transform, opacity' }} // Added will-change
+            style={{ 
+              y: buttonY, 
+              opacity: buttonOpacity, 
+              willChange: 'transform, opacity',
+              backfaceVisibility: 'hidden',
+              transform: 'translateZ(0)'
+            }} 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
             <Button
-              className={`inline-flex items-center ${
+              className={`inline-flex items-center text-crisp ${
                 theme === 'dark'
                   ? 'bg-green-600 text-white hover:bg-green-700'
                   : 'bg-green-700 text-white hover:bg-green-800'
-              } py-2 px-4 rounded-full shadow-lg hover:shadow-xl transition group text-sm md:text-base w-auto mx-auto`}
+              } py-2 px-4 sm:py-3 sm:px-6 rounded-full shadow-lg hover:shadow-xl transition group text-sm sm:text-base md:text-lg font-medium w-auto max-w-[90%] sm:max-w-xs mx-auto`}
               asChild
             >
               <a href="https://calendly.com/piaras-auto-mateconsultants/30min" target="_blank" rel="noopener noreferrer">

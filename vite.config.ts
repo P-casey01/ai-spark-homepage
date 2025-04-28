@@ -10,16 +10,12 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
     cors: false, // Disable CORS to prevent cross-origin access
-    hmr: {
-      // Limit Hot Module Replacement connections to localhost
-      host: 'localhost',
-      port: 8080,
-    },
+    hmr: false, // Disable HMR entirely
     // For extra security, consider adding this as well:
     origin: 'http://localhost:8080'
   },
   plugins: [
-    react(),
+    react(), // Keep React plugin, HMR is disabled via server config
     mode === 'development' && componentTagger(),
     // Add visualizer plugin (run `npm run build` to generate report)
     visualizer({ 

@@ -230,9 +230,9 @@ export default function CustomerCases() {
                     
                     <div className="mb-6">
                       <h5 className="font-semibold mb-3 text-sm uppercase tracking-wider text-gray-500 dark:text-gray-400">Key Features</h5>
-                      <ul className="space-y-2">
+                      <ul className="space-y-2 flex flex-col items-center">
                         {study.features.map((feature, i) => (
-                          <li key={i} className="flex items-start text-gray-700 dark:text-gray-300 text-sm">
+                          <li key={i} className="flex items-start text-gray-700 dark:text-gray-300 text-sm max-w-md">
                             <CheckCircle className="h-4 w-4 mr-2 mt-0.5 text-green-500 flex-shrink-0" />
                             <span>{feature}</span>
                           </li>
@@ -240,7 +240,7 @@ export default function CustomerCases() {
                       </ul>
                     </div>
 
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap justify-center gap-2 mb-6">
                       {study.tags.map((tag, i) => (
                         <span 
                           key={i} 
