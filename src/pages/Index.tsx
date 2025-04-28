@@ -1,62 +1,63 @@
-import React, { Suspense, lazy, useEffect } from "react";
+import React, { Suspense, lazy } from "react";
 import { Facebook, Linkedin, Mail, Phone } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
-import { useIsMobile } from "@/hooks/use-mobile"; // Import the hook
+import { useIsMobile } from "@/hooks/use-mobile";
 import { motion } from "framer-motion";
+import { useInView } from 'react-intersection-observer';
 import HeroSection from "@/components/HeroSection";
+import SocialIcons from '@/components/SocialIcons';
 
-// Dynamic imports for large components
-const AIChatBar = lazy(() => import("@/components/AIChatBar"));
-const PackagesSection = lazy(() => import("@/components/PackagesSection"));
-const CustomerCases = lazy(() => import("@/components/CustomerCases"));
+// Dynamic imports with prefetch hints
+const AIChatBar = lazy(() => import(
+  /* webpackChunkName: "ai-chat-bar" */
+  /* webpackPrefetch: true */
+  "@/components/AIChatBar"
+));
+const PackagesSection = lazy(() => import(
+  /* webpackChunkName: "packages-section" */
+  /* webpackPrefetch: true */
+  "@/components/PackagesSection"
+));
+const CustomerCases = lazy(() => import(
+  /* webpackChunkName: "customer-cases" */
+  /* webpackPrefetch: true */
+  "@/components/CustomerCases"
+));
 
 const Index = () => {
   const { theme } = useTheme();
-  const isMobile = useIsMobile(); // Use the hook
+  const isMobile = useIsMobile();
 
-  useEffect(() => {
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href')?.substring(1);
-        if (!targetId) return;
-        
-        const targetElement = document.getElementById(targetId);
-        if (!targetElement) return;
-        
-        window.scrollTo({
-          top: targetElement.offsetTop - 100, // Offset for header
-          behavior: 'smooth'
-        });
-      });
-    });
-    
-    return () => {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.removeEventListener('click', () => {});
-      });
-    };
-  }, []);
-  
+  // Intersection observers to defer loading offscreen sections
+  const [chatRef, chatInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -200px 0px' });
+  const [packagesRef, packagesInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -200px 0px' });
+  const [casesRef, casesInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -200px 0px' });
+
   return (
     <div className="min-h-screen bg-background transition-colors duration-200">
       <div className="pt-0 mt-0">
         <HeroSection />
         <div className="container mx-auto px-4 py-1 bg-background">
-          <Suspense fallback={<div className="text-center py-10">Loading chat...</div>}>
-            <AIChatBar />
-          </Suspense>
-          <div className="mt-20 md:mt-28">
-            <Suspense fallback={<div className="text-center py-10">Loading packages...</div>}>
-              <PackagesSection />
-            </Suspense>
+          <div ref={chatRef} className="mt-20 md:mt-28">
+            {chatInView && (
+              <Suspense fallback={<div className="text-center py-10">Loading chat...</div>}>
+                <AIChatBar />
+              </Suspense>
+            )}
           </div>
-          <div className="mt-20 md:mt-28">
-            <Suspense fallback={<div className="text-center py-10">Loading customer cases...</div>}>
-              <CustomerCases />
-            </Suspense>
+          <div ref={packagesRef} className="mt-20 md:mt-28">
+            {packagesInView && (
+              <Suspense fallback={<div className="text-center py-10">Loading packages...</div>}>
+                <PackagesSection />
+              </Suspense>
+            )}
+          </div>
+          <div ref={casesRef} className="mt-20 md:mt-28">
+            {casesInView && (
+              <Suspense fallback={<div className="text-center py-10">Loading customer cases...</div>}>
+                <CustomerCases />
+              </Suspense>
+            )}
           </div>
         </div>
         
@@ -142,12 +143,7 @@ const Index = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
-              <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                <Facebook className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors cursor-pointer`} />
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                <Linkedin className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors cursor-pointer`} />
-              </motion.div>
+              <SocialIcons iconClass="h-5 w-5" />
             </motion.div>
             <div className={`mt-12 pt-6 ${theme === 'dark' ? 'border-gray-800 text-gray-500' : 'border-gray-200 text-gray-500'} border-t text-center text-sm`}>
               © {new Date().getFullYear()} {isMobile ? "Auto-Mate Consultants" : "Auto-mate Consultants"}. All rights reserved.
@@ -159,4 +155,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default React.memo(Index);

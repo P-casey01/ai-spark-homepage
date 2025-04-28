@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Moon, Sun, Menu, X, Linkedin, Facebook } from 'lucide-react';
+import { Moon, Sun, Menu, X, Facebook, Linkedin } from 'lucide-react';
 import { useTheme } from '@/hooks/use-theme';
 import { useIsMobile } from '@/hooks/use-mobile'; 
+import { debounce } from '@/utils/debounce';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
+import SocialIcons from './SocialIcons';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -23,11 +25,9 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = debounce(() => setIsScrolled(window.scrollY > 10), 50);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const closeSheet = () => setIsSheetOpen(false);
@@ -136,6 +136,7 @@ const Header: React.FC = () => {
             <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
               <img
                 className="h-12 w-auto"
+                loading="lazy"
                 src={theme === 'dark' ? "/lovable-uploads/optimized/other-logo.webp" : "/lovable-uploads/optimized/navbar-logo.webp"}
                 alt="Auto-Mate Consultants Logo"
               />
@@ -155,12 +156,7 @@ const Header: React.FC = () => {
                 ))}
               </div>
               <div className="flex items-center space-x-3">
-                <a href="https://www.facebook.com/profile.php?id=61558944215453" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>
-                  <Facebook className="h-5 w-5" />
-                </a>
-                <a href="https://www.linkedin.com/company/auto-mate-consultants/about/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className={`${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'} transition-colors`}>
-                  <Linkedin className="h-5 w-5" />
-                </a>
+                <SocialIcons iconClass="h-5 w-5" />
                 <Button
                   variant="ghost"
                   size="icon"
@@ -178,4 +174,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default React.memo(Header);
