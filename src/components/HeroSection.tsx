@@ -54,7 +54,7 @@ const HeroSection: React.FC = () => {
   return (
     <div className="relative overflow-hidden" style={{ opacity: 1 }} ref={heroRef}>
       <WavyBackground
-        className="min-h-[70vh] px-2 md:px-10 py-2 md:py-20 flex flex-col items-center justify-center text-center overflow-hidden"
+        className="min-h-[70vh] px-6 md:px-10 py-2 md:py-20 flex flex-col items-center justify-center text-center overflow-hidden"
         containerClassName="relative h-auto w-full overflow-hidden"
         style={{
           maxWidth: '100%',
@@ -87,7 +87,7 @@ const HeroSection: React.FC = () => {
         waveOpacity={0.7}
       >
         <motion.div
-          className="w-full px-2 md:px-6 md:max-w-full text-center relative z-10 mt-0 md:mt-20"
+          className="w-full px-6 md:px-6 md:max-w-full text-center relative z-10 mt-0 md:mt-20"
           initial="hidden"
           animate="visible"
           variants={containerVariants}

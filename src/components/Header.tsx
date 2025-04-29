@@ -55,10 +55,21 @@ const Header: React.FC = () => {
         {isMobile ? (
           // Mobile header layout
           <div className="flex items-center justify-between h-20">
-            <div className="flex justify-start items-center">
-              <span className={`text-lg sm:text-xl font-medium whitespace-nowrap ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                Auto-Mate Consultants
+            {/* Text "Auto-Mate Consultants" on two lines on the left */}
+            <div className="flex justify-start items-center flex-col text-left">
+              <span className={`text-sm font-medium leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                Auto-Mate<br />Consultants
               </span>
+            </div>
+            
+            {/* Logo centered in mobile view, moved slightly to the left */}
+            <div className="flex-1 flex justify-center items-center pr-6">
+              <img
+                className="h-16 w-auto"
+                loading="lazy"
+                src={theme === 'dark' ? "/lovable-uploads/optimized/other-logo.webp" : "/lovable-uploads/optimized/navbar-logo.webp"}
+                alt="Auto-Mate Consultants Logo"
+              />
             </div>
             
             <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>

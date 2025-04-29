@@ -121,7 +121,7 @@ const caseStudies: CaseStudy[] = [
     themeColor: "#4D9DE0", // Medical blue
     textColor: "text-white",
     tags: ["Healthcare", "Medical", "Patients"],
-    link: "https://health-track-pro.lovable.app",
+    link: "https://care-connect-demo.lovable.app/",
     features: [
       "Patient portal with appointment scheduling",
       "Secure messaging and document sharing",
@@ -135,7 +135,7 @@ const caseStudies: CaseStudy[] = [
     themeColor: "#3BB273", // Eco green
     textColor: "text-white",
     tags: ["Retail", "Sustainable", "E-Commerce"],
-    link: "https://eco-shop-template.lovable.app",
+    link: "https://brand-spark-shop.lovable.app/",
     features: [
       "Product sustainability scoring system",
       "Carbon footprint calculator for shipping",
