@@ -98,19 +98,18 @@ const HeroSection: React.FC = () => {
           }} 
         >
           <motion.h1
-            className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold mb-3 md:mb-4 text-foreground max-w-[95%] sm:max-w-md md:max-w-2xl mx-auto leading-tight font-heading text-crisp-heading"
+            className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold mb-3 md:mb-4 text-foreground max-w-[95%] sm:max-w-md md:max-w-2xl mx-auto leading-tight tracking-tight font-heading text-crisp-heading" // Added tracking-tight
             variants={itemVariants}
             style={{ 
               y: titleY, 
               opacity: titleOpacity, 
               willChange: 'transform, opacity',
-              letterSpacing: '-0.015em',
+              letterSpacing: '-0.015em', // Keep existing letter spacing
               backfaceVisibility: 'hidden',
               transform: 'translate3d(0, 0, 0)',
               WebkitFontSmoothing: 'antialiased',
               MozOsxFontSmoothing: 'grayscale',
-              textRendering: 'optimizeLegibility',
-              filter: 'drop-shadow(0 0 1px rgba(0,0,0,0.01))'
+              textRendering: 'optimizeLegibility'
             }}
           >
             AI-Powered Automation & Web Design in Derry
@@ -123,13 +122,13 @@ const HeroSection: React.FC = () => {
             </span>
           </motion.h1>
           <motion.p
-            className="text-base sm:text-lg md:text-xl text-foreground font-medium mb-8 max-w-[90%] sm:max-w-md md:max-w-lg mx-auto leading-relaxed text-crisp"
+            className="text-base sm:text-lg md:text-xl text-foreground font-medium mb-8 max-w-[90%] sm:max-w-md md:max-w-lg mx-auto leading-normal sm:leading-relaxed tracking-normal text-crisp" // Adjusted leading and added tracking
             variants={itemVariants}
             style={{ 
               y: subtitleY, 
               opacity: subtitleOpacity, 
               willChange: 'transform, opacity',
-              letterSpacing: '0.01em',
+              letterSpacing: '0.01em', // Keep existing letter spacing
               backfaceVisibility: 'hidden',
               transform: 'translate3d(0, 0, 0)',
               WebkitFontSmoothing: 'antialiased',
