@@ -129,20 +129,6 @@ const caseStudies: CaseStudy[] = [
     ]
   },
   {
-    title: "Finance Flow Dashboard",
-    industry: "Finance & FinTech",
-    description: "Visual analytics platform for personal and business finance.",
-    themeColor: "#1A535C", // Financial teal
-    textColor: "text-white",
-    tags: ["Finance", "Analytics", "Dashboard"],
-    link: "https://finance-flow-dashboard.lovable.app",
-    features: [
-      "Interactive charts and financial forecasting",
-      "Budget tracking with spending categories",
-      "Automated report generation and insights"
-    ]
-  },
-  {
     title: "Eco Shop Template",
     industry: "Retail & E-Commerce",
     description: "Sustainable shopping experience for eco-conscious brands.",
