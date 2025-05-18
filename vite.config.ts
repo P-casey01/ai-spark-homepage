@@ -1,3 +1,4 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -16,7 +17,11 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(), // Keep React plugin, HMR is disabled via server config
-    mode === 'development' && componentTagger(),
+    mode === 'development' && componentTagger({
+      // Enable latest Lovable features
+      enablePickMode: true,
+      enableInteractiveEditing: true,
+    }),
     // Add visualizer plugin (run `npm run build` to generate report)
     visualizer({ 
       filename: 'bundle-analysis.html', // Output file name
