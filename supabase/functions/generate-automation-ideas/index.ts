@@ -3,9 +3,6 @@ import "https://deno.land/x/xhr@0.1.0/mod.ts";
 // @ts-ignore
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
-// Use the secret stored in Supabase
-const openAIApiKey =Deno.env.get('New_Open_AI_API_KEY');
-
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
@@ -18,11 +15,28 @@ serve(async (req) => {
   }
 
   try {
+    // Try to get the OpenAI API key from Supabase secrets
+    const openAIApiKey = Deno.env.get('OPENAI_API_KEY') || Deno.env.get('New_Open_AI_API_KEY');
+    
     if (!openAIApiKey) {
+      console.error('OpenAI API key not found in Supabase secrets');
       throw new Error('OpenAI API key not found. Please set either OPENAI_API_KEY or New_Open_AI_API_Key in Supabase secrets');
     }
 
+    // Get the business description from the request body
     const { businessDescription } = await req.json();
+
+    if (!businessDescription || typeof businessDescription !== 'string') {
+      console.error('Invalid or missing business description in request');
+      return new Response(JSON.stringify({ 
+        error: "Invalid request: business description is required" 
+      }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    console.log("Making request to OpenAI with business description:", businessDescription);
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -46,12 +60,30 @@ serve(async (req) => {
       }),
     });
 
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error('OpenAI API responded with an error:', response.status, errorData);
+      return new Response(JSON.stringify({ 
+        error: `OpenAI API error: ${response.status}`,
+        details: errorData
+      }), {
+        status: 502, // Bad Gateway to indicate upstream service error
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     const data = await response.json();
     
     // Check if the response has the expected structure
     if (!data.choices || !data.choices[0] || !data.choices[0].message) {
-      console.error('Unexpected API response structure:', data);
-      throw new Error('Invalid response from OpenAI API');
+      console.error('Unexpected API response structure:', JSON.stringify(data));
+      return new Response(JSON.stringify({ 
+        error: 'Invalid response from OpenAI API',
+        details: data 
+      }), {
+        status: 502,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
     
     const generatedText = data.choices[0].message.content;
