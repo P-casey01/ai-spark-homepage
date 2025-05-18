@@ -4,7 +4,7 @@ import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 // Use the secret stored in Supabase
-const openAIApiKey = Deno.env.get('OPENAI_API_KEY') || Deno.env.get('New_Open_AI_API_Key');
+const openAIApiKey =Deno.env.get('New_Open_AI_API_Key');
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
