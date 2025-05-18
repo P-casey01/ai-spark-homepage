@@ -3,7 +3,8 @@ import "https://deno.land/x/xhr@0.1.0/mod.ts";
 // @ts-ignore
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
-const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
+// Use the secret stored in Supabase
+const openAIApiKey = Deno.env.get('OPENAI_API_KEY') || Deno.env.get('New_Open_AI_API_Key');
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -18,7 +19,7 @@ serve(async (req) => {
 
   try {
     if (!openAIApiKey) {
-      throw new Error('OPENAI_API_KEY environment variable is not set');
+      throw new Error('OpenAI API key not found. Please set either OPENAI_API_KEY or New_Open_AI_API_Key in Supabase secrets');
     }
 
     const { businessDescription } = await req.json();
