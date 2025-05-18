@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => ({
       // Enable latest Lovable features
       enablePickMode: true,
       enableInteractiveEditing: true,
-    }),
+    } as any), // Use type assertion to bypass TypeScript error
     // Add visualizer plugin (run `npm run build` to generate report)
     visualizer({ 
       filename: 'bundle-analysis.html', // Output file name
