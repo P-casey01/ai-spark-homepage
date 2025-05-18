@@ -17,11 +17,7 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(), // Keep React plugin, HMR is disabled via server config
-    mode === 'development' && componentTagger({
-      // Enable latest Lovable features
-      enablePickMode: true,
-      enableInteractiveEditing: true,
-    } as any), // Use type assertion to bypass TypeScript error
+    mode === 'development' && componentTagger(), // Use without arguments
     // Add visualizer plugin (run `npm run build` to generate report)
     visualizer({ 
       filename: 'bundle-analysis.html', // Output file name
