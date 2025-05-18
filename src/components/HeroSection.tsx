@@ -109,7 +109,8 @@ const HeroSection: React.FC = () => {
               transform: 'translate3d(0, 0, 0)',
               WebkitFontSmoothing: 'antialiased',
               MozOsxFontSmoothing: 'grayscale',
-              textRendering: 'optimizeLegibility'
+              textRendering: 'optimizeLegibility',
+              filter: 'drop-shadow(0 0 1px rgba(0,0,0,0.01))'
             }}
           >
             AI-Powered Automation & Web Design in Derry
@@ -134,6 +135,7 @@ const HeroSection: React.FC = () => {
               WebkitFontSmoothing: 'antialiased',
               MozOsxFontSmoothing: 'grayscale',
               textRendering: 'optimizeLegibility',
+              filter: 'drop-shadow(0 0 1px rgba(0,0,0,0.01))'
             }}
           >
             Auto-Mate Consultants: Your Derry experts for cutting-edge AI solutions and professional web design services.
